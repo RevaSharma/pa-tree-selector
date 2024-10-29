@@ -2,10 +2,11 @@
 
 Helps select trees native to Pennsylvania.
 
-## How to use
+## Setup
 
-1. Open `index.html` in a web browser.
-2. Use the dropdown to select a tree and see its information.
+1. Download this project to your computer.
+2. Open the project folder with Visual Studio Code.
+3. View `index.html` in a web browser using the Live Preview extension.
 
 ## Project structure
 
