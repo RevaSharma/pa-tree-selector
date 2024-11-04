@@ -1,32 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <!-- Specify character encoding -->
-    <meta charset="UTF-8">
-
-    <!-- Set viewport width to device width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-
-    <!-- Link to external stylesheet -->
-    <link rel="stylesheet" href="styles.css">
-
-    <!-- Title as seen in browser tab -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
     <title>PA Tree Selector</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>PA Tree Selector</h1>
-
-    <p>Filter by a specific property.</p>
-
-    <select id="property-select">
-        <option value="">Property...</option>
-    </select>
-
-    <select id="value-select">
-        <option value="">Value...</option>
-    </select>
-
-    <div id="filtered-trees"></div>
+    <div id="filters"></div>
+    <div id="results"></div>
     <script src="app.js"></script>
-</body>
+  </body>
 </html>
