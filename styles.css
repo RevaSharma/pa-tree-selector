@@ -1,4 +1,171 @@
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: 'Cabin', sans-serif;
+  margin: 0;
+  background-color: #EDF4F2;
+  color: #333;
+  }
+  
+
+/* Style for the landing page */
+/* Header styles */
+.header {
+  background-color: #4f92ca;
+  padding: 20px;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 4px solid #337ab7; 
+}
+
+.logo {
+  max-width: 200px;
+  margin-bottom: 10px;
+}
+
+.title {
+  font-size: 2.5em;
+  margin: 0;
+}
+
+/* Content section */
+.content {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.content h2 {
+  font-size: 1.5em;
+  color: #333;
+}
+
+.content p {
+  font-size: 1em;
+  color: #555;
+  line-height: 1.5;
+}
+
+.about-button {
+  background-color: #f08c00;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* Getting Started section */
+.getting-started {
+  background-color: #EDF4F2; 
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto; 
+  display: flex;
+  flex-direction: column;
+}
+
+.getting-started h2 {
+  align-items: center;
+  font-size: 1.5em;
+  color: #333;
+}
+
+.zip-code-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  margin-top: 20px;
+}
+
+.zip-input {
+  align-items: center;
+  padding: 10px;
+  margin-top: 10px;
+  width: 200px;
+  font-size: 1em;
+}
+
+.get-started-button {
+  background-color: #f08c00;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  align-items: center;
+  margin-top: 10px;
+}
+
+/* Footer with navigation tabs */
+.footer {
+  display: flex;
+  justify-content: center;
+  background-color: #EDF4F2;
+  padding: 10px 0;
+  margin-top: 20px;
+}
+
+.tab {
+  background-color: #b0c4de;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  border-radius: 3px;
+}
+
+.tab:hover {
+  background-color: #8ba4c1;
+}
+
+/* Style for the about page */
+/* Header styling */
+.header {
+  background-color: #4f92ca;
+  color: rgb(253, 251, 251);
+  display: flex;
+  padding: 10px 20px;
+  border-bottom: 4px solid #337ab7;
+}
+
+.logo {
+  max-width: 100px;
+  margin-right: 20px;
+}
+
+.title {
+  font-size: 2em;
+  font-weight: normal;
+  margin: 0;
+}
+
+/* About content styling */
+.about-content {
+  max-width: 1200px ;
+  margin: 20px;
+  padding: 20px;
+  color: #333;
+  line-height: 1.6;
+  border-radius: 2px;
+  text-align: justify;
+}
+
+.about-content h2 {
+  font-size: 3em;
+  color: #000000;
+}
+
+.about-content h3 {
+  font-size: 1.5em;
+  color: #0e0d0d;
+}
+
+.about-content p {
+  font-size: 1em;
+  color: #181818;
 }
