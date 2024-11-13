@@ -1,115 +1,139 @@
 [
   {
     "title": "Woody Plant Type",
-    "property": "woodyPlantType",
-    "options": ["Tree", "Shrub"],
-    "filterBy": "exactMatch"
+    "id": "woody-plant-type",
+    "filters": [
+      {
+        "title": "Woody Plant Type",
+        "property": "woodyPlantType",
+        "options": ["Tree", "Shrub"],
+        "filterBy": "exactMatch"
+      }
+    ]
   },
   {
-    "title": "Soil Moisture Conditions",
-    "property": "soilMoistureConditions",
-    "options": ["Dry", "Wet", "Moist"],
-    "filterBy": "includesString"
+    "title": "Environmental Factors",
+    "id": "environmental-factors",
+    "filters": [
+      {
+        "title": "Soil Moisture Conditions",
+        "property": "soilMoistureConditions",
+        "options": ["Dry", "Wet", "Moist"],
+        "filterBy": "includesString"
+      },
+      {
+        "title": "Soil Compaction Tolerance",
+        "property": "soilCompactionTolerance",
+        "options": ["Tolerant", "Intermediate"],
+        "filterBy": "includesString"
+      },
+      {
+        "title": "Shade Tolerance",
+        "property": "shadeTolerance",
+        "options": [
+          "Very Tolerant",
+          "Tolerant",
+          "Intermediate",
+          "Intolerant",
+          "Very Intolerant"
+        ],
+        "filterBy": "exactMatch"
+      },
+      {
+        "title": "Flood Tolerance",
+        "property": "floodTolerance",
+        "options": ["Tolerant", "Intermediate"],
+        "filterBy": "includesString"
+      },
+      {
+        "title": "Drought Tolerance",
+        "property": "droughtTolerance",
+        "options": ["Tolerant", "Intermediate"],
+        "filterBy": "includesString"
+      },
+      {
+        "title": "Road Salt Spray Tolerance",
+        "property": "roadSaltSprayTolerance",
+        "options": ["Tolerant", "Intolerant", "Intermediate"],
+        "filterBy": "includesStringCaseSensitive"
+      }
+    ]
   },
   {
-    "title": "Soil Compaction Tolerance",
-    "property": "soilCompactionTolerance",
-    "options": ["Tolerant", "Intermediate"],
-    "filterBy": "includesString"
+    "title": "Ecological Considerations",
+    "id": "ecological-considerations",
+    "filters": [
+      {
+        "title": "Livestake Potential",
+        "property": "hasLivestakePotential",
+        "options": ["Yes"],
+        "filterBy": "exactMatch"
+      },
+      {
+        "title": "Wetland Indicator",
+        "property": "wetlandIndicator",
+        "options": ["OBL", "FACW", "FAC", "FACU", "UPL"],
+        "filterBy": "exactMatch"
+      },
+      {
+        "title": "Pollinator Friendly",
+        "property": "pollinators",
+        "options": ["Yes"],
+        "filterBy": "notEmpty"
+      },
+      {
+        "title": "Cohabitable with Black Walnut",
+        "property": "jugloneTolerance",
+        "options": ["Yes"],
+        "filterBy": "exactMatch"
+      },
+      {
+        "title": "Deer Palatability",
+        "property": "deerPalatability",
+        "options": ["Palatable", "Unpalatable"],
+        "filterBy": "includesString"
+      },
+      {
+        "title": "Multifunctional Use",
+        "property": "multifunctionalUses",
+        "options": ["Yes"],
+        "filterBy": "notEmpty"
+      }
+    ]
   },
   {
-    "title": "Shade Tolerance",
-    "property": "shadeTolerance",
-    "options": [
-      "Very Tolerant",
-      "Tolerant",
-      "Intermediate",
-      "Intolerant",
-      "Very Intolerant"
-    ],
-    "filterBy": "exactMatch"
-  },
-  {
-    "title": "Flood Tolerance",
-    "property": "floodTolerance",
-    "options": ["Tolerant", "Intermediate"],
-    "filterBy": "includesString"
-  },
-  {
-    "title": "Drought Tolerance",
-    "property": "droughtTolerance",
-    "options": ["Tolerant", "Intermediate"],
-    "filterBy": "includesString"
-  },
-  {
-    "title": "Road Salt Spray Tolerance",
-    "property": "roadSaltSprayTolerance",
-    "options": ["Tolerant", "Intolerant", "Intermediate"],
-    "filterBy": "includesStringCaseSensitive"
-  },
-  {
-    "title": "Livestake Potential",
-    "property": "hasLivestakePotential",
-    "options": ["Yes"],
-    "filterBy": "exactMatch"
-  },
-  {
-    "title": "Wetland Indicator",
-    "property": "wetlandIndicator",
-    "options": ["OBL", "FACW", "FAC", "FACU", "UPL"],
-    "filterBy": "exactMatch"
-  },
-  {
-    "title": "Pollinator Friendly",
-    "property": "pollinators",
-    "options": ["Yes"],
-    "filterBy": "notEmpty"
-  },
-  {
-    "title": "Cohabitable with Black Walnut",
-    "property": "jugloneTolerance",
-    "options": ["Yes"],
-    "filterBy": "exactMatch"
-  },
-  {
-    "title": "Deer Palatability",
-    "property": "deerPalatability",
-    "options": ["Palatable", "Unpalatable"],
-    "filterBy": "includesString"
-  },
-  {
-    "title": "Multifunctional Use",
-    "property": "multifunctionalUses",
-    "options": ["Yes"],
-    "filterBy": "notEmpty"
-  },
-  {
-    "title": "Growth Rate",
-    "property": "growthRate",
-    "options": ["Slow", "Medium", "Fast"],
-    "filterBy": "includesString"
-  },
-  {
-    "title": "Mature Height in Feet",
-    "property": "matureHeight",
-    "options": [
-      "Less than 10ft",
-      "10 to 30ft",
-      "30 to 50ft",
-      "Greater than 50ft"
-    ],
-    "filterBy": "numberComparison"
-  },
-  {
-    "title": "Flower Color",
-    "property": "flowerColor",
-    "options": ["White", "Pink", "Yellow", "Purple"],
-    "filterBy": "includesString"
-  },
-  {
-    "title": "Fall Color",
-    "property": "fallColor",
-    "options": ["Yellow", "Orange", "Red", "Purple", "Green", "Gold"],
-    "filterBy": "includesString"
+    "title": "Aesthetic Selections",
+    "id": "aesthetic-selections",
+    "filters": [
+      {
+        "title": "Growth Rate",
+        "property": "growthRate",
+        "options": ["Slow", "Medium", "Fast"],
+        "filterBy": "includesString"
+      },
+      {
+        "title": "Mature Height in Feet",
+        "property": "matureHeight",
+        "options": [
+          "Less than 10ft",
+          "10 to 30ft",
+          "30 to 50ft",
+          "Greater than 50ft"
+        ],
+        "filterBy": "numberComparison"
+      },
+      {
+        "title": "Flower Color",
+        "property": "flowerColor",
+        "options": ["White", "Pink", "Yellow", "Purple"],
+        "filterBy": "includesString"
+      },
+      {
+        "title": "Fall Color",
+        "property": "fallColor",
+        "options": ["Yellow", "Orange", "Red", "Purple", "Green", "Gold"],
+        "filterBy": "includesString"
+      }
+    ]
   }
 ]

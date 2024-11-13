@@ -13,5 +13,6 @@ Helps select trees native to Pennsylvania.
 - `index.html` - Website's structure.
 - `styles.css` - Controls appearance of elements on the website.
 - `app.js` - Provides interactivity and functionality to the website.
-- `trees.json` - Tree data file used by `app.js`. Edit as needed.
-- `filters.json` - Used by `app.js` to generate filters. Edit as needed.
+- `trees.json` - Tree data file used by `app.js`.
+- `filters.json` - Used by `app.js` to generate filters.
+- `hardiness.json` - Dictionary used by `app.js` that maps ZIP Codes to USDA hardiness zones.
