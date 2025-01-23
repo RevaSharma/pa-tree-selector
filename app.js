@@ -111,12 +111,24 @@ function createFilters() {
 }
 
 function isTreePassing(tree) {
+  // DEBUG message
+  console.debug(`Checking if ${tree.commonName} passes the filters...`);
+
   // Check if hardiness zone passes
   let isInHardinessZone = true;
   if (selectedHardinessZone !== null) {
     const zoneNumber = parseInt(selectedHardinessZone.slice(0, -1));
     const [min, max] = tree.hardinessZone.split("-").map(Number);
     isInHardinessZone = zoneNumber >= min && zoneNumber <= max;
+    if (isInHardinessZone) {
+      console.debug(
+        `  ✅︎ selected hardiness zone ${zoneNumber} in range ${min} to ${max}`
+      );
+    } else {
+      console.debug(
+        `  ❌ selected hardiness zone ${zoneNumber} not in range ${min} to ${max}`
+      );
+    }
   }
 
   // Gather all currently selected filter values into a data structure
@@ -132,37 +144,164 @@ function isTreePassing(tree) {
   const isPassingFilters = Object.keys(selectedFilters).every((filterKey) => {
     // If no preference is given, pass the filter
     if (selectedFilters[filterKey].value === "No Preference") {
+      console.debug(`  ✅︎ ${filterKey}: No Preference`);
       return true;
     }
     // Check filtering method to determine if the filter was passed
     switch (selectedFilters[filterKey].filterBy) {
       case "exactMatch":
-        return tree[filterKey] === selectedFilters[filterKey].value;
+        if (tree[filterKey] === selectedFilters[filterKey].value) {
+          console.debug(
+            `  ✅︎ ${filterKey}: ${tree[filterKey]} = ${selectedFilters[filterKey].value}`
+          );
+          return true;
+        } else {
+          console.debug(
+            `  ❌ ${filterKey}: ${tree[filterKey]} != ${selectedFilters[filterKey].value}`
+          );
+          return false;
+        }
       case "includesString":
-        return tree[filterKey]
-          .toLowerCase()
-          .includes(selectedFilters[filterKey].value.toLowerCase());
+        if (
+          tree[filterKey]
+            .toLowerCase()
+            .includes(selectedFilters[filterKey].value.toLowerCase())
+        ) {
+          console.debug(
+            `  ✅︎ ${filterKey}: "${selectedFilters[
+              filterKey
+            ].value.toLowerCase()}" is in the string "${tree[
+              filterKey
+            ].toLowerCase()}"`
+          );
+          return true;
+        } else {
+          console.debug(
+            `  ❌ ${filterKey}: "${selectedFilters[
+              filterKey
+            ].value.toLowerCase()}" is not in the string "${tree[
+              filterKey
+            ].toLowerCase()}"`
+          );
+          return false;
+        }
       case "includesStringCaseSensitive":
-        return tree[filterKey].includes(selectedFilters[filterKey].value);
+        if (tree[filterKey].includes(selectedFilters[filterKey].value)) {
+          console.debug(
+            `  ✅︎ ${filterKey}: "${selectedFilters[filterKey].value}" is in the case-sensitive string "${tree[filterKey]}"`
+          );
+          return true;
+        } else {
+          console.debug(
+            `  ❌ ${filterKey}: "${selectedFilters[filterKey].value}" is not in the case-sensitive string "${tree[filterKey]}"`
+          );
+          return false;
+        }
       case "notEmpty":
-        return tree[filterKey] !== "";
+        if (tree[filterKey] !== "") {
+          console.debug(
+            `  ✅︎ ${filterKey}: "${tree[filterKey]}" is not an empty string`
+          );
+          return true;
+        } else {
+          console.debug(
+            `  ❌ ${filterKey}: "${tree[filterKey]}" is an empty string`
+          );
+          return false;
+        }
       case "numberComparison":
-        // TODO: This handling of number comparison is hard-coded and will not respond to JSON changes. Not ideal implementation.
+        const [minHeight, maxHeight] = tree[filterKey].split("-").map(Number);
+        const isMinHeightValidNumber = !isNaN(minHeight);
+        const isMaxHeightValidNumber = !isNaN(maxHeight);
         switch (selectedFilters[filterKey].value) {
           case "Less than 10ft":
-            return tree[filterKey] < 10;
+            if (isMinHeightValidNumber && isMaxHeightValidNumber) {
+              if (maxHeight < 10) {
+                console.debug(`  ✅︎ ${filterKey}: ${maxHeight} < 10`);
+                return true;
+              } else {
+                console.debug(`  ❌ ${filterKey}: ${maxHeight} < 10`);
+                return false;
+              }
+            } else if (isMinHeightValidNumber) {
+              if (minHeight < 10) {
+                console.debug(`  ✅︎ ${filterKey}: ${minHeight} < 10`);
+                return true;
+              } else {
+                console.debug(`  ❌ ${filterKey}: ${minHeight} < 10`);
+                return false;
+              }
+            } else {
+              console.error(`  ❌ ${filterKey}: invalid min height`);
+            }
           case "10 to 30ft":
-            return tree[filterKey] >= 10 && tree[filterKey] <= 30;
+            if (isMinHeightValidNumber && isMaxHeightValidNumber) {
+              if (minHeight >= 10 && maxHeight <= 30) {
+                console.debug(
+                  `  ✅︎ ${filterKey}: 10 <= ${minHeight} - ${maxHeight} <= 30`
+                );
+                return true;
+              } else {
+                console.debug(
+                  `  ❌ ${filterKey}: 10 <= ${minHeight} - ${maxHeight} <= 30`
+                );
+                return false;
+              }
+            } else if (isMinHeightValidNumber) {
+              if (minHeight >= 10 && minHeight <= 30) {
+                console.debug(`  ✅︎ ${filterKey}: 10 <= ${minHeight} <= 30`);
+                return true;
+              } else {
+                console.debug(`  ❌ ${filterKey}: 10 <= ${minHeight} <= 30`);
+                return false;
+              }
+            } else {
+              console.error(`  ❌ ${filterKey}: invalid min height`);
+              return false;
+            }
           case "30 to 50ft":
-            return tree[filterKey] >= 30 && tree[filterKey] <= 50;
+            if (isMinHeightValidNumber && isMaxHeightValidNumber) {
+              if (minHeight >= 30 && maxHeight <= 50) {
+                console.debug(
+                  `  ✅︎ ${filterKey}: 30 <= ${minHeight} - ${maxHeight} <= 50`
+                );
+                return true;
+              } else {
+                console.debug(
+                  `  ❌ ${filterKey}: 30 <= ${minHeight} - ${maxHeight} <= 50`
+                );
+                return false;
+              }
+            } else if (isMinHeightValidNumber) {
+              if (minHeight >= 30 && minHeight <= 50) {
+                console.debug(`  ✅︎ ${filterKey}: 30 <= ${minHeight} <= 50`);
+                return true;
+              } else {
+                console.debug(`  ❌ ${filterKey}: 30 <= ${minHeight} <= 50`);
+                return false;
+              }
+            } else {
+              console.error(`  ❌ ${filterKey}: invalid min height`);
+              return false;
+            }
           case "Greater than 50ft":
-            return tree[filterKey] > 50;
+            if (isMinHeightValidNumber) {
+              if (minHeight > 50) {
+                console.debug(`  ✅︎ ${filterKey}: ${minHeight} > 50`);
+                return true;
+              } else {
+                console.debug(`  ❌ ${filterKey}: ${minHeight} > 50`);
+                return false;
+              }
+            } else {
+              console.error(`  ❌ ${filterKey}: invalid min height`);
+              return false;
+            }
           default:
-            console.log("Number comparison not recognized");
+            console.error("Number comparison not recognized");
         }
-        return true;
       default:
-        console.log("Unknown filtering method");
+        console.error("Unknown filtering method");
     }
   });
 
