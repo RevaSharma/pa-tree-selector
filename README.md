@@ -19,3 +19,12 @@ this repository holds two versions of our project: `react_app` and `version1`.
   - `App.js` - first React component that gets rendered, root of the app
   - `App.css` - styles all elements and components inside `App.js`
 - `public` - holds all static assets (resources used by the app that do not change during runtime)
+
+## about `version1`
+
+- `index.html` - website's structure
+- `styles.css` - controls appearance of elements on the website
+- `app.js` - provides interactivity and functionality to the website
+- `trees.json` - tree data file used by `app.js`
+- `filters.json` - used by `app.js` to generate filters
+- `hardiness.json` - dictionary used by `app.js` that maps zip codes to USDA hardiness zones

@@ -1,10 +1,11 @@
-import './App.css';
-import React from 'react';
-import Header from './components/Header.js';
-import GettingStarted from './components/GettingStarted.js';
-import Results from './components/Results.js';
-import About from './components/About.js';
-import FetchCSVData from './components/FetchCSVData.js';
+import "./App.css";
+import React from "react";
+import Header from "./components/Header.js";
+import GettingStarted from "./components/GettingStarted.js";
+import Results from "./components/Results.js";
+import About from "./components/About.js";
+import FetchCSVData from "./components/FetchCSVData.js";
+import Filters from "./components/Filters.js";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Header />
       <main>
         <GettingStarted />
+        <Filters />
         <Results />
         <About />
         <FetchCSVData />
