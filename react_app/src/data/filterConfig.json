@@ -9,7 +9,7 @@
   },
   {
     "property": "soilCompactionTolerance",
-    "options": ["Tolerant", "Intermediate"]
+    "options": ["Intolerant", "Intermediate", "Tolerant"]
   },
   {
     "property": "shadeTolerance",
