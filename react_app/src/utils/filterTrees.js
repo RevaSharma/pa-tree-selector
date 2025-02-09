@@ -40,6 +40,7 @@ export function filterTrees(trees, filteringState) {
         );
       }
 
+      // Special case: mature height ranges are determined by phrases
       if (property === "matureHeight") {
         return matchesMatureHeight(treeValue, filterValues);
       }
