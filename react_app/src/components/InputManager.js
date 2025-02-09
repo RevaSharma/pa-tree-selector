@@ -64,7 +64,7 @@ function InputManager({ setFilters }) {
           property={property}
           options={options}
           update={updateFilter}
-          filter={filteringState[property]}
+          selectedOptions={filteringState[property]}
           displayTitle={displayTitle}
         />
       ))}

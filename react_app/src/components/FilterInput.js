@@ -7,12 +7,12 @@ import React from "react";
  * @param {string} props.property - Property being filtered.
  * @param {Array<string>} props.options - Options for the filtered property.
  * @param {Function} props.update - Function to call when toggling an option.
- * @param {Array<string>} [props.filter=[]] - Currently selected filter options.
+ * @param {Array<string>} [props.selectedOptions=[]] - Currently selected filter options.
  * @param {string} [props.displayTitle] - Title displayed for this filter (optional).
  *
  * @returns {JSX.Element} Rendered filter component.
  */
-function Filter({ property, options, update, filter = [], displayTitle }) {
+function Filter({ property, options, update, selectedOptions = [], displayTitle }) {
   function generateTitle(str) {
     return str
       .replace(/([A-Z])/g, " $1") // Insert space before capital letters
@@ -29,7 +29,7 @@ function Filter({ property, options, update, filter = [], displayTitle }) {
           key={option}
           onClick={() => update(property, option)}
           style={{
-            background: filter.includes(option) ? "green" : "gray",
+            background: selectedOptions.includes(option) ? "green" : "gray",
             margin: "5px",
           }}
         >
