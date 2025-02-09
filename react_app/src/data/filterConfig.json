@@ -1,0 +1,83 @@
+[
+  {
+    "property": "woodyPlantType",
+    "options": ["Tree", "Shrub"]
+  },
+  {
+    "property": "soilMoistureConditions",
+    "options": ["Dry", "Moist", "Wet"]
+  },
+  {
+    "property": "soilCompactionTolerance",
+    "options": ["Intolerant", "Intermediate", "Tolerant"]
+  },
+  {
+    "property": "shadeTolerance",
+    "options": [
+      "Very Tolerant",
+      "Tolerant",
+      "Intermediate",
+      "Intolerant",
+      "Very Intolerant"
+    ]
+  },
+  {
+    "property": "floodTolerance",
+    "options": ["Tolerant", "Intermediate"]
+  },
+  {
+    "property": "droughtTolerance",
+    "options": ["Tolerant", "Intermediate"]
+  },
+  {
+    "property": "roadSaltSprayTolerance",
+    "options": ["Tolerant", "Intermediate", "Intolerant"]
+  },
+  {
+    "property": "hasLivestakePotential",
+    "options": ["Yes"],
+    "displayTitle": "Livestake Potential"
+  },
+  {
+    "property": "wetlandIndicator",
+    "options": ["OBL", "FACW", "FAC", "FACU", "UPL"]
+  },
+  {
+    "property": "pollinators",
+    "options": ["Yes"]
+  },
+  {
+    "property": "jugloneTolerance",
+    "options": ["Yes"],
+    "displayTitle": "Cohabitable with Black Walnut"
+  },
+  {
+    "property": "deerPalatability",
+    "options": ["Palatable", "Unpalatable"]
+  },
+  {
+    "property": "multifunctionalUses",
+    "options": ["Yes"]
+  },
+  {
+    "property": "growthRate",
+    "options": ["Slow", "Medium", "Fast"]
+  },
+  {
+    "property": "matureHeight",
+    "options": [
+      "Less than 10ft",
+      "10 to 30ft",
+      "30 to 50ft",
+      "Greater than 50ft"
+    ]
+  },
+  {
+    "property": "flowerColor",
+    "options": ["White", "Pink", "Yellow", "Purple"]
+  },
+  {
+    "property": "fallColor",
+    "options": ["Yellow", "Orange", "Red", "Purple", "Green", "Gold"]
+  }
+]
