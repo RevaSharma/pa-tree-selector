@@ -13,6 +13,9 @@ export function filterTrees(trees, filteringState) {
   return trees.filter((tree) =>
     // Check if the tree passes all filters
     Object.entries(filteringState).every(([property, filterValues]) => {
+      // If filterValues is undefined or null, skip the filter for that property
+      if (!filterValues) return true;
+
       const treeValue = tree[property]; // Get the corresponding value from the tree
 
       // If the tree doesn't have the property managed by the filter, it doesn't pass the filter
