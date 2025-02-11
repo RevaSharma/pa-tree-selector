@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ZipCodeInput from "./ZipCodeInput";
 import FilterInput from "./FilterInput";
@@ -8,19 +7,17 @@ import filterConfig from "../data/filterConfig.json";
  * Manages the overall filtering state.
  *
  * @param {Object} props - Component props.
- * @param {Function} props.setFilters - Function to update selected filters.
- * @param {Object} props.hardinessData - Data mapping ZIP codes to hardiness zones.
- * @param {Function} props.setSelectedHardinessZone - Function to update selected hardiness zone.
+ * @param {Object} props.filteringState - The current filtering state from App.js.
+ * @param {Function} props.setFilteringState - Function to update selected filters.
  *
  * @returns {JSX.Element} Filter management component.
  */
-function InputManager({ setFilters }) {
-  const [filteringState, updateFilteringState] = useState({});
+function InputManager({ filteringState, setFilteringState }) {
   const navigate = useNavigate();
 
   // function used by filter input to update filtering state
   function updateFilter(property, value) {
-    updateFilteringState((prev) => {
+    setFilteringState((prev) => {
       // if given value is already in the array of selected values for that property, then...
       const selectedValues = prev[property]?.includes(value)
         ? prev[property].filter((v) => v !== value) // remove it from that array
@@ -38,7 +35,7 @@ function InputManager({ setFilters }) {
 
   // function used by zip code input to update filtering state
   function updateHardinessZone(zone) {
-    updateFilteringState((prev) => {
+    setFilteringState((prev) => {
       // if zone is null, remove hardinessZone from filtering state, else update it as zone
       return zone !== null
         ? { ...prev, hardinessZone: zone }
@@ -49,14 +46,12 @@ function InputManager({ setFilters }) {
   }
 
   function handleViewResults() {
-    setFilters(filteringState);
     navigate("/results");
   }
 
   return (
     <div>
       <h2>Tree Filtering Options</h2>
-      filteringState = {JSON.stringify(filteringState, null, 2)}
       <ZipCodeInput updateHardinessZone={updateHardinessZone} />
       {filterConfig.map(({ property, options, displayTitle }) => (
         <FilterInput

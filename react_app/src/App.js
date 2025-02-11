@@ -1,81 +1,61 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import About from "./components/About";
 import GettingStarted from "./components/GettingStarted";
 import InputManager from "./components/InputManager";
 import Results from "./components/Results";
-import FetchCSVData from "./components/FetchCSVData";
+import fetchCSVData from "./utils/fetchCSVData";
 
 function App() {
-  // State to store selected filters
-  const [filters, setFilters] = useState({
-    woodyPlantType: [],
-    soilMoistureConditions: [],
-    shadeTolerance: [],
-    growthRate: [],
-    pollinators: [],
-    jugloneTolerance: [],
-  });
+  const [filteringState, setFilteringState] = useState({});
+  const [filteredTrees, setFilteredTrees] = useState([]);
+  const [trees, setTrees] = useState([]);
 
-  // State to store the tree data fetched from CSV
-  const [treesData, setTreesData] = useState([]);
-
-  // Function to check if a tree matches the selected filters
-  const isTreePassing = (tree) => {
-    console.log("Checking tree:", tree); // Debugging: log each tree being checked
-
-    for (const filterKey in filters) {
-      const selectedValues = filters[filterKey];
-
-      // If no filter is applied for this category, continue checking other filters
-      if (selectedValues.length === 0) continue;
-
-      console.log(
-        `Checking filter ${filterKey}:`,
-        selectedValues,
-        "vs tree value:",
-        tree[filterKey]
-      );
-
-      // If the tree value does not match the selected filters, exclude it
-      if (!selectedValues.some((value) => tree[filterKey]?.includes(value))) {
-        console.log(
-          `Tree ${tree.commonName} does NOT match filter ${filterKey}.`
-        );
-        return false; // Tree doesn't match, so it's not included in results
-      }
-    }
-
-    console.log(`Tree ${tree.commonName} PASSES all filters.`); // Tree matches all filters
-    return true;
-  };
-
-  // Function to get only the trees that match the filters
-  const getFilteredTrees = () => {
-    const filtered = treesData.filter(isTreePassing);
-    console.log("Final filtered trees:", filtered); // Debugging: log the trees that passed filtering
-    return filtered;
-  };
+  useEffect(() => {
+    fetchCSVData().then((fetchedData) => {
+      console.log("Fetched Data:", fetchedData);
+      setTrees(fetchedData);
+    });
+  }, []);
 
   return (
     <Router>
       <Header /> {/* Navigation Header */}
-      <FetchCSVData setTreesData={setTreesData} />{" "}
-      {/* Fetch tree data from CSV */}
+      <pre
+        style={{
+          maxHeight: "400px",
+          overflowY: "auto",
+          whiteSpace: "pre-wrap",
+        }}
+      >
+        trees = {JSON.stringify(trees, null, 2)}
+      </pre>
+      <pre>filteringState = {JSON.stringify(filteringState)}</pre>
       <Routes>
         <Route path="/" element={<GettingStarted />} /> {/* Home Page */}
         <Route path="/about" element={<About />} /> {/* About Page */}
         <Route
           path="/getting-started"
-          element={<InputManager filters={filters} setFilters={setFilters} />} // Filters Page
+          element={
+            <InputManager
+              filteringState={filteringState}
+              setFilteringState={setFilteringState}
+            />
+          }
         />
-        <Route
-          path="/results"
-          element={<Results treeData={getFilteredTrees()} />}
-        />{" "}
+        <Route path="/results" element={<Results treeData={filteredTrees} />} />{" "}
         {/* Results Page */}
       </Routes>
+      <pre
+        style={{
+          maxHeight: "400px",
+          overflowY: "auto",
+          whiteSpace: "pre-wrap",
+        }}
+      >
+        filteredTrees = {JSON.stringify(filteredTrees, null, 2)}
+      </pre>
     </Router>
   );
 }
