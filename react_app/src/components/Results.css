@@ -38,7 +38,7 @@
 }
 
 .image-placeholder {
-  position: absolute;
+  /*position: absolute; this line was blocking buttons from being pressed */
   top: 0;
   left: 0;
   width: 100%;
