@@ -30,20 +30,10 @@ function App() {
 
   return (
     <Router>
-      <Header /> {/* Navigation Header */}
-      {/* <pre
-        style={{
-          maxHeight: "400px",
-          overflowY: "auto",
-          whiteSpace: "pre-wrap",
-        }}
-      >
-        trees = {JSON.stringify(trees, null, 2)}
-      </pre>
-      <pre>filteringState = {JSON.stringify(filteringState)}</pre> */}
+      <Header />
       <Routes>
-        <Route path="/" element={<GettingStarted />} /> {/* Home Page */}
-        <Route path="/about" element={<About />} /> {/* About Page */}
+        <Route path="/" element={<GettingStarted />} />
+        <Route path="/about" element={<About />} />
         <Route
           path="/getting-started"
           element={
@@ -54,17 +44,7 @@ function App() {
           }
         />
         <Route path="/results" element={<Results treeData={filteredTrees} />} />{" "}
-        {/* Results Page */}
       </Routes>
-      {/* <pre
-        style={{
-          maxHeight: "400px",
-          overflowY: "auto",
-          whiteSpace: "pre-wrap",
-        }}
-      >
-        filteredTrees = {JSON.stringify(filteredTrees, null, 2)}
-      </pre> */}
     </Router>
   );
 }
