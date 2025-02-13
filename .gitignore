@@ -11,6 +11,7 @@ react_app/node_modules/
 
 # production
 /build
+/react_app/build
 
 # misc
 .DS_Store
