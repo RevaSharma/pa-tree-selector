@@ -16,7 +16,9 @@ function fetchCSVData() {
     })
     .catch((error) => {
       console.error("Error fetching CSV data:", error);
+      console.log("Retriveing Cached CSV data...")
       return []; // Return an empty array on error to prevent failures
+      //TODO return a cached version of the CSV instead for the sake of PWA
     });
 }
 
