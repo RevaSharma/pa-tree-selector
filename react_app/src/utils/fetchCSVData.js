@@ -1,4 +1,5 @@
 import axios from "axios";
+import { saveTreesToIndexedDB, getTreesFromIndexedDB } from "./indexedDB"; // Import the IndexedDB functions
 
 /**
  * Fetches CSV data from a public Google Sheets URL, parses it, and returns an array of objects.
@@ -12,13 +13,24 @@ function fetchCSVData() {
     .get(CSV_URL)
     .then((response) => {
       console.log("Fetching CSV data...");
-      return parseCSV(response.data);
+      const trees = parseCSV(response.data);
+      saveTreesToIndexedDB(trees); // Save to IndexedDB for later offline use
+      return trees;
     })
     .catch((error) => {
       console.error("Error fetching CSV data:", error);
-      console.log("Retriveing Cached CSV data...")
-      return []; // Return an empty array on error to prevent failures
-      //TODO return a cached version of the CSV instead for the sake of PWA
+      console.log("Retrieving cached CSV data...");
+
+      // Try getting the trees from IndexedDB if offline
+      return getTreesFromIndexedDB().then((cachedTrees) => {
+        if (cachedTrees.length > 0) {
+          console.log("Retrieved cached trees.")
+          return cachedTrees;
+        } else {
+          console.log("Failed to get cached trees. Returning no trees.")
+          return []; // Fallback: return an empty array if no cached data
+        }
+      });
     });
 }
 
@@ -43,7 +55,8 @@ function parseCSV(csvText) {
     "USDA Plant Hardiness Zone": "hardinessZone",
     "Physiographic Region (Chesapeake Bay Specific Only)": "region",
     "Soil Moisture Conditions": "soilMoistureConditions",
-    "Soil Drainage (Based on USDA's 7 Classes of Natural Soil Drainage)": "soilDrainage",
+    "Soil Drainage (Based on USDA's 7 Classes of Natural Soil Drainage)":
+      "soilDrainage",
     "Wetland Indicator": "wetlandIndicator",
     "Growth Rate": "growthRate",
     "Mature Height (Feet)": "matureHeight",
@@ -62,7 +75,7 @@ function parseCSV(csvText) {
     "Flower Color": "flowerColor",
     "Fall Color": "fallColor",
     "Livestake Potential": "hasLivestakePotential",
-    "Notes": "notes",
+    Notes: "notes",
   };
 
   // Iterate through each row (excluding the header)
@@ -70,7 +83,7 @@ function parseCSV(csvText) {
     const rowData = rows[i].split(",");
 
     // Stop parsing if a row is completely empty
-    if (rowData.every(cell => cell.trim() === "")) {
+    if (rowData.every((cell) => cell.trim() === "")) {
       break;
     }
 
