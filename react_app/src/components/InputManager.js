@@ -50,20 +50,32 @@ function InputManager({ filteringState, setFilteringState }) {
   }
 
   return (
-    <div>
-      <h2>Tree Filtering Options</h2>
+    <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-8">
+      <h2 className="text-3xl font-semibold text-gray-800 mb-6">
+        Tree Filtering Options
+      </h2>
+
       <ZipCodeInput updateHardinessZone={updateHardinessZone} />
-      {filterConfig.map(({ property, options, displayTitle }) => (
-        <FilterInput
-          key={property}
-          property={property}
-          options={options}
-          update={updateFilter}
-          selectedOptions={filteringState[property]}
-          displayTitle={displayTitle}
-        />
-      ))}
-      <button onClick={handleViewResults} style={{ marginTop: "10px" }}>
+
+      {/* Mapping Filter Options */}
+      <div className="space-y-4">
+        {filterConfig.map(({ property, options, displayTitle }) => (
+          <FilterInput
+            key={property}
+            property={property}
+            options={options}
+            update={updateFilter}
+            selectedOptions={filteringState[property]}
+            displayTitle={displayTitle}
+          />
+        ))}
+      </div>
+
+      {/* View Results Button */}
+      <button
+        onClick={handleViewResults}
+        className="mt-6 px-6 py-3 bg-blue-500 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-blue-600 transition-colors"
+      >
         View Results
       </button>
     </div>
