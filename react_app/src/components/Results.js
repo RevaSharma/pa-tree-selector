@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import "./Results.css";
 import html2pdf from "html2pdf.js";
 
 function Results({ treeData }) {
@@ -20,42 +19,75 @@ function Results({ treeData }) {
   };
 
   return (
-    <div>
-      <button onClick={() => setCompactView((prev) => !prev)}>
+    <div className="text-center p-5 bg-gray-100">
+      <button
+        onClick={() => setCompactView((prev) => !prev)}
+        className="mb-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+      >
         {compactView ? "Switch to Detailed View" : "Switch to Compact View"}
       </button>
 
-      <section id="results-section" className="results-page" ref={resultsRef}>
-        <h2 className="section-title">Filtered Results:</h2>
+      <section
+        id="results-section"
+        ref={resultsRef}
+        className="max-w-5xl mx-auto"
+      >
+        <h2 className="text-3xl font-semibold text-gray-800 mb-8">
+          Filtered Results:
+        </h2>
 
-        <div className="results-grid">
+        <div className="grid gap-8 p-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {treeData.length > 0 ? (
             treeData.map((tree, index) => (
-              <div key={index} className="result-card">
+              <div
+                key={index}
+                className="flex flex-col bg-white rounded-xl overflow-hidden shadow-md"
+              >
                 {compactView ? (
-                  <p className="compact-name">{tree.commonName}</p>
+                  <p className="text-lg font-semibold text-gray-800 p-4">
+                    {tree.commonName}
+                  </p>
                 ) : (
                   <>
-                    <div className="image-placeholder">Image</div>
-                    <p>
-                      <strong>{tree.commonName}</strong>
-                    </p>
-                    <p>{tree.sciName}</p>
-                    <p>Type: {tree.woodyPlantType}</p>
-                    <p>Soil Moisture: {tree.soilMoistureConditions}</p>
-                    <p>Shade Tolerance: {tree.shadeTolerance}</p>
-                    <p>Growth Rate: {tree.growthRate}</p>
+                    <div className="w-full pt-[66.67%] bg-gray-300 flex items-center justify-center text-gray-600">
+                      Image
+                    </div>
+                    <div className="p-6 flex flex-col gap-2">
+                      <p className="text-lg font-semibold text-gray-800">
+                        {tree.commonName}
+                      </p>
+                      <p className="text-md italic text-gray-600">
+                        {tree.sciName}
+                      </p>
+                      <p className="text-sm text-gray-700">
+                        Type: {tree.woodyPlantType}
+                      </p>
+                      <p className="text-sm text-gray-700">
+                        Soil Moisture: {tree.soilMoistureConditions}
+                      </p>
+                      <p className="text-sm text-gray-700">
+                        Shade Tolerance: {tree.shadeTolerance}
+                      </p>
+                      <p className="text-sm text-gray-700">
+                        Growth Rate: {tree.growthRate}
+                      </p>
+                    </div>
                   </>
                 )}
               </div>
             ))
           ) : (
-            <p>No trees match the selected filters.</p>
+            <p className="col-span-full text-lg text-gray-600 p-10">
+              No trees match the selected filters.
+            </p>
           )}
         </div>
 
         {treeData.length > 0 && (
-          <button className="export-button" onClick={handleExport}>
+          <button
+            className="mt-8 px-6 py-3 bg-blue-500 text-white text-lg rounded-md hover:bg-blue-600 transition"
+            onClick={handleExport}
+          >
             Export Selection as PDF
           </button>
         )}
