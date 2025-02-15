@@ -1,45 +1,80 @@
-# pa_tree_selector
+# Pennsylvania Native Tree Selector
 
-this repository holds two versions of our project: `react_app` and `version1`.
+This repository contains two versions of the project: `react_app` and `version1`.
 
-## how to run
+- [How to Run](#how-to-run)
+  - [Development Mode](#development-mode)
+  - [Production Mode](#production-mode)
+- [Project Structure](#project-structure)
 
-### development mode
+## How to Run
 
-1. download and open this project folder
-2. open a new terminal
-3. cd into `react_app` folder
-4. run `npm install` to install all dependencies (this will generate a node_modules folder)
-5. run `npm start` to view the app in your browser
+### Development Mode
 
-### production mode
+1. Navigate to the `react_app` folder:
 
-first-time setup:
+   ```sh
+   cd react_app
+   ```
 
-1. cd into `react_app` folder
-2. run `npm install -g serve` to install serve command
+2. Install dependencies:
 
-creating a production build:
+   ```sh
+   npm install
+   ```
 
-1. cd into `react_app` folder
-2. run `npm run build` to create a build folder
-3. run `serve -s build` to serve the build
+3. Start the development server:
 
-## about `react_app`
+   ```sh
+   npm start
+   ```
 
-- `package.json` - describes this Node.js project and lists all dependencies
-- `package-lock.json` - locks specific versions of each dependency to ensure consistent installations across all environments
-- `src` - holds app's source code
-  - `components` - holds React components, which are JavaScript files that describe UI logic and structure
-  - `App.js` - first React component that gets rendered, root of the app
-  - `App.css` - styles all elements and components inside `App.js`
-- `public` - holds all static assets (resources used by the app that do not change during runtime)
+   The app will open in your browser.
 
-## about `version1`
+### Production Mode
 
-- `index.html` - website's structure
-- `styles.css` - controls appearance of elements on the website
-- `app.js` - provides interactivity and functionality to the website
-- `trees.json` - tree data file used by `app.js`
-- `filters.json` - used by `app.js` to generate filters
-- `hardiness.json` - dictionary used by `app.js` that maps zip codes to USDA hardiness zones
+> **Note:** Service workers only function in production mode. *To test PWA functionality, you must be in production mode.*
+
+#### First-Time Setup
+
+1. Navigate to the `react_app` folder:
+
+   ```sh
+   cd react_app
+   ```
+
+2. Install the `serve` package globally:
+
+   ```sh
+   npm install -g serve
+   ```
+
+#### Creating a Production Build
+
+1. Navigate to the `react_app` folder:
+
+   ```sh
+   cd react_app
+   ```
+
+2. Create a production build:
+
+   ```sh
+   npm run build
+   ```
+
+3. Serve the build locally:
+
+   ```sh
+   serve -s build
+   ```
+
+## Project Structure
+
+- **`package.json`** - Defines the project and its dependencies.
+- **`package-lock.json`** - Locks dependency versions for consistency.
+- **`src/`** - Contains the application's source code.
+  - **`components/`** - Contains React components.
+  - **`App.js`** - The root component that initializes the app.
+  - **`App.css`** - Styles for components inside `App.js`.
+- **`public/`** - Holds static assets that do not change at runtime.
