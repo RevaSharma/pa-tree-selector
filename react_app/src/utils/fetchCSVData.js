@@ -15,6 +15,7 @@ function fetchCSVData() {
     .get(CSV_URL)
     .then((response) => {
       console.log("Fetching CSV data...");
+      console.log(response.data);
       const trees = parseCSV(response.data);
       saveTreesToIndexedDB(trees); // Save to IndexedDB for later offline use
       return trees;
