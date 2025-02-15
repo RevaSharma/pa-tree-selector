@@ -4,11 +4,26 @@ this repository holds two versions of our project: `react_app` and `version1`.
 
 ## how to run
 
+### development mode
+
 1. download and open this project folder
 2. open a new terminal
 3. cd into `react_app` folder
 4. run `npm install` to install all dependencies (this will generate a node_modules folder)
 5. run `npm start` to view the app in your browser
+
+### production mode
+
+first-time setup:
+
+1. cd into `react_app` folder
+2. run `npm install -g serve` to install serve command
+
+creating a production build:
+
+1. cd into `react_app` folder
+2. run `npm run build` to create a build folder
+3. run `serve -s build` to serve the build
 
 ## about `react_app`
 
