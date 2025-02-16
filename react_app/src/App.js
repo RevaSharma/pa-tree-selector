@@ -24,7 +24,7 @@ function App() {
           header: true,
           skipEmptyLines: true,
           complete: (result) => {
-            setTrees(result.data.slice(1)); // Removes the first object
+            setTrees(result.data.slice(1)); // Removes the first object (second header)
           },
         });
       })
