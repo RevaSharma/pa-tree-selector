@@ -70,6 +70,8 @@ This repository contains two versions of the project: `react_app` and `version1`
    serve -s build
    ```
 
+If the `serve` command cannot be found despite installing it correctly, you may need to run `npx serve -s build` instead.
+
 ## Testing PWA Functionality
 
 1. [Create and serve a production build.](#creating-and-serving-a-production-build)
