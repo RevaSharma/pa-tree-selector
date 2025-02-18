@@ -5,6 +5,8 @@ stages:
 
 deploy:
   stage: deploy
+  tags:
+    - deployer # The runner tag for this job
   script:
     - cd react_app # Navigate to the react_app folder
     - npm ci # Install dependencies
