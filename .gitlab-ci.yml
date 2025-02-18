@@ -1,0 +1,17 @@
+image: node:16
+
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  script:
+    - cd react_app # Navigate to the react_app folder
+    - npm ci # Install dependencies
+    - npm run build # Build the React app
+    - mv build ../public # Move the build folder to the root's public folder
+  artifacts:
+    paths:
+      - public
+  only:
+    - main # or master, depending on your default branch
