@@ -12,7 +12,7 @@ body {
 }
 
 header {
-  @apply text-white flex items-center;
+  @apply text-white flex items-center bg-headerBg;
 }
 
 h1 {

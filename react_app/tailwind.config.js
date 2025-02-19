@@ -9,6 +9,7 @@ module.exports = {
         sectionBg: "#edf4f2", // Section background
         crumbBg: "#cad8e6", // Breadcrumb background
         crumbHover: "#90b9e7",
+        headerBg: "#146d8b", // Header text color
       },
     },
   },
