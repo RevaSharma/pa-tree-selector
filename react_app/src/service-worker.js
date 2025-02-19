@@ -74,7 +74,7 @@ self.addEventListener("message", (event) => {
   }
 });
 
-// Cache the CSV_URL request
+// John's remedy (1): cache the CSV_URL request as trees-cache
 registerRoute(
   ({ url }) => url.href === CSV_URL,
   new StaleWhileRevalidate({
@@ -90,3 +90,26 @@ registerRoute(
     ],
   })
 );
+
+// John's remedy (2): have service worker claim control immediately
+// this way, the page doesn't have to be reloaded to activate the service worker
+// as was seen in testing. this is a bug fix for that
+self.addEventListener("activate", (event) => {
+  event.waitUntil(self.clients.claim());
+});
+
+// John's remedy (3): cache the trees as soon as service worker is installed
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open("trees-cache").then((cache) => {
+      return fetch(CSV_URL)
+        .then((response) => {
+          if (!response.ok) throw new Error("Failed to fetch CSV");
+          return cache.put(CSV_URL, response.clone());
+        })
+        .catch(() => {
+          console.warn("CSV fetch failed during install, proceeding anyway.");
+        });
+    })
+  );
+});
