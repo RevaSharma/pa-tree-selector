@@ -3,7 +3,7 @@ import html2pdf from "html2pdf.js";
 
 function Results({ treeData }) {
   const resultsRef = useRef();
-  const [compactView, setCompactView] = useState(true); // Default to compact mode
+  const [compactView, setCompactView] = useState(true);
 
   const handleExport = () => {
     if (resultsRef.current) {
@@ -49,9 +49,17 @@ function Results({ treeData }) {
                   </p>
                 ) : (
                   <>
-                    <div className="w-full pt-[66.67%] bg-gray-300 flex items-center justify-center text-gray-600">
-                      Image
-                    </div>
+                    {tree.images.length > 0 ? (
+                      <img
+                        src={tree.images[0]}
+                        alt={tree.commonName}
+                        className="w-full h-48 object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-48 bg-gray-300 flex items-center justify-center text-gray-600">
+                        No Image Available
+                      </div>
+                    )}
                     <div className="p-6 flex flex-col gap-2">
                       <p className="text-lg font-semibold text-gray-800">
                         {tree.commonName}

@@ -7,6 +7,7 @@ import InputManager from "./components/InputManager";
 import Results from "./components/Results";
 import { filterTrees } from "./utils/filterTrees";
 import Papa from "papaparse";
+import axios from "axios";
 
 const CSV_URL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vSN9qYza-MdxZdNBnWK58LbIFS6v6UIdYXPwrNgCewtPqVuYdt2g7HmzXXG9x6kshf_-8Cctgj2xTOp/pub?output=csv";
@@ -15,6 +16,7 @@ function App() {
   const [filteringState, setFilteringState] = useState({});
   const [filteredTrees, setFilteredTrees] = useState([]);
   const [trees, setTrees] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetch(CSV_URL)
@@ -31,13 +33,43 @@ function App() {
       .catch((error) => console.error("Error fetching CSV:", error));
   }, []);
 
-  // Call filterTrees whenever trees or filteringState changes
+   // Call filterTrees whenever trees or filteringState changes
   useEffect(() => {
     if (trees.length > 0 && filteringState) {
       const filtered = filterTrees(trees, filteringState);
       setFilteredTrees(filtered);
+      fetchTreeImages(filtered);
     }
   }, [trees, filteringState]);
+
+  // Fetch images only for already filtered trees
+  const fetchTreeImages = async (treeList) => {
+    setIsLoading(true); // Show loading state while fetching
+    const updatedTrees = await Promise.all(
+      treeList.map(async (tree) => {
+        try {
+          const response = await axios.get(
+            `https://api.gbif.org/v1/occurrence/search?scientificName=${encodeURIComponent(
+              tree.sciName
+            )}&mediaType=StillImage`
+          );
+
+          // image URLs
+          const images =
+            response.data.results
+              .flatMap((res) => res.media || [])
+              .map((img) => img.identifier) || [];
+
+          return { ...tree, images };
+        } catch (error) {
+          console.error("Error fetching images for:", tree.sciName, error);
+          return { ...tree, images: [] };
+        }
+      })
+    );
+    setFilteredTrees(updatedTrees);
+    setIsLoading(false);
+  };
 
   return (
     <Router>
@@ -54,7 +86,7 @@ function App() {
             />
           }
         />
-        <Route path="/results" element={<Results treeData={filteredTrees} />} />{" "}
+        <Route path="/results" element={<Results treeData={filteredTrees} isLoading={isLoading} />} />
       </Routes>
     </Router>
   );
