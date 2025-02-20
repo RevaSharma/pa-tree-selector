@@ -12,7 +12,7 @@ function Header() {
             className="h-12 mr-3"
           />
           <h1 className="text-white text-4xl font-bold">
-            Pennsylvania Native Tree Selector Tool
+            Pennsylvania Native Tree Selector
           </h1>
         </div>
         <nav className="flex gap-5">
