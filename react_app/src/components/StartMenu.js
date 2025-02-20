@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import hardinessMap from "../data/hardinessMap.json";
 
-function GettingStarted() {
+function StartMenu() {
   const [zip, setZip] = useState("");
   const [hardinessZone, setHardinessZone] = useState(null);
   const navigate = useNavigate();
@@ -23,13 +23,13 @@ function GettingStarted() {
       alert("Please enter a valid ZIP code with a corresponding hardiness zone");
       return;
     }
-    navigate("/getting-started", { state: { zip, hardinessZone } });
+    navigate("/filters", { state: { zip, hardinessZone } });
   };
 
   const isButtonEnabled = isValidZip(zip) && hardinessZone !== null;
 
   return (
-    <section id="getting-started" className="hideable crumb-page flex flex-col items-center pt-8">
+    <section id="start-menu" className="hideable crumb-page flex flex-col items-center pt-8">
       <h1 className="text-2xl font-bold mb-4">Welcome to the Pennsylvania Native Tree Selector</h1>
       <p className="text-lg mb-6 text-center max-w-md">
         Please enter your ZIP code to get started with selecting native trees for your area.
@@ -63,4 +63,4 @@ function GettingStarted() {
   );
 }
 
-export default GettingStarted;
+export default StartMenu;

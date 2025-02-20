@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import About from "./components/About";
-import GettingStarted from "./components/GettingStarted";
+import StartMenu from "./components/StartMenu";
 import InputManager from "./components/InputManager";
 import Results from "./components/Results";
 import { filterTrees } from "./utils/filterTrees";
@@ -43,10 +43,10 @@ function App() {
     <Router>
       <Header />
       <Routes>
-        <Route path="/" element={<GettingStarted />} />
+        <Route path="/" element={<StartMenu />} />
         <Route path="/about" element={<About />} />
         <Route
-          path="/getting-started"
+          path="/filters"
           element={
             <InputManager
               filteringState={filteringState}
