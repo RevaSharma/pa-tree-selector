@@ -33,7 +33,6 @@ function App() {
       .catch((error) => console.error("Error fetching CSV:", error));
   }, []);
 
-   // Call filterTrees whenever trees or filteringState changes
   useEffect(() => {
     if (trees.length > 0 && filteringState) {
       const filtered = filterTrees(trees, filteringState);
@@ -42,9 +41,11 @@ function App() {
     }
   }, [trees, filteringState]);
 
-  // Fetch images only for already filtered trees
   const fetchTreeImages = async (treeList) => {
-    setIsLoading(true); // Show loading state while fetching
+    if (!treeList || treeList.length === 0) return;
+
+    setIsLoading(true);
+
     const updatedTrees = await Promise.all(
       treeList.map(async (tree) => {
         try {
@@ -54,11 +55,9 @@ function App() {
             )}&mediaType=StillImage`
           );
 
-          // image URLs
+          // Ensure media array exists before trying to map it
           const images =
-            response.data.results
-              .flatMap((res) => res.media || [])
-              .map((img) => img.identifier) || [];
+            response.data.results?.flatMap((res) => res.media || [])?.map((img) => img.identifier) || [];
 
           return { ...tree, images };
         } catch (error) {
@@ -67,7 +66,11 @@ function App() {
         }
       })
     );
-    setFilteredTrees(updatedTrees);
+
+    setFilteredTrees((prevTrees) =>
+      prevTrees.length === treeList.length ? updatedTrees : prevTrees
+    );
+
     setIsLoading(false);
   };
 
@@ -86,7 +89,10 @@ function App() {
             />
           }
         />
-        <Route path="/results" element={<Results treeData={filteredTrees} isLoading={isLoading} />} />
+        <Route
+          path="/results"
+          element={<Results treeData={filteredTrees} isLoading={isLoading} />}
+        />
       </Routes>
     </Router>
   );

@@ -1,43 +1,28 @@
-import React, { useRef, useState } from "react";
-import html2pdf from "html2pdf.js";
+import React, { useState } from "react";
 
 function Results({ treeData }) {
-  const resultsRef = useRef();
   const [compactView, setCompactView] = useState(true);
 
-  const handleExport = () => {
-    if (resultsRef.current) {
-      const options = {
-        margin: 1,
-        filename: "tree-results.pdf",
-        image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
-      };
-      html2pdf().set(options).from(resultsRef.current).save();
-    }
+  const toggleView = () => {
+    setCompactView((prev) => !prev);
   };
 
   return (
     <div className="text-center p-5 bg-gray-100">
       <button
-        onClick={() => setCompactView((prev) => !prev)}
+        onClick={toggleView}
         className="mb-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
       >
         {compactView ? "Switch to Detailed View" : "Switch to Compact View"}
       </button>
 
-      <section
-        id="results-section"
-        ref={resultsRef}
-        className="max-w-5xl mx-auto"
-      >
+      <section id="results-section" className="max-w-5xl mx-auto">
         <h2 className="text-3xl font-semibold text-gray-800 mb-8">
           Filtered Results:
         </h2>
 
         <div className="grid gap-8 p-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {treeData.length > 0 ? (
+          {treeData && treeData.length > 0 ? (
             treeData.map((tree, index) => (
               <div
                 key={index}
@@ -49,7 +34,7 @@ function Results({ treeData }) {
                   </p>
                 ) : (
                   <>
-                    {tree.images.length > 0 ? (
+                    {tree.images && tree.images.length > 0 ? (
                       <img
                         src={tree.images[0]}
                         alt={tree.commonName}
@@ -90,15 +75,6 @@ function Results({ treeData }) {
             </p>
           )}
         </div>
-
-        {treeData.length > 0 && (
-          <button
-            className="mt-8 px-6 py-3 bg-blue-500 text-white text-lg rounded-md hover:bg-blue-600 transition"
-            onClick={handleExport}
-          >
-            Export Selection as PDF
-          </button>
-        )}
       </section>
     </div>
   );
