@@ -10,11 +10,12 @@ function Results({ treeData }) {
   return (
     <div className="text-center p-5 bg-gray-100">
       <button
-        onClick={toggleView}
-        className="mb-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+      onClick={toggleView}
+      className="mb-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
       >
         {compactView ? "Switch to Detailed View" : "Switch to Compact View"}
-      </button>
+        </button>
+
 
       <section id="results-section" className="max-w-5xl mx-auto">
         <h2 className="text-3xl font-semibold text-gray-800 mb-8">
