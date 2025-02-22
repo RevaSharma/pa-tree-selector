@@ -1,14 +1,40 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import html2pdf from "html2pdf.js";
 
 function Results({ treeData }) {
+  const resultsRef = useRef();
   const [compactView, setCompactView] = useState(true);
 
   const toggleView = () => {
     setCompactView((prev) => !prev);
   };
 
+  const handleExport = () => {
+    if (resultsRef.current) {
+      // Hide Export Button during PDF generation (bc it was showing up in exported pdf too)
+      document.getElementById("export-button").style.display = "none";
+
+      const options = {
+        margin: 10,
+        filename: "tree-results.pdf",
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, logging: false },
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+      };
+
+      html2pdf()
+        .set(options)
+        .from(resultsRef.current)
+        .save()
+        .then(() => {
+          // Restore Export Button after PDF generation
+          document.getElementById("export-button").style.display = "block";
+        });
+    }
+  };
+
   return (
-    <div className="text-center p-5 bg-gray-100">
+    <div className="text-center p-5 bg-gray-100 min-h-screen">
       <button
         onClick={toggleView}
         className="mb-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
@@ -16,7 +42,7 @@ function Results({ treeData }) {
         {compactView ? "Switch to Detailed View" : "Switch to Compact View"}
       </button>
 
-      <section id="results-section" className="max-w-5xl mx-auto">
+      <section id="results-section" ref={resultsRef} className="max-w-5xl mx-auto">
         <h2 className="text-3xl font-semibold text-gray-800 mb-8">
           Filtered Results:
         </h2>
@@ -75,6 +101,18 @@ function Results({ treeData }) {
             </p>
           )}
         </div>
+
+        {treeData.length > 0 && (
+          <div className="flex justify-center mt-8">
+            <button
+              id="export-button"
+              className="px-6 py-3 bg-blue-500 text-white text-lg rounded-md hover:bg-blue-600 transition"
+              onClick={handleExport}
+            >
+              Export Selection as PDF
+            </button>
+          </div>
+        )}
       </section>
     </div>
   );
