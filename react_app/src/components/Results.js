@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import TreeInfoButton from './TreeInfoButton'; 
 
 function Results({ treeData }) {
   const [compactView, setCompactView] = useState(true);
@@ -10,13 +11,12 @@ function Results({ treeData }) {
   return (
     <div className="text-center p-5 bg-gray-100">
       <button
-      onClick={toggleView}
-      className="mb-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+        onClick={toggleView}
+        className="mb-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
       >
         {compactView ? "Switch to Detailed View" : "Switch to Compact View"}
-        </button>
-
-
+      </button>
+      
       <section id="results-section" className="max-w-5xl mx-auto">
         <h2 className="text-3xl font-semibold text-gray-800 mb-8">
           Filtered Results:
@@ -30,9 +30,12 @@ function Results({ treeData }) {
                 className="flex flex-col bg-white rounded-xl overflow-hidden shadow-md"
               >
                 {compactView ? (
-                  <p className="text-lg font-semibold text-gray-800 p-4">
-                    {tree.commonName}
-                  </p>
+                  <div className="flex justify-between items-center p-4">
+                    <p className="text-lg font-semibold text-gray-800 p-4">
+                      {tree.commonName}
+                    </p>
+                    <TreeInfoButton tree={tree} />
+                  </div>
                 ) : (
                   <>
                     {tree.images && tree.images.length > 0 ? (
@@ -47,9 +50,12 @@ function Results({ treeData }) {
                       </div>
                     )}
                     <div className="p-6 flex flex-col gap-2">
-                      <p className="text-lg font-semibold text-gray-800">
-                        {tree.commonName}
-                      </p>
+                      <div className="flex justify-between items-center">
+                        <p className="text-lg font-semibold text-gray-800">
+                          {tree.commonName}
+                        </p>
+                        <TreeInfoButton tree={tree} />
+                      </div>
                       <p className="text-md italic text-gray-600">
                         {tree.sciName}
                       </p>
