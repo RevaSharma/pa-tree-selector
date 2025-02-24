@@ -1,4 +1,5 @@
 import { filterTrees } from "./filterTrees";
+import trees from "../trees.json";
 
 describe("filterTrees()", () => {
   it("filters hardinessZone", () => {
@@ -351,5 +352,61 @@ describe("filterTrees()", () => {
       { flowerColor: "Scarlet red" }, // scarlet red
       { flowerColor: "Yellow red" }, // yellow red
     ]);
+  });
+
+  it("filters multiple criteria with actual tree data", () => {
+    // lehigh county, 18049
+    const filteringState1 = {
+      hardinessZone: "7a",
+      woodyPlantType: ["Tree"],
+      flowerColor: ["White"],
+      soilMoistureConditions: ["Moist"],
+      roadSaltSprayTolerance: ["Tolerant"]
+    };
+
+    const filteredTrees1 = filterTrees(trees, filteringState1);
+
+    const expectedFilteredTrees1 = [
+      { name: "American Wild Plum", hardinessZone: "7a", woodyPlantType: "Tree", flowerColor: "White", soilMoistureConditions: "Moist", roadSaltSprayTolerance: ["Tolerant"] },
+      { name: "Black Cherry", hardinessZone: "7a", woodyPlantType: "Tree", flowerColor: "White", soilMoistureConditions: "Moist", roadSaltSprayTolerance: ["Tolerant"] },
+      { name: "Black Locust", hardinessZone: "7a", woodyPlantType: "Tree", flowerColor: "White", soilMoistureConditions: "Moist", roadSaltSprayTolerance: ["Tolerant"] },
+      { name: "Canadian Serviceberry", hardinessZone: "7a", woodyPlantType: "Tree", flowerColor: "White", soilMoistureConditions: "Moist", roadSaltSprayTolerance: ["Tolerant"] }
+    ];
+
+    expect(filteredTrees1).toEqual(expectedFilteredTrees1);
+
+    /*
+    // union county, 17837
+    const filteringState2 = {
+      hardinessZone: "6b",
+      woodyPlantType: ["Tree"],
+      flowerColor: ["Evergreen"],
+      soilMoistureConditions: ["Dry"]
+    };
+
+    const filteredTrees2 = filterTrees(trees, filteringState2);
+
+    const expectedFilteredTrees2 = [
+      { name: "Example Shrub 1", hardinessZone: "7a", woodyPlantType: "Shrub", soilMoistureConditions: "Moist" },
+      { name: "Example Shrub 2", hardinessZone: "7a", woodyPlantType: "Shrub", soilMoistureConditions: "Moist" },
+    ];
+
+    expect(filteredTrees2).toEqual(expectedFilteredTrees2);
+
+    // elk county, 15857
+    const filteringState3 = {
+      hardinessZone: "5b",
+      woodyPlantType: ["Shrub"],
+      soilMoistureConditions: ["Wet"]
+    };
+
+    const filteredTrees3 = filterTrees(trees, filteringState3);
+
+    const expectedFilteredTrees3 = [
+      // Add the expected filtered trees here based on the actual data
+    ];
+
+    expect(filteredTrees3).toEqual(expectedFilteredTrees3);
+    */
   });
 });
