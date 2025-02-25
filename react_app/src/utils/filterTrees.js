@@ -16,12 +16,13 @@ export function filterTrees(trees, filteringState) {
       // If filterValues is undefined or null, skip the filter for that property
       if (!filterValues) return true;
 
-      const treeValue = tree[property]; // Get the corresponding value from the tree
 
       // Special case: hardiness zone requires numeric range comparison
       if (property === "hardinessZone") {
-        return matchesHardinessZone(treeValue, filterValues);
+        return matchesHardinessZone(tree.hardinessZone, filterValues);
       }
+
+      const treeValue = tree[property]; // Get the corresponding value from the tree
 
       // If the tree doesn't have the property managed by the filter, it doesn't pass the filter
       if (treeValue === undefined || treeValue === null) return false;
@@ -49,7 +50,7 @@ export function filterTrees(trees, filteringState) {
       }
 
       // Handle cases where tree value contains multiple acceptable values separated by "-"
-      if (treeValue.includes("-")) {
+      if (typeof treeValue === 'string' && treeValue.includes("-")) {
         const treeValueParts = treeValue.split("-").map((v) => v.trim());
         // Check if any of the parts match the filter values
         return treeValueParts.some((val) => filterValues.includes(val));
