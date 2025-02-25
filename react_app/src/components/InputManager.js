@@ -11,12 +11,12 @@ function InputManager({ filteringState, setFilteringState }) {
   // Get hardiness zone from navigation state if it exists
   useEffect(() => {
     if (location.state?.hardinessZone) {
-      setFilteringState((prev) => ({
+      setFilteringState(prev => ({
         ...prev,
-        hardinessZone: location.state.hardinessZone,
+        hardinessZone: location.state.hardinessZone
       }));
     }
-  }, [location.state?.hardinessZone, setFilteringState]);
+  }, [location.state, setFilteringState]);
 
   function updateFilter(property, value) {
     setFilteringState((prev) => {
