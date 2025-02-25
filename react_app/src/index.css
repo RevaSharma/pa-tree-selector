@@ -59,6 +59,7 @@ footer {
 /* Paragraphs: increased line-height, subtle text color */
 p {
   @apply leading-7 mt-4 text-gray-700;
+  text-align: justify;
 }
 
 /* Buttons: green color, hover effect, subtle shadow */
