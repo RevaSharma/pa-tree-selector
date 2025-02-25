@@ -1,12 +1,22 @@
-// export default InputManager;
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import ZipCodeInput from "./ZipCodeInput";
 import FilterInput from "./FilterInput";
 import filterConfig from "../data/filterConfig.json";
 
 function InputManager({ filteringState, setFilteringState }) {
   const navigate = useNavigate();
+  const location = useLocation();
+  
+  // Get hardiness zone from navigation state if it exists
+  useEffect(() => {
+    if (location.state?.hardinessZone) {
+      setFilteringState(prev => ({
+        ...prev,
+        hardinessZone: location.state.hardinessZone
+      }));
+    }
+  }, [location.state, setFilteringState]);
 
   function updateFilter(property, value) {
     setFilteringState((prev) => {
@@ -47,8 +57,28 @@ function InputManager({ filteringState, setFilteringState }) {
         match. 
       </p>
 
-      {/* ZIP Code Input
-      <ZipCodeInput updateHardinessZone={updateHardinessZone} /> */}
+      {/* Display current hardiness zone if it exists */}
+      {filteringState.hardinessZone && (
+        <div className="p-4 mb-6 bg-green-100 rounded-lg">
+          <p className="text-green-800">
+            Current Hardiness Zone: <strong>{filteringState.hardinessZone}</strong>
+            <button 
+              onClick={() => updateHardinessZone(null)}
+              className="ml-4 text-sm bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700"
+            >
+              Change
+            </button>
+          </p>
+        </div>
+      )}
+      
+      {/* Show ZIP input if no hardiness zone is selected */}
+      {!filteringState.hardinessZone && (
+        <div className="bg-white shadow-md rounded-lg p-5 mb-6 w-full max-w-lg mx-auto">
+          <h3 className="text-lg font-semibold mb-3">Hardiness Zone</h3>
+          <ZipCodeInput updateHardinessZone={updateHardinessZone} />
+        </div>
+      )}
 
       {/* Filter Inputs */}
       <div className="space-y-4 mt-6">
@@ -76,4 +106,3 @@ function InputManager({ filteringState, setFilteringState }) {
 }
 
 export default InputManager;
-

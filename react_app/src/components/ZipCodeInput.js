@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import hardinessMap from "../data/hardinessMap.json";
 
 function ZipCodeInput({ updateHardinessZone }) {
@@ -14,16 +14,22 @@ function ZipCodeInput({ updateHardinessZone }) {
   };
 
   return (
-    <div>
-      <h3>Zip Code (for Hardiness Zone)</h3>
-      <input
-        type="text"
-        value={zipCode}
-        onChange={handleZipCodeChange}
-        placeholder="Enter ZIP code"
-      />
+    <div className="flex flex-col">
+      <label htmlFor="zipcode-input" className="mb-2 text-gray-700">
+        Enter your ZIP code to find your Hardiness Zone:
+      </label>
+      <div className="flex flex-col sm:flex-row gap-4">
+        <input
+          id="zipcode-input"
+          type="text"
+          value={zipCode}
+          onChange={handleZipCodeChange}
+          placeholder="Enter ZIP code"
+          className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+        />
+      </div>
       {zipCode && (
-        <p>
+        <p className={`mt-2 ${hardinessZone ? 'text-green-600' : 'text-red-500'}`}>
           {hardinessZone
             ? `ZIP code ${zipCode} maps to hardiness zone ${hardinessZone}.`
             : `No hardiness zone match found for ZIP code ${zipCode}.`}
