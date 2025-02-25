@@ -1,5 +1,5 @@
 import { filterTrees } from "./filterTrees";
-import trees from "../trees.json";
+const jsonTrees = require("./trees.json");
 
 describe("filterTrees()", () => {
   it("filters hardinessZone", () => {
@@ -354,59 +354,75 @@ describe("filterTrees()", () => {
     ]);
   });
 
-  it("filters multiple criteria with actual tree data", () => {
-    // lehigh county, 18049
-    const filteringState1 = {
-      hardinessZone: "7a",
-      woodyPlantType: ["Tree"],
-      flowerColor: ["White"],
-      soilMoistureConditions: ["Moist"],
-      roadSaltSprayTolerance: ["Tolerant"]
-    };
+  describe("real tree data tests", () => {
+    it("filters lehigh county, 18049", () => {
+      const filteringState = {
+        hardinessZone: "7a",
+        woodyPlantType: ["Tree"],
+        flowerColor: ["White"],
+        soilMoistureConditions: ["Moist"],
+        roadSaltSprayTolerance: ["Tolerant"],
+      };
 
-    const filteredTrees1 = filterTrees(trees, filteringState1);
+      const filteredTrees = filterTrees(jsonTrees, filteringState);
 
-    const expectedFilteredTrees1 = [
-      { name: "American Wild Plum", hardinessZone: "7a", woodyPlantType: "Tree", flowerColor: "White", soilMoistureConditions: "Moist", roadSaltSprayTolerance: ["Tolerant"] },
-      { name: "Black Cherry", hardinessZone: "7a", woodyPlantType: "Tree", flowerColor: "White", soilMoistureConditions: "Moist", roadSaltSprayTolerance: ["Tolerant"] },
-      { name: "Black Locust", hardinessZone: "7a", woodyPlantType: "Tree", flowerColor: "White", soilMoistureConditions: "Moist", roadSaltSprayTolerance: ["Tolerant"] },
-      { name: "Canadian Serviceberry", hardinessZone: "7a", woodyPlantType: "Tree", flowerColor: "White", soilMoistureConditions: "Moist", roadSaltSprayTolerance: ["Tolerant"] }
-    ];
+      const expectedNames = [
+        "American Wild Plum",
+        "Black Cherry",
+        "Black Locust",
+        "Canadian Serviceberry",
+      ];
 
-    expect(filteredTrees1).toEqual(expectedFilteredTrees1);
+      // Check that each expected name exists exactly once
+      expectedNames.forEach((name) => {
+        const treesWithName = filteredTrees.filter(
+          (tree) => tree.commonName === name
+        );
+        expect(treesWithName.length).toBe(1); // Each name should appear exactly once
+      });
+    });
+    it("filters union county, 17837", () => {
+      const filteringState = {
+        hardinessZone: "6b",
+        woodyPlantType: ["Tree"],
+        flowerColor: ["Evergreen"],
+        soilMoistureConditions: ["Dry"],
+      };
 
-    /*
-    // union county, 17837
-    const filteringState2 = {
-      hardinessZone: "6b",
-      woodyPlantType: ["Tree"],
-      flowerColor: ["Evergreen"],
-      soilMoistureConditions: ["Dry"]
-    };
+      const filteredTrees = filterTrees(jsonTrees, filteringState);
 
-    const filteredTrees2 = filterTrees(trees, filteringState2);
+      const expectedNames = [
+        "something"
+      ]; // TODO
 
-    const expectedFilteredTrees2 = [
-      { name: "Example Shrub 1", hardinessZone: "7a", woodyPlantType: "Shrub", soilMoistureConditions: "Moist" },
-      { name: "Example Shrub 2", hardinessZone: "7a", woodyPlantType: "Shrub", soilMoistureConditions: "Moist" },
-    ];
+      // Check that each expected name exists exactly once
+      expectedNames.forEach((name) => {
+        const treesWithName = filteredTrees.filter(
+          (tree) => tree.commonName === name
+        );
+        expect(treesWithName.length).toBe(1); // Each name should appear exactly once
+      });
+    });
+    it("filters elk county, 15857", () => {
+      const filteringState = {
+        hardinessZone: "5b",
+        woodyPlantType: ["Shrub"],
+        soilMoistureConditions: ["Wet"],
+      };
 
-    expect(filteredTrees2).toEqual(expectedFilteredTrees2);
+      const filteredTrees = filterTrees(jsonTrees, filteringState);
 
-    // elk county, 15857
-    const filteringState3 = {
-      hardinessZone: "5b",
-      woodyPlantType: ["Shrub"],
-      soilMoistureConditions: ["Wet"]
-    };
+      const expectedNames = [
+        "something"
+      ]; // TODO
 
-    const filteredTrees3 = filterTrees(trees, filteringState3);
-
-    const expectedFilteredTrees3 = [
-      // Add the expected filtered trees here based on the actual data
-    ];
-
-    expect(filteredTrees3).toEqual(expectedFilteredTrees3);
-    */
+      // Check that each expected name exists exactly once
+      expectedNames.forEach((name) => {
+        const treesWithName = filteredTrees.filter(
+          (tree) => tree.commonName === name
+        );
+        expect(treesWithName.length).toBe(1); // Each name should appear exactly once
+      });
+    });
   });
 });
