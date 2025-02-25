@@ -10,28 +10,130 @@ function Results({ treeData }) {
     setCompactView((prev) => !prev);
   };
 
+  const generateTableHTML = () => {
+    const treesPerPage = 16; // Adjust as needed
+    let tableHTML = `
+      <html>
+      <head>
+        <style>
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+          }
+          th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+          }
+          tr {
+            min-height: 50px;
+          }
+          th {
+            background-color: RGB(211, 222, 219);
+            color: #1F2937; /* Tailwind gray-800 */
+          }
+          .header-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            background-color: RGB(51, 107, 136); /* Chesapeake Conservancy blue */
+            padding: 10px;
+          }
+          .logo {
+            height: 50px;
+            margin-right: 10px;
+          }
+          .title {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+          }
+          .page-break {
+            page-break-after: always;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="header-container">
+          <img src="images/logo.png" alt="Chesapeake Conservancy Logo" class="logo" />
+          <h1 class="title">Pennsylvania Native Tree Selector</h1>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Common Name</th>
+              <th>Scientific Name</th>
+              <th>Plant Type</th>
+              <th>Soil Moisture</th>
+              <th>Shade Tolerance</th>
+              <th>Growth Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+    `;
+
+    treeData.forEach((tree, index) => {
+      if (index % treesPerPage === 0 && index !== 0) {
+        tableHTML += `
+            </tbody>
+          </table>
+          <div class="page-break"></div>
+          <div class="header-container">
+            <img src="images/logo.png" alt="Chesapeake Conservancy Logo" class="logo" />
+            <h1 class="title">Pennsylvania Native Tree Selector</h1>
+          </div>
+          <table>
+            <thead>
+                <tr>
+                    <th>Common Name</th>
+                    <th>Scientific Name</th>
+                    <th>Plant Type</th>
+                    <th>Soil Moisture</th>
+                    <th>Shade Tolerance</th>
+                    <th>Growth Rate</th>
+                </tr>
+            </thead>
+            <tbody>
+      `;
+      }
+      tableHTML += `
+        <tr>
+          <td>${tree.commonName || ''}</td>
+          <td>${tree.sciName || ''}</td>
+          <td>${tree.woodyPlantType || ''}</td>
+          <td>${tree.soilMoistureConditions || ''}</td>
+          <td>${tree.shadeTolerance || ''}</td>
+          <td>${tree.growthRate || ''}</td>
+        </tr>
+      `;
+    });
+
+    tableHTML += `
+          </tbody>
+        </table>
+      </body>
+      </html>
+    `;
+
+    return tableHTML;
+  };
+
   const handleExport = () => {
-    if (resultsRef.current) {
-      // Hide Export Button during PDF generation (bc it was showing up in exported pdf too)
-      document.getElementById("export-button").style.display = "none";
+    const tableHTML = generateTableHTML();
 
-      const options = {
-        margin: 10,
-        filename: "tree-results.pdf",
-        image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, logging: false },
-        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-      };
+    const element = document.createElement('div');
+    element.innerHTML = tableHTML;
 
-      html2pdf()
-        .set(options)
-        .from(resultsRef.current)
-        .save()
-        .then(() => {
-          // Restore Export Button after PDF generation
-          document.getElementById("export-button").style.display = "block";
-        });
-    }
+    const opt = {
+      margin: 10,
+      filename: 'tree-data.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+    };
+
+    html2pdf().set(opt).from(element).save();
   };
 
   return (
