@@ -381,19 +381,27 @@ describe("filterTrees()", () => {
         expect(treesWithName.length).toBe(1); // Each name should appear exactly once
       });
     });
+
     it("filters union county, 17837", () => {
       const filteringState = {
         hardinessZone: "6b",
         woodyPlantType: ["Tree"],
-        flowerColor: ["Evergreen"],
-        soilMoistureConditions: ["Dry"],
+        droughtTolerance: ["Tolerant"],
+        soilMoistureConditions: ["Wet"],
+        deerPalatability: ["Unpalatable"]
       };
 
       const filteredTrees = filterTrees(jsonTrees, filteringState);
 
       const expectedNames = [
-        "something"
-      ]; // TODO
+        "Black Locust",
+        "Cockspur Hawthorn",
+        "Gray Birch",
+        "Hackberry",
+        "Honey Locust",
+        "Hop-hornbeam",
+        "Red Pine "
+      ];
 
       // Check that each expected name exists exactly once
       expectedNames.forEach((name) => {
@@ -403,18 +411,20 @@ describe("filterTrees()", () => {
         expect(treesWithName.length).toBe(1); // Each name should appear exactly once
       });
     });
+
     it("filters elk county, 15857", () => {
       const filteringState = {
         hardinessZone: "5b",
         woodyPlantType: ["Shrub"],
-        soilMoistureConditions: ["Wet"],
+        floodTolerance: ["Tolerant"],
+        flowerColor: ["Pink"]
       };
 
       const filteredTrees = filterTrees(jsonTrees, filteringState);
 
       const expectedNames = [
-        "something"
-      ]; // TODO
+        "Highbush Cranberry"
+      ];
 
       // Check that each expected name exists exactly once
       expectedNames.forEach((name) => {
