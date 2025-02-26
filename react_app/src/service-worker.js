@@ -113,3 +113,32 @@ self.addEventListener("install", (event) => {
     })
   );
 });
+// Colin's Code for caching images. Currently there is no image cache so this will not work
+
+/**
+
+self.addEventListener('fetch', (event) => {
+  // If the request is for an image, cache it and serve from cache when offline
+  if (event.request.url.includes('https://api.gbif.org/')) {
+    event.respondWith(
+      caches.match(event.request).then((cachedResponse) => {
+        if (cachedResponse) {
+          return cachedResponse; // Return cached image if available
+        }
+
+        // If the image isn't cached, fetch it from the network
+        return fetch(event.request).then((response) => {
+          // Cache the image for future use
+          const clonedResponse = response.clone();
+          caches.open('image-cache').then((cache) => {
+            cache.put(event.request, clonedResponse);
+          });
+          return response;
+        });
+      })
+    );
+  }
+}); 
+
+*/
+
