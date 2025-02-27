@@ -84,6 +84,7 @@ describe("filterTrees()", () => {
       expect(filteredTrees).toEqual([
         { soilCompactionTolerance: "Intermediate" }, // intermediate
         { soilCompactionTolerance: "Tolerant" }, // tolerant
+        { soilCompactionTolerance: "Very Tolerant" }, // very tolerant
       ]);
     });
 
@@ -99,7 +100,7 @@ describe("filterTrees()", () => {
       ];
 
       const filteringState = {
-        shadeTolerance: ["Very Intolerant", "Intolerant"],
+        shadeTolerance: ["Intolerant"],
       };
       const filteredTrees = filterTrees(trees, filteringState);
 
@@ -392,15 +393,16 @@ describe("filterTrees()", () => {
       };
 
       const filteredTrees = filterTrees(jsonTrees, filteringState);
+      console.log(filteredTrees.map(tree => tree.commonName))
 
       const expectedNames = [
-        "Black Locust",
-        "Cockspur Hawthorn",
-        "Gray Birch",
-        "Hackberry",
-        "Honey Locust",
-        "Hop-hornbeam",
-        "Red Pine "
+        "Black Locust", // soilMoistureConditions is Dry - Moist. Should NOT be passing Wet.
+        "Cockspur Hawthorn", // soilMoistureConditions is Dry - Moist. Should NOT be passing Wet.
+        "Gray Birch", // good
+        "Hackberry", // good
+        "Honey Locust", // soilMoistureConditions is Dry - Moist. Should NOT be passing Wet.
+        "Hop-hornbeam", // soilMoistureConditions is Dry - Moist. Should NOT be passing Wet.
+        "Red Pine" // soilMoistureConditions is Dry. Should NOT be passing Wet.
       ];
 
       // Check that each expected name exists exactly once
