@@ -7,11 +7,15 @@
 // You can also remove this file if you'd prefer not to use a
 // service worker, and the Workbox build step will be skipped.
 
-import { clientsClaim } from 'workbox-core';
-import { ExpirationPlugin } from 'workbox-expiration';
-import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
-import { registerRoute } from 'workbox-routing';
-import { StaleWhileRevalidate } from 'workbox-strategies';
+import { clientsClaim } from "workbox-core";
+import { ExpirationPlugin } from "workbox-expiration";
+import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
+import { CacheableResponsePlugin } from "workbox-cacheable-response";
+import { registerRoute } from "workbox-routing";
+import { StaleWhileRevalidate } from "workbox-strategies";
+
+const CSV_URL =
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vSN9qYza-MdxZdNBnWK58LbIFS6v6UIdYXPwrNgCewtPqVuYdt2g7HmzXXG9x6kshf_-8Cctgj2xTOp/pub?output=csv";
 
 clientsClaim();
 
@@ -24,16 +28,16 @@ precacheAndRoute(self.__WB_MANIFEST);
 // Set up App Shell-style routing, so that all navigation requests
 // are fulfilled with your index.html shell. Learn more at
 // https://developers.google.com/web/fundamentals/architecture/app-shell
-const fileExtensionRegexp = new RegExp('/[^/?]+\\.[^/]+$');
+const fileExtensionRegexp = new RegExp("/[^/?]+\\.[^/]+$");
 registerRoute(
   // Return false to exempt requests from being fulfilled by index.html.
   ({ request, url }) => {
     // If this isn't a navigation, skip.
-    if (request.mode !== 'navigate') {
+    if (request.mode !== "navigate") {
       return false;
     } // If this is a URL that starts with /_, skip.
 
-    if (url.pathname.startsWith('/_')) {
+    if (url.pathname.startsWith("/_")) {
       return false;
     } // If this looks like a URL for a resource, because it contains // a file extension, skip.
 
@@ -43,16 +47,17 @@ registerRoute(
 
     return true;
   },
-  createHandlerBoundToURL(process.env.PUBLIC_URL + '/index.html')
+  createHandlerBoundToURL(process.env.PUBLIC_URL + "/index.html")
 );
 
 // An example runtime caching route for requests that aren't handled by the
 // precache, in this case same-origin .png requests like those from in public/
 registerRoute(
   // Add in any other file extensions or routing criteria as needed.
-  ({ url }) => url.origin === self.location.origin && url.pathname.endsWith('.png'), // Customize this strategy as needed, e.g., by changing to CacheFirst.
+  ({ url }) =>
+    url.origin === self.location.origin && url.pathname.endsWith(".png"), // Customize this strategy as needed, e.g., by changing to CacheFirst.
   new StaleWhileRevalidate({
-    cacheName: 'images',
+    cacheName: "images",
     plugins: [
       // Ensure that once this runtime cache reaches a maximum size the
       // least-recently used images are removed.
@@ -63,10 +68,48 @@ registerRoute(
 
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
-self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") {
     self.skipWaiting();
   }
 });
 
-// Any other custom service worker logic can go here.
+// John's remedy (1): cache the CSV_URL request as trees-cache
+registerRoute(
+  ({ url }) => url.href === CSV_URL,
+  new StaleWhileRevalidate({
+    cacheName: "trees-cache",
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [200],
+      }),
+      new ExpirationPlugin({
+        maxEntries: 1, // Store only one version
+        maxAgeSeconds: 60 * 60 * 24, // Cache for a day
+      }),
+    ],
+  })
+);
+
+// John's remedy (2): have service worker claim control immediately
+// this way, the page doesn't have to be reloaded to activate the service worker
+// as was seen in testing. this is a bug fix for that
+self.addEventListener("activate", (event) => {
+  event.waitUntil(self.clients.claim());
+});
+
+// John's remedy (3): cache the trees as soon as service worker is installed
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open("trees-cache").then((cache) => {
+      return fetch(CSV_URL)
+        .then((response) => {
+          if (!response.ok) throw new Error("Failed to fetch CSV");
+          return cache.put(CSV_URL, response.clone());
+        })
+        .catch(() => {
+          console.warn("CSV fetch failed during install, proceeding anyway.");
+        });
+    })
+  );
+});

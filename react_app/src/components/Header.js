@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Header() {
   return (
-    <header className="bg-gradient-to-r bg-blue-800 py-4 shadow-lg flex justify-center">
+    <header className="bg-headerBg py-4 shadow-lg flex justify-center">
       <div className="flex justify-between items-center w-11/12 max-w-5xl">
         <div className="flex items-center">
           <img
@@ -12,7 +12,7 @@ function Header() {
             className="h-12 mr-3"
           />
           <h1 className="text-white text-4xl font-bold">
-            Pennsylvania Native Tree Selector Tool
+            Pennsylvania Native Tree Selector
           </h1>
         </div>
         <nav className="flex gap-5">

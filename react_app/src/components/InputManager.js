@@ -1,42 +1,28 @@
+// export default InputManager;
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import ZipCodeInput from "./ZipCodeInput";
 import FilterInput from "./FilterInput";
 import filterConfig from "../data/filterConfig.json";
 
-/**
- * Manages the overall filtering state.
- *
- * @param {Object} props - Component props.
- * @param {Object} props.filteringState - The current filtering state from App.js.
- * @param {Function} props.setFilteringState - Function to update selected filters.
- *
- * @returns {JSX.Element} Filter management component.
- */
 function InputManager({ filteringState, setFilteringState }) {
   const navigate = useNavigate();
 
-  // function used by filter input to update filtering state
   function updateFilter(property, value) {
     setFilteringState((prev) => {
-      // if given value is already in the array of selected values for that property, then...
       const selectedValues = prev[property]?.includes(value)
-        ? prev[property].filter((v) => v !== value) // remove it from that array
-        : [...(prev[property] || []), value]; // else, append value to the array
+        ? prev[property].filter((v) => v !== value)
+        : [...(prev[property] || []), value];
 
-      // remove the property from filtering state if the selected values array is now empty
-      const newSelectedFilters = {
+      return {
         ...prev,
         [property]: selectedValues.length ? selectedValues : undefined,
       };
-
-      return newSelectedFilters;
     });
   }
 
-  // function used by zip code input to update filtering state
   function updateHardinessZone(zone) {
     setFilteringState((prev) => {
-      // if zone is null, remove hardinessZone from filtering state, else update it as zone
       return zone !== null
         ? { ...prev, hardinessZone: zone }
         : Object.fromEntries(
@@ -51,14 +37,21 @@ function InputManager({ filteringState, setFilteringState }) {
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-8">
-      <h2 className="text-3xl font-semibold text-gray-800 mb-6">
+      <h2 className="text-3xl font-semibold text-gray-800 mb-2">
         Tree Filtering Options
       </h2>
+      <p className="text-gray-600 mb-6">
+        Welcome! Use the filters below to find your perfect tree. First, enter
+        your ZIP code to determine your Hardiness Zone. Then, choose among
+        different environmental and aesthetic filters to narrow down the best
+        match. 
+      </p>
 
-      <ZipCodeInput updateHardinessZone={updateHardinessZone} />
+      {/* ZIP Code Input
+      <ZipCodeInput updateHardinessZone={updateHardinessZone} /> */}
 
-      {/* Mapping Filter Options */}
-      <div className="space-y-4">
+      {/* Filter Inputs */}
+      <div className="space-y-4 mt-6">
         {filterConfig.map(({ property, options, displayTitle }) => (
           <FilterInput
             key={property}
@@ -74,7 +67,7 @@ function InputManager({ filteringState, setFilteringState }) {
       {/* View Results Button */}
       <button
         onClick={handleViewResults}
-        className="mt-6 px-6 py-3 bg-blue-500 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-blue-600 transition-colors"
+        className="mt-8 px-6 py-3 bg-green-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-green-700 transition-colors"
       >
         View Results
       </button>
@@ -83,3 +76,4 @@ function InputManager({ filteringState, setFilteringState }) {
 }
 
 export default InputManager;
+

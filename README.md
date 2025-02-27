@@ -5,6 +5,7 @@ This repository contains two versions of the project: `react_app` and `version1`
 - [How to Run](#how-to-run)
   - [Development Mode](#development-mode)
   - [Production Mode](#production-mode)
+- [Testing PWA Functionality](#testing-pwa-functionality)
 - [Project Structure](#project-structure)
 
 ## How to Run
@@ -49,7 +50,7 @@ This repository contains two versions of the project: `react_app` and `version1`
    npm install -g serve
    ```
 
-#### Creating a Production Build
+#### Creating and Serving a Production Build
 
 1. Navigate to the `react_app` folder:
 
@@ -68,6 +69,17 @@ This repository contains two versions of the project: `react_app` and `version1`
    ```sh
    serve -s build
    ```
+
+If the `serve` command cannot be found despite installing it correctly, you may need to run `npx serve -s build` instead.
+
+## Testing PWA Functionality
+
+1. [Create and serve a production build.](#creating-and-serving-a-production-build)
+2. Open your browser's Developer Tools.
+3. In Developer Tools, click the Application tab. Under Service Workers, check that the service worker is **registered** and **running.**
+4. Turn off your Wi-Fi. Refresh the page.
+5. If the app still shows trees and filters them correctly, then PWA caching is working.
+6. In Developer Tools, click the Storage tab. Under Cache Storage, `trees-cache` should be listed.
 
 ## Project Structure
 
