@@ -1,7 +1,6 @@
 // export default InputManager;
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import ZipCodeInput from "./ZipCodeInput";
 import FilterInput from "./FilterInput";
 import filterConfig from "../data/filterConfig.json";
 
@@ -21,16 +20,6 @@ function InputManager({ filteringState, setFilteringState }) {
     });
   }
 
-  function updateHardinessZone(zone) {
-    setFilteringState((prev) => {
-      return zone !== null
-        ? { ...prev, hardinessZone: zone }
-        : Object.fromEntries(
-            Object.entries(prev).filter(([key]) => key !== "hardinessZone")
-          );
-    });
-  }
-
   function handleViewResults() {
     navigate("/results");
   }
@@ -44,11 +33,8 @@ function InputManager({ filteringState, setFilteringState }) {
         Welcome! Use the filters below to find your perfect tree. First, enter
         your ZIP code to determine your Hardiness Zone. Then, choose among
         different environmental and aesthetic filters to narrow down the best
-        match. 
+        match.
       </p>
-
-      {/* ZIP Code Input
-      <ZipCodeInput updateHardinessZone={updateHardinessZone} /> */}
 
       {/* Filter Inputs */}
       <div className="space-y-4 mt-6">

@@ -28,7 +28,7 @@ function App() {
           header: true,
           skipEmptyLines: true,
           complete: (result) => {
-            setTrees(result.data.slice(1)); 
+            setTrees(result.data.slice(1));
           },
         });
       })
@@ -36,12 +36,19 @@ function App() {
   }, []);
 
   useEffect(() => {
+    // This will run every time `trees` or `filteringState` changes
     if (trees.length > 0 && filteringState) {
       const filtered = filterTrees(trees, filteringState);
       setFilteredTrees(filtered);
       fetchTreeImages(filtered);
     }
+    console.log('Current filteringState:', filteringState);
   }, [trees, filteringState]);
+
+  useEffect(() => {
+    // This will run every time `filteredTrees` changes
+    console.log('Current filtered trees:', filteredTrees);
+  }, [filteredTrees]);
 
   /**
    * Cleans the scientific name by removing alternate names in parentheses
@@ -94,7 +101,10 @@ function App() {
           return { ...tree, images };
         } catch (error) {
           console.error("Error fetching images for:", tree.sciName, error);
-          return { ...tree, images: ["https://example.com/placeholder-tree.jpg"] }; // Use placeholder if all else fails
+          return {
+            ...tree,
+            images: ["https://example.com/placeholder-tree.jpg"],
+          }; // Use placeholder if all else fails
         }
       })
     );
@@ -110,7 +120,11 @@ function App() {
           searchName
         )}&mediaType=StillImage`
       );
-      return response.data.results?.flatMap((res) => res.media || [])?.map((img) => img.identifier) || [];
+      return (
+        response.data.results
+          ?.flatMap((res) => res.media || [])
+          ?.map((img) => img.identifier) || []
+      );
     } catch (error) {
       console.error("Error fetching images from GBIF for:", searchName, error);
       return [];
@@ -120,15 +134,24 @@ function App() {
   const fetchImagesFromWikimedia = async (searchName) => {
     try {
       const response = await axios.get(
-        `https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=images&titles=${encodeURIComponent(searchName)}&origin=*`
+        `https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=images&titles=${encodeURIComponent(
+          searchName
+        )}&origin=*`
       );
       return response.data.query?.pages
         ? Object.values(response.data.query.pages)
             .flatMap((page) => page.images || [])
-            .map((img) => `https://commons.wikimedia.org/wiki/Special:FilePath/${img.title}`)
+            .map(
+              (img) =>
+                `https://commons.wikimedia.org/wiki/Special:FilePath/${img.title}`
+            )
         : [];
     } catch (error) {
-      console.error("Error fetching images from Wikimedia for:", searchName, error);
+      console.error(
+        "Error fetching images from Wikimedia for:",
+        searchName,
+        error
+      );
       return [];
     }
   };
@@ -139,7 +162,15 @@ function App() {
         <Header />
         <main className="flex-grow">
           <Routes>
-            <Route path="/" element={<StartMenu />} />
+            <Route
+              path="/"
+              element={
+                <StartMenu
+                  filteringState={filteringState}
+                  setFilteringState={setFilteringState}
+                />
+              }
+            />
             <Route path="/about" element={<About />} />
             <Route
               path="/filters"
@@ -152,7 +183,9 @@ function App() {
             />
             <Route
               path="/results"
-              element={<Results treeData={filteredTrees} isLoading={isLoading} />}
+              element={
+                <Results treeData={filteredTrees} isLoading={isLoading} />
+              }
             />
           </Routes>
         </main>
