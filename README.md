@@ -1,8 +1,5 @@
 # Pennsylvania Native Tree Selector
 
-## Video Link
-https://youtu.be/8FoFjkFL28U
-
 This repository contains two versions of the project: `react_app` and `version1`.
 
 - [How to Run](#how-to-run)
@@ -10,6 +7,9 @@ This repository contains two versions of the project: `react_app` and `version1`
   - [Production Mode](#production-mode)
 - [Testing PWA Functionality](#testing-pwa-functionality)
 - [Project Structure](#project-structure)
+
+## Video Link
+https://youtu.be/8FoFjkFL28U
 
 ## How to Run
 
