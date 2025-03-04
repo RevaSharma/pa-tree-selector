@@ -1,6 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+/**
+ * Header component. Displayed at the top of every page.
+ *
+ * The navigation links use React Router's `Link` component for client-side routing.
+ *
+ * @returns {JSX.Element} Rendered header component containing the logo, title, and navigation.
+ */
 function Header() {
   return (
     <header className="bg-headerBg py-4 shadow-lg flex justify-center">

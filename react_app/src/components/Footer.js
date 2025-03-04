@@ -1,7 +1,7 @@
 import React from "react";
 
 /**
- * The Footer component. Displayed at the bottom of every page.
+ * Footer component. Displayed at the bottom of every page.
  *
  * @component
  * @param {Object} props - The component props.
