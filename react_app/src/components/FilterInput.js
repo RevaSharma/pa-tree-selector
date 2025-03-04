@@ -2,31 +2,40 @@ import React from "react";
 import InfoTooltip from "./InfoTooltip";
 
 /**
- * Manages a single filter.
+ * Converts a camelCase string to title case, with spaces inserted before capital letters.
  *
- * @param {Object} props - Component props.
- * @param {string} props.property - Property being filtered.
- * @param {Array<string>} props.options - Options for the filtered property.
- * @param {Function} props.update - Function to call when toggling an option.
- * @param {Array<string>} [props.selectedOptions=[]] - Currently selected filter options.
- * @param {string} [props.displayTitle] - Title displayed for this filter (optional).
+ * @param {string} str - The camelCase string to convert.
+ * @returns {string} The string formatted in title case, with spaces before capital letters.
  *
- * @returns {JSX.Element} Rendered filter component.
+ * @example
+ * camelCaseToTitleCase("jugloneTolerance"); // "Juglone Tolerance"
  */
+const camelCaseToTitleCase = (str) =>
+  str
+    .replace(/([A-Z])/g, " $1") // Insert space before capital letters
+    .replace(/^./, (match) => match.toUpperCase()); // Capitalize the first letter
 
-// Helper function to convert a string to title case.
-const titleCase = (str) => {
-  return str
-    .split(" ")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-};
-
-const FilterInput = ({ property, options, update, selectedOptions = [], displayTitle }) => {
-  // First, insert spaces before capital letters.
-  const formatted = property.replace(/([A-Z])/g, " $1").trim();
-  // Then, convert the result to title case.
-  const title = displayTitle || titleCase(formatted);
+/**
+ * FilterInput component for managing a single filter with selectable options.
+ *
+ * @component
+ * @param {Object} props - Component props.
+ * @param {string} props.property - The property being filtered.
+ * @param {Array<string>} props.options - Available options for the filter.
+ * @param {Function} props.update - Callback function triggered when an option is toggled.
+ * @param {Array<string>} [props.selectedOptions=[]] - List of currently selected filter options.
+ * @param {string} [props.displayTitle] - Custom display title for the filter (defaults to a formatted version of `property`).
+ *
+ * @returns {JSX.Element} The rendered filter input component.
+ */
+const FilterInput = ({
+  property,
+  options,
+  update,
+  selectedOptions = [],
+  displayTitle,
+}) => {
+  const title = displayTitle || camelCaseToTitleCase(property);
 
   return (
     <div className="bg-white shadow-md rounded-lg p-5 mb-6 w-full max-w-lg mx-auto">
