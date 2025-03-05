@@ -74,9 +74,6 @@ self.addEventListener("message", (event) => {
   }
 });
 
-
-
-
 // John's remedy (1): cache the CSV_URL request as trees-cache
 registerRoute(
   ({ url }) => url.href === CSV_URL,
@@ -134,25 +131,27 @@ self.addEventListener("install", (event) => {
   );
 });
 
-
 // Colin's Code for caching images. Currently there is no image cache so this will not work
 
-self.addEventListener('fetch', (event) => {
+self.addEventListener("fetch", (event) => {
   // If the request is for an image, cache it and serve from cache when offline
-  console.log("testing interception")
-  if (event.request.url.includes('https://api.gbif.org/') || event.request.url.includes('https://commons.wikimedia.org')) {
+  console.log("testing interception");
+  if (
+    event.request.url.includes("https://api.gbif.org/") ||
+    event.request.url.includes("https://commons.wikimedia.org") ||
+    event.request.url.includes("https://inaturalist-open-data.s3.amazonaws.com")
+  ) {
     event.respondWith(
       caches.match(event.request).then((cachedResponse) => {
         if (cachedResponse) {
           return cachedResponse; // Return cached image if available
         }
 
-
         // If the image isn't cached, fetch it from the network. make sure to add an else if there is no image!
         return fetch(event.request).then((response) => {
           // Cache the image for future use
           const clonedResponse = response.clone();
-          caches.open('tree-image-cache').then((cache) => {
+          caches.open("tree-image-cache").then((cache) => {
             cache.put(event.request, clonedResponse);
           });
           return response;
@@ -160,7 +159,4 @@ self.addEventListener('fetch', (event) => {
       })
     );
   }
-}); 
-
-
-
+});
