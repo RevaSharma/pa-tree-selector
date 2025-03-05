@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import html2pdf from "html2pdf.js";
-import TreeInfoButton from './TreeInfoButton'; 
+import TreeInfoButton from "./TreeInfoButton";
+import Result from "./Result";
 
 function Results({ treeData }) {
   const resultsRef = useRef();
@@ -99,12 +100,12 @@ function Results({ treeData }) {
       }
       tableHTML += `
         <tr>
-          <td>${tree.commonName || ''}</td>
-          <td>${tree.sciName || ''}</td>
-          <td>${tree.woodyPlantType || ''}</td>
-          <td>${tree.soilMoistureConditions || ''}</td>
-          <td>${tree.shadeTolerance || ''}</td>
-          <td>${tree.growthRate || ''}</td>
+          <td>${tree.commonName || ""}</td>
+          <td>${tree.sciName || ""}</td>
+          <td>${tree.woodyPlantType || ""}</td>
+          <td>${tree.soilMoistureConditions || ""}</td>
+          <td>${tree.shadeTolerance || ""}</td>
+          <td>${tree.growthRate || ""}</td>
         </tr>
       `;
     });
@@ -122,22 +123,22 @@ function Results({ treeData }) {
   const handleExport = () => {
     const tableHTML = generateTableHTML();
 
-    const element = document.createElement('div');
+    const element = document.createElement("div");
     element.innerHTML = tableHTML;
 
     const opt = {
       margin: 10,
-      filename: 'tree-data.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
+      filename: "tree-data.pdf",
+      image: { type: "jpeg", quality: 0.98 },
       html2canvas: { scale: 2, useCORS: true },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+      jsPDF: { unit: "mm", format: "a4", orientation: "landscape" },
     };
 
     html2pdf().set(opt).from(element).save();
   };
 
   return (
-    <div className="text-center p-5 bg-gray-100 min-h-screen">
+    <div className="p-5 bg-gray-100 min-h-screen">
       <button
         onClick={toggleView}
         className="mb-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
@@ -145,25 +146,30 @@ function Results({ treeData }) {
         {compactView ? "Switch to Detailed View" : "Switch to Compact View"}
       </button>
 
-      <section id="results-section" ref={resultsRef} className="max-w-5xl mx-auto">
+      <section
+        id="results-section"
+        ref={resultsRef}
+        className="max-w-5xl mx-auto"
+      >
         <h2 className="text-3xl font-semibold text-gray-800 mb-8">
           Filtered Results:
         </h2>
 
-        <div className="grid gap-8 p-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="flex flex-col justify-center">
           {treeData && treeData.length > 0 ? (
             treeData.map((tree, index) => (
               <div
                 key={index}
-                className="flex flex-col bg-white rounded-xl overflow-hidden shadow-md"
+                className=""
               >
                 {compactView ? (
-                  <div className="flex justify-between items-center p-4">
-                    <p className="text-lg font-semibold text-gray-800 p-4">
-                      {tree.commonName}
-                    </p>
-                    <TreeInfoButton tree={tree} />
-                  </div>
+                  // <div className="flex justify-between items-center p-4">
+                  //   <p className="text-lg font-semibold text-gray-800 p-4">
+                  //     {tree.commonName}
+                  //   </p>
+                  //   <TreeInfoButton tree={tree} />
+                  // </div>
+                  <Result tree={tree}></Result>
                 ) : (
                   <>
                     {tree.images && tree.images.length > 0 ? (
@@ -213,10 +219,7 @@ function Results({ treeData }) {
 
         {treeData.length > 0 && (
           <div className="flex justify-center mt-8">
-            <button
-              id="export-button"
-              onClick={handleExport}
-            >
+            <button id="export-button" onClick={handleExport}>
               Export Selection as PDF
             </button>
           </div>

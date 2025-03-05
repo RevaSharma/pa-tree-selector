@@ -23,11 +23,6 @@ header {
   @apply text-white flex items-center justify-between px-6 py-4 bg-green-700 shadow-lg;
 }
 
-/* Headings: Consistent line-height, modern scaling */
-h1, h2, h3, h4, h5, h6 {
-  @apply font-semibold leading-tight;
-}
-
 /* Scaled headings for responsive design */
 h1 {
   @apply text-4xl md:text-5xl; /* Larger on md+ screens */
@@ -56,16 +51,9 @@ footer {
   @apply text-white bg-green-800;
 }
 
-/* Paragraphs: increased line-height, subtle text color */
-p {
-  @apply leading-7 mt-4 text-gray-700;
-  text-align: justify;
-}
-
 /* Buttons: green color, hover effect, subtle shadow */
 button {
   @apply inline-flex items-center justify-center bg-green-600 text-white border-none py-3 px-6 rounded-lg cursor-pointer text-base transition hover:bg-green-700 hover:shadow-md;
-  margin-top: 1rem;
 }
 
 /* Select elements: consistent with input style, slight rounding */
