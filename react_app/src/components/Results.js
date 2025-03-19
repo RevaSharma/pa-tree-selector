@@ -2,8 +2,10 @@ import React, { useRef, useState } from "react";
 import html2pdf from "html2pdf.js";
 import TreeInfoButton from "./TreeInfoButton";
 import Result from "./Result";
+import { useNavigate } from "react-router-dom";
 
 function Results({ treeData }) {
+  const navigate = useNavigate();
   const resultsRef = useRef();
   const [compactView, setCompactView] = useState(true);
 
@@ -11,8 +13,9 @@ function Results({ treeData }) {
     setCompactView((prev) => !prev);
   };
 
+  // Function to generate the table HTML for export as PDF
   const generateTableHTML = () => {
-    const treesPerPage = 16; // Adjust as needed
+    const treesPerPage = 16;
     let tableHTML = `
       <html>
       <head>
@@ -27,18 +30,18 @@ function Results({ treeData }) {
             padding: 8px;
             text-align: left;
           }
-          tr {
-            min-height: 50px;
-          }
           th {
             background-color: RGB(211, 222, 219);
-            color: #1F2937; /* Tailwind gray-800 */
+            color: #1F2937;
+          }
+          .page-break {
+            page-break-after: always;
           }
           .header-container {
             display: flex;
             align-items: center;
             margin-bottom: 20px;
-            background-color: RGB(51, 107, 136); /* Chesapeake Conservancy blue */
+            background-color: RGB(51, 107, 136);
             padding: 10px;
           }
           .logo {
@@ -49,9 +52,6 @@ function Results({ treeData }) {
             font-size: 24px;
             font-weight: bold;
             color: white;
-          }
-          .page-break {
-            page-break-after: always;
           }
         </style>
       </head>
@@ -77,26 +77,26 @@ function Results({ treeData }) {
     treeData.forEach((tree, index) => {
       if (index % treesPerPage === 0 && index !== 0) {
         tableHTML += `
-            </tbody>
-          </table>
-          <div class="page-break"></div>
-          <div class="header-container">
-            <img src="images/logo.png" alt="Chesapeake Conservancy Logo" class="logo" />
-            <h1 class="title">Pennsylvania Native Tree Selector</h1>
-          </div>
-          <table>
-            <thead>
-                <tr>
-                    <th>Common Name</th>
-                    <th>Scientific Name</th>
-                    <th>Plant Type</th>
-                    <th>Soil Moisture</th>
-                    <th>Shade Tolerance</th>
-                    <th>Growth Rate</th>
-                </tr>
-            </thead>
-            <tbody>
-      `;
+          </tbody>
+        </table>
+        <div class="page-break"></div>
+        <div class="header-container">
+          <img src="images/logo.png" alt="Chesapeake Conservancy Logo" class="logo" />
+          <h1 class="title">Pennsylvania Native Tree Selector</h1>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Common Name</th>
+              <th>Scientific Name</th>
+              <th>Plant Type</th>
+              <th>Soil Moisture</th>
+              <th>Shade Tolerance</th>
+              <th>Growth Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+        `;
       }
       tableHTML += `
         <tr>
@@ -120,6 +120,7 @@ function Results({ treeData }) {
     return tableHTML;
   };
 
+  // Function to handle export as PDF
   const handleExport = () => {
     const tableHTML = generateTableHTML();
 
@@ -138,10 +139,18 @@ function Results({ treeData }) {
   };
 
   return (
-    <div className="p-5 bg-gray-100 min-h-screen">
+    <div className="p-7 bg-gray-80 min-h-screen">
+      {/* Return Button */}
+      <button
+        onClick={() => navigate(-1)}
+        className="mb-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+      >
+        ← Return To Filtering
+      </button>
+
       <button
         onClick={toggleView}
-        className="mb-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+        className="mb-4 ml-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
       >
         {compactView ? "Switch to Detailed View" : "Switch to Compact View"}
       </button>
@@ -155,41 +164,30 @@ function Results({ treeData }) {
           Filtered Results:
         </h2>
 
-        <div className="flex flex-col justify-center">
+        {/* Two-column layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {treeData && treeData.length > 0 ? (
             treeData.map((tree, index) => (
-              <div
-                key={index}
-                className=""
-              >
+              <div key={index} className="w-full">
                 {compactView ? (
-                  // <div className="flex justify-between items-center p-4">
-                  //   <p className="text-lg font-semibold text-gray-800 p-4">
-                  //     {tree.commonName}
-                  //   </p>
-                  //   <TreeInfoButton tree={tree} />
-                  // </div>
-                  <Result tree={tree}></Result>
+                  <Result tree={tree} />
                 ) : (
-                  <>
+                  <div className="border border-gray-200 rounded-lg p-4 shadow-md bg-white">
                     {tree.images && tree.images.length > 0 ? (
                       <img
                         src={tree.images[0]}
                         alt={tree.commonName}
-                        className="w-full h-48 object-cover"
+                        className="w-full h-48 object-cover rounded-md"
                       />
                     ) : (
                       <div className="w-full h-48 bg-gray-300 flex items-center justify-center text-gray-600">
                         No Image Available
                       </div>
                     )}
-                    <div className="p-6 flex flex-col gap-2">
-                      <div className="flex justify-between items-center">
-                        <p className="text-lg font-semibold text-gray-800">
-                          {tree.commonName}
-                        </p>
-                        <TreeInfoButton tree={tree} />
-                      </div>
+                    <div className="p-4">
+                      <p className="text-lg font-semibold text-gray-800">
+                        {tree.commonName}
+                      </p>
                       <p className="text-md italic text-gray-600">
                         {tree.sciName}
                       </p>
@@ -205,8 +203,9 @@ function Results({ treeData }) {
                       <p className="text-sm text-gray-700">
                         Growth Rate: {tree.growthRate}
                       </p>
+                      <TreeInfoButton tree={tree} />
                     </div>
-                  </>
+                  </div>
                 )}
               </div>
             ))
@@ -219,7 +218,11 @@ function Results({ treeData }) {
 
         {treeData.length > 0 && (
           <div className="flex justify-center mt-8">
-            <button id="export-button" onClick={handleExport}>
+            <button
+              id="export-button"
+              onClick={handleExport}
+              className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+            >
               Export Selection as PDF
             </button>
           </div>
@@ -230,3 +233,4 @@ function Results({ treeData }) {
 }
 
 export default Results;
+
