@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import ZipCodeInput from "./ZipCodeInput";
-import { FaTree, FaMapMarkerAlt } from "react-icons/fa"; // Import icons from react-icons
+import { FaTree } from "react-icons/fa";
 
 function StartMenu({ filteringState, setFilteringState }) {
   const navigate = useNavigate();
-
+  
   function updateHardinessZone(zone) {
     setFilteringState((prev) => {
       return zone !== null
@@ -15,15 +15,15 @@ function StartMenu({ filteringState, setFilteringState }) {
           );
     });
   }
-
+  
   const handleClick = () => {
     navigate("/filters");
   };
-
+  
   return (
     <section
       id="start-menu"
-      className="hideable crumb-page flex flex-col items-center justify-center pt-17 px-8 bg-gradient-to-b from-green-50 to-white min-h-screen"
+      className="hideable crumb-page flex flex-col items-center justify-center pt-12 px-8 bg-gradient-to-b from-green-50 to-white min-h-screen"
     >
       <div className="max-w-2xl w-full text-center bg-white p-8 rounded-xl shadow-lg border border-green-100">
         {/* Header with Icon */}
@@ -33,7 +33,7 @@ function StartMenu({ filteringState, setFilteringState }) {
             Pennsylvania Native Tree Selector
           </h1>
         </div>
-
+        
         {/* Description Section */}
         <p className="text-lg text-gray-700 mb-6">
           The <strong>Pennsylvania Tree Selector Tool</strong> is a
@@ -50,14 +50,17 @@ function StartMenu({ filteringState, setFilteringState }) {
           a vital asset for ensuring successful plantings and healthy
           ecosystems.
         </p>
-
-        <ZipCodeInput updateHardinessZone={updateHardinessZone} />
-
+        
+        {/* ZIP Code Input - No heading here because ZipCodeInput has its own */}
+        <div className="mb-8">
+          <ZipCodeInput updateHardinessZone={updateHardinessZone} />
+        </div>
+        
         {/* Get Started Button */}
         <button
           id="start-button"
           onClick={handleClick}
-          className={`py-3 px-6 rounded-lg text-lg font-semibold transition-colors duration-300 flex items-center justify-center mx-auto`}
+          className="bg-green-600 hover:bg-green-700 text-white py-3 px-8 rounded-lg text-lg font-semibold transition-colors duration-300 flex items-center justify-center mx-auto"
         >
           <FaTree className="mr-2" />
           Get Started

@@ -1,16 +1,16 @@
-import React from 'react';
-import { Info } from 'lucide-react';
+import React, { useState } from "react";
+import { Info } from "lucide-react";
 
 const TreeInfoButton = ({ tree }) => {
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const getWikipediaLink = (treeName) => {
-    return `https://en.wikipedia.org/wiki/${treeName.replace(/\s+/g, '_')}`;
+    return `https://en.wikipedia.org/wiki/${treeName.replace(/\s+/g, "_")}`;
   };
 
   return (
-    <div className="relative">
-      {/* White circle with green “i” icon */}
+    <div className="relative inline-block">
+      {/* Info Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="p-2 bg-white text-green-600 border border-green-600 
@@ -19,21 +19,23 @@ const TreeInfoButton = ({ tree }) => {
       >
         <Info size={20} />
       </button>
-      
-      {/* White popover */}
+
+      {/* Popover */}
       {isOpen && (
-        <div className="absolute z-10 right-0 mt-1 w-60 bg-white rounded-lg shadow-xl border border-gray-500">
-          <div className="p-4">
-            {/* Only the Wikipedia link (feel free to add more info if you like) */}
-            <a
-              href={getWikipediaLink(tree.commonName)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center text-sm text-green-600 hover:text-green-700"
+        <div
+          className="absolute left-full transform -translate-y-1/2 
+                     ml-4 w-48 bg-white text-gray-800 shadow-lg rounded-md p-2 
+                     border border-gray-300"
+        >
+          <a
+            href={getWikipediaLink(tree.commonName)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex text-sm text-green-600 hover:text-green-700"
             >
               Learn more on Wikipedia
               <svg
-                className="w-4 h-4 ml-1"
+                className="w-4 h-8 ml-1"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -49,12 +51,9 @@ const TreeInfoButton = ({ tree }) => {
               </svg>
             </a>
           </div>
-        </div>
       )}
     </div>
   );
 };
 
 export default TreeInfoButton;
-
-

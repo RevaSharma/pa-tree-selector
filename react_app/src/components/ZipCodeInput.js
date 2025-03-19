@@ -14,21 +14,28 @@ function ZipCodeInput({ updateHardinessZone }) {
   };
 
   return (
-    <div>
-      <h3>Zip Code (for Hardiness Zone)</h3>
-      <input
-        type="text"
-        value={zipCode}
-        onChange={handleZipCodeChange}
-        placeholder="Enter ZIP code"
-      />
-      {zipCode && (
-        <p>
-          {hardinessZone
-            ? `ZIP code ${zipCode} maps to hardiness zone ${hardinessZone}.`
-            : `No hardiness zone match found for ZIP code ${zipCode}.`}
-        </p>
-      )}
+    <div className="text-center">
+      <h2 className="text-2xl font-semibold text-green-800 mb-4">
+        Zip Code (for Hardiness Zone)
+      </h2>
+      
+      <div className="flex flex-col items-center">
+        <input
+          type="text"
+          value={zipCode}
+          onChange={handleZipCodeChange}
+          placeholder="Enter ZIP code"
+          className="w-64 px-4 py-2 border border-green-300 rounded-md text-center text-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+        />
+        
+        {zipCode && (
+          <p className={`text-sm mt-3 ${hardinessZone ? "text-green-600" : "text-orange-500"}`}>
+            {hardinessZone
+              ? `ZIP code ${zipCode} maps to hardiness zone ${hardinessZone}.`
+              : `No hardiness zone match found for ZIP code ${zipCode}.`}
+          </p>
+        )}
+      </div>
     </div>
   );
 }
