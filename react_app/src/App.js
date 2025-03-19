@@ -184,7 +184,7 @@ function App() {
             <Route
               path="/results"
               element={
-                <Results treeData={filteredTrees} isLoading={isLoading} />
+                <Results treeData={filteredTrees} isLoading={isLoading} zipCode = {filteringState.zipCode} filters={filteringState}/>
               }
             />
           </Routes>
