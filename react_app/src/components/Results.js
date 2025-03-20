@@ -56,9 +56,9 @@ function Results({ treeData }) {
         </style>
       </head>
       <body>
-        <div class="header-container">
-          <img src="images/logo.png" alt="Chesapeake Conservancy Logo" class="logo" />
-          <h1 class="title">Pennsylvania Native Tree Selector</h1>
+        <div className="header-container">
+          <img src="images/logo.png" alt="Chesapeake Conservancy Logo" className="logo" />
+          <h1 className="title">Pennsylvania Native Tree Selector</h1>
         </div>
         <table>
           <thead>
@@ -79,10 +79,10 @@ function Results({ treeData }) {
         tableHTML += `
           </tbody>
         </table>
-        <div class="page-break"></div>
-        <div class="header-container">
-          <img src="images/logo.png" alt="Chesapeake Conservancy Logo" class="logo" />
-          <h1 class="title">Pennsylvania Native Tree Selector</h1>
+        <div className="page-break"></div>
+        <div className="header-container">
+          <img src="images/logo.png" alt="Chesapeake Conservancy Logo" className="logo" />
+          <h1 className="title">Pennsylvania Native Tree Selector</h1>
         </div>
         <table>
           <thead>
