@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useSearchParams,
+} from "react-router-dom";
 import Header from "./components/Header";
-import Footer from "./components/Footer"; // Import Footer component
+import Footer from "./components/Footer";
 import About from "./components/About";
 import StartMenu from "./components/StartMenu";
 import InputManager from "./components/InputManager";
@@ -13,8 +18,15 @@ import Papa from "papaparse";
 const CSV_URL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vSN9qYza-MdxZdNBnWK58LbIFS6v6UIdYXPwrNgCewtPqVuYdt2g7HmzXXG9x6kshf_-8Cctgj2xTOp/pub?output=csv";
 
-function App() {
-  const [filteringState, setFilteringState] = useState({});
+function AppContent() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Parse filtering state from URL or default to an empty object
+  const initialFilteringState = searchParams.get("filteringState")
+    ? JSON.parse(searchParams.get("filteringState"))
+    : {};
+
+  const [filteringState, setFilteringState] = useState(initialFilteringState);
   const [filteredTrees, setFilteredTrees] = useState([]);
   const [trees, setTrees] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +48,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // This will run every time trees or filteringState changes
     if (trees.length > 0 && filteringState) {
       const filtered = filterTrees(trees, filteringState);
       setFilteredTrees(filtered);
@@ -44,58 +55,58 @@ function App() {
       const populateWithImages = async () => {
         setIsLoading(true);
         setLastFetchedDate(new Date().toLocaleDateString());
-        const updatedTrees = await fetchTreeImages(
-          filterTrees(trees, filteringState)
-        );
+        const updatedTrees = await fetchTreeImages(filtered);
         setFilteredTrees(updatedTrees);
         setIsLoading(false);
       };
 
       populateWithImages();
     }
-    console.log("Current filteringState:", filteringState);
   }, [trees, filteringState]);
 
   useEffect(() => {
-    // This will run every time `filteredTrees` changes
-    console.log("Current filtered trees:", filteredTrees);
-  }, [filteredTrees]);
+    setSearchParams({ filteringState: JSON.stringify(filteringState) });
+  }, [filteringState, setSearchParams]);
 
   return (
+    <div className="flex flex-col min-h-screen">
+      <Header />
+      <main className="flex-grow">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <StartMenu
+                filteringState={filteringState}
+                setFilteringState={setFilteringState}
+              />
+            }
+          />
+          <Route path="/about" element={<About />} />
+          <Route
+            path="/filters"
+            element={
+              <InputManager
+                filteringState={filteringState}
+                setFilteringState={setFilteringState}
+              />
+            }
+          />
+          <Route
+            path="/results"
+            element={<Results treeData={filteredTrees} isLoading={isLoading} />}
+          />
+        </Routes>
+      </main>
+      <Footer lastFetchedDate={lastFetchedDate} />
+    </div>
+  );
+}
+
+function App() {
+  return (
     <Router>
-      <div className="flex flex-col min-h-screen">
-        <Header />
-        <main className="flex-grow">
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <StartMenu
-                  filteringState={filteringState}
-                  setFilteringState={setFilteringState}
-                />
-              }
-            />
-            <Route path="/about" element={<About />} />
-            <Route
-              path="/filters"
-              element={
-                <InputManager
-                  filteringState={filteringState}
-                  setFilteringState={setFilteringState}
-                />
-              }
-            />
-            <Route
-              path="/results"
-              element={
-                <Results treeData={filteredTrees} isLoading={isLoading} />
-              }
-            />
-          </Routes>
-        </main>
-        <Footer lastFetchedDate={lastFetchedDate} />
-      </div>
+      <AppContent />
     </Router>
   );
 }

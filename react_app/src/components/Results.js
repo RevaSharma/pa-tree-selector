@@ -142,7 +142,7 @@ function Results({ treeData }) {
     <div className="p-7 bg-gray-80 min-h-screen">
       {/* Return Button */}
       <button
-        onClick={() => navigate(-1)}
+        onClick={() => navigate("/filters")}
         className="mb-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
       >
         ← Return To Filtering
