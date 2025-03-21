@@ -2,7 +2,13 @@ const Result = ({ tree }) => {
   return (
     <a
       href=""
-      className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow-sm md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+      className={`
+        flex flex-col items-center
+        ${tree.failedFilters?.length > 0 ? "bg-red-500" : "bg-lime-500"}
+        border border-gray-200 rounded-lg shadow-sm
+        md:flex-row md:max-w-xl hover:bg-gray-100
+        dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700
+      `}
     >
       {tree.images?.length > 0 && (
         <img
@@ -18,6 +24,7 @@ const Result = ({ tree }) => {
         <h6 className="font-normal text-gray-700 dark:text-gray-400">
           {tree.sciName}
         </h6>
+        Score: {tree.passedFilters?.length} / {tree.passedFilters?.length + tree.failedFilters?.length}
       </div>
     </a>
   );

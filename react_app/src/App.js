@@ -11,7 +11,7 @@ import About from "./components/About";
 import StartMenu from "./components/StartMenu";
 import InputManager from "./components/InputManager";
 import Results from "./components/Results";
-import { filterTrees } from "./utils/filterTrees";
+import { filterTrees } from "./utils/filterTreesExperimental";
 import { fetchTreeImages } from "./utils/fetchTreeImages";
 import Papa from "papaparse";
 
