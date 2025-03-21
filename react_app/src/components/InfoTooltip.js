@@ -27,7 +27,7 @@ const filterInfo = {
   "Livestake Potential": "Ability to propagate by inserting dormant stem cuttings into streambanks. (PSU)",
   "Wetland Indicator": "Likelihood of a species occurring in wetlands, ranging from OBL (always in wetlands) to UPL (rarely in wetlands). (NRCS)",
   "Pollinators": "Provides nectar/pollen for bees, especially in late fall/early spring. (USDA)",
-  "Cohabitable with Black Walnut": "Can tolerate juglone, a chemical from black walnut trees that inhibits plant growth. (Purdue University)",
+  "Cohabitable with Black Walnut": "Will likely tolerate juglone, a chemical from black walnut trees that inhibits plant growth. (Purdue University)",
   "Deer Palatability": "Likelihood of being browsed by deer. Highly palatable species are more frequently damaged. (NRCS)",
   "Multifunctional Uses": "Offers benefits beyond ecology, such as food, timber, and medicinal uses. (NRCS)",
   "Growth Rate": "Relative stem growth rate per year. Medium growth corresponds to 1-2 ft/year. (USDA)",
