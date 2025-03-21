@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import DarkModeToggle from "./DarkModeToggle";
+
 /**
  * Header component. Displayed at the top of every page.
  *
@@ -35,6 +37,7 @@ function Header() {
           >
             About
           </Link>
+          <DarkModeToggle />
         </nav>
       </div>
     </header>
