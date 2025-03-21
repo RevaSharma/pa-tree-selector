@@ -10,7 +10,7 @@ import { matchesMatureHeight } from "./matchesMatureHeight";
  * @returns {Object[]} - An array of trees with passedFilters and failedFilters properties.
  */
 export function filterTrees(trees, filteringState) {
-  return trees.map((tree) => {
+  const filteredTrees = trees.map((tree) => {
     // Arrays to track passed and failed filters
     const passedFilters = [];
     const failedFilters = [];
@@ -117,6 +117,9 @@ export function filterTrees(trees, filteringState) {
       ...tree,
       passedFilters,
       failedFilters,
+      passedCount: passedFilters.length
     };
   });
+
+  return filteredTrees.sort((a, b) => b.passedCount - a.passedCount);
 }
