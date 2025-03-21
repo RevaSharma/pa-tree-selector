@@ -5,7 +5,7 @@ import { FaTree } from "react-icons/fa";
 
 function StartMenu({ filteringState, setFilteringState }) {
   const navigate = useNavigate();
-  
+
   function updateHardinessZone(zone) {
     setFilteringState((prev) => {
       return zone !== null
@@ -15,15 +15,15 @@ function StartMenu({ filteringState, setFilteringState }) {
           );
     });
   }
-  
+
   const handleClick = () => {
     navigate("/filters");
   };
-  
+
   return (
     <section
       id="start-menu"
-      className="hideable crumb-page flex flex-col items-center justify-center pt-12 px-8 bg-gradient-to-b from-green-50 to-white min-h-screen"
+      className="hideable crumb-page flex flex-col items-center justify-center pt-12 px-8 bg-gradient-to-b min-h-screen"
     >
       <div className="max-w-2xl w-full text-center bg-white p-8 rounded-xl shadow-lg border border-green-100">
         {/* Header with Icon */}
@@ -33,7 +33,7 @@ function StartMenu({ filteringState, setFilteringState }) {
             Pennsylvania Native Tree Selector
           </h1>
         </div>
-        
+
         {/* Description Section */}
         <p className="text-lg text-gray-700 mb-6">
           The <strong>Pennsylvania Tree Selector Tool</strong> is a
@@ -50,12 +50,12 @@ function StartMenu({ filteringState, setFilteringState }) {
           a vital asset for ensuring successful plantings and healthy
           ecosystems.
         </p>
-        
+
         {/* ZIP Code Input - No heading here because ZipCodeInput has its own */}
         <div className="mb-8">
           <ZipCodeInput updateHardinessZone={updateHardinessZone} />
         </div>
-        
+
         {/* Get Started Button */}
         <button
           id="start-button"
