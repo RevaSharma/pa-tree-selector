@@ -10,7 +10,7 @@ import InfoTooltip from "./InfoTooltip";
  * @example
  * camelCaseToTitleCase("jugloneTolerance"); // "Juglone Tolerance"
  */
-const camelCaseToTitleCase = (str) =>
+export const camelCaseToTitleCase = (str) =>
   str
     .replace(/([A-Z])/g, " $1") // Insert space before capital letters
     .replace(/^./, (match) => match.toUpperCase()); // Capitalize the first letter
