@@ -11,7 +11,7 @@ import React from "react";
  */
 function Footer({ lastFetchedDate }) {
   return (
-    <footer className="bg-headerBg py-1 shadow-sm">
+    <footer className="bg-headerBg p-4">
       <div className="mx-auto max-w-5xl px-4 flex flex-col md:flex-row items-center justify-between text-xs text-white/80">
         {/* Left side text */}
         <p className="mb-2 md:mb-0 md:mr-6">
