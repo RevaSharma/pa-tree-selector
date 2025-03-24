@@ -37,6 +37,12 @@ function Header() {
           >
             About
           </Link>
+          <Link
+            to="/"
+            className="text-white text-lg font-medium px-3 py-2 rounded transition duration-300 hover:bg-white/20"
+          >
+            Go Offline
+          </Link>
           <DarkModeToggle />
         </nav>
       </div>
