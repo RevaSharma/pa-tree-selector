@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
 import DarkModeToggle from "./DarkModeToggle";
 
 /**
@@ -24,12 +23,18 @@ function Header() {
             Pennsylvania Native Tree Selector
           </h1>
         </div>
-        <nav className="flex gap-5">
+        <nav className="flex gap-5 items-center">
           <Link
             to="/"
             className="text-white text-lg font-medium px-3 py-2 rounded transition duration-300 hover:bg-white/20"
           >
             Home
+          </Link>
+          <Link
+            to="/sources"
+            className="text-white text-lg font-medium px-3 py-2 rounded transition duration-300 hover:bg-white/20"
+          >
+            Sources
           </Link>
           <Link
             to="/about"
@@ -38,7 +43,7 @@ function Header() {
             About
           </Link>
           <Link
-            to="/"
+            to="/offline"
             className="text-white text-lg font-medium px-3 py-2 rounded transition duration-300 hover:bg-white/20"
           >
             Go Offline
