@@ -1,18 +1,33 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import DarkModeToggle from "./DarkModeToggle"; // ✅ keep this import
+import DarkModeToggle from "./DarkModeToggle";
 
-/**
- * Header component. Displayed at the top of every page.
- *
- * The navigation links use React Router's `Link` component for client-side routing.
- *
- * @returns {JSX.Element} Rendered header component containing the logo, title, and navigation.
- */
 function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <header className="bg-headerBg py-4 shadow-lg flex justify-center">
       <div className="flex justify-between items-center w-11/12 max-w-5xl">
+
+        {/* Logo and Title */}
         <div className="flex items-center">
           <img
             src="/images/logo.png"
@@ -23,35 +38,54 @@ function Header() {
             Pennsylvania Native Tree Selector
           </h1>
         </div>
-        <nav className="flex gap-5 items-center">
+
+        {/* Hamburger Icon */}
+        <button
+          className="text-white text-3xl focus:outline-none"
+          onClick={toggleMenu}
+          aria-expanded={isMenuOpen}
+          aria-label="Toggle navigation menu"
+        >
+          {isMenuOpen ? "✕" : "☰"}
+        </button>
+
+        {/* Navigation Links (hidden by default, shown when menu is open) */}
+        <nav
+          ref={menuRef}
+          className={`${
+            isMenuOpen ? "translate-x-0" : "translate-x-full"
+          } transform transition-transform duration-300 ease-in-out fixed top-0 right-0 h-full w-64 bg-headerBg p-5 z-50`}
+        >
           <Link
             to="/"
-            className="text-white text-lg font-medium px-3 py-2 rounded transition duration-300 hover:bg-white/20"
+            className="text-white text-lg font-medium px-3 py-2 rounded transition duration-300 hover:bg-white/20 block mb-2"
+            onClick={() => setIsMenuOpen(false)}
           >
             Home
           </Link>
           <Link
             to="/about"
-            className="text-white text-lg font-medium px-3 py-2 rounded transition duration-300 hover:bg-white/20"
+            className="text-white text-lg font-medium px-3 py-2 rounded transition duration-300 hover:bg-white/20 block mb-2"
+            onClick={() => setIsMenuOpen(false)}
           >
             About
           </Link>
           <Link
-<<<<<<< HEAD
             to="/"
-            className="text-white text-lg font-medium px-3 py-2 rounded transition duration-300 hover:bg-white/20"
+            className="text-white text-lg font-medium px-3 py-2 rounded transition duration-300 hover:bg-white/20 block mb-2"
+            onClick={() => setIsMenuOpen(false)}
           >
             Go Offline
           </Link>
-          <DarkModeToggle />
-=======
+          <Link
             to="/sources"
-            className="text-white text-lg font-medium px-3 py-2 rounded transition duration-300 hover:bg-white/20"
+            className="text-white text-lg font-medium px-3 py-2 rounded transition duration-300 hover:bg-white/20 block mb-2"
+            onClick={() => setIsMenuOpen(false)}
           >
             Sources
           </Link>
-          <DarkModeToggle /> {/* ✅ include this if you're using dark mode */}
->>>>>>> d3497139 (My latest changes)
+
+          <DarkModeToggle />
         </nav>
       </div>
     </header>
