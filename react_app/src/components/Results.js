@@ -3,8 +3,9 @@ import html2pdf from "html2pdf.js";
 import TreeInfoButton from "./TreeInfoButton";
 import Result from "./Result";
 import { useNavigate } from "react-router-dom";
+import { camelCaseToTitleCase } from "./FilterInput";
 
-function Results({ treeData }) {
+function Results({ treeData, isLoading, zipCode, filters }) {
   const navigate = useNavigate();
   const resultsRef = useRef();
   const [compactView, setCompactView] = useState(true);
@@ -13,6 +14,23 @@ function Results({ treeData }) {
     setCompactView((prev) => !prev);
   };
 
+  // Function to render selected filters
+  const renderSelectedFilters = () => {
+    return Object.entries(filters).map(([property, value]) => {
+      if (property !== 'zipCode' && value && value.length > 0 ) {
+        const title = camelCaseToTitleCase(property);
+        return (
+          <div key={property} className="mb-2">
+            <span className = "font-semibold"> {title}: </span>
+            {Array.isArray(value) ? value.join(", ") : value}
+          </div>
+        );
+      }
+      return null;
+    }).filter(Boolean);
+  };
+
+  
   // Function to generate the table HTML for export as PDF
   const generateTableHTML = () => {
     const treesPerPage = 16;
@@ -163,6 +181,15 @@ function Results({ treeData }) {
         <h2 className="text-3xl font-semibold text-gray-800 mb-8">
           Filtered Results:
         </h2>
+
+        {/* Display selected and zipcode & filters */}
+        <div className="mb-6 p-4 bg-white rounded-lg shadow-md">
+        {zipCode && (
+            <p className="text-lg font-semibold mb-2"> ZIP Code: {zipCode} </p>
+          )}
+          <h3 className = "text-lg font-semibold mb-2">Selected Filters:</h3>
+          {renderSelectedFilters()}
+        </div>
 
         {/* Two-column layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

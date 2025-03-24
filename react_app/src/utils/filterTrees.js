@@ -13,6 +13,11 @@ export function filterTrees(trees, filteringState) {
   return trees.filter((tree) =>
     // Check if the tree passes all filters
     Object.entries(filteringState).every(([property, filterValues]) => {
+      // The zip code property ISN'T a filter, just let all trees pass
+      if (property === "zipCode") {
+        return true;
+      }
+
       // If filterValues is undefined or null, skip the filter for that property
       if (!filterValues) return true;
 

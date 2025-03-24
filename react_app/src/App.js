@@ -94,7 +94,7 @@ function AppContent() {
           />
           <Route
             path="/results"
-            element={<Results treeData={filteredTrees} isLoading={isLoading} />}
+            element={<Results treeData={filteredTrees} isLoading={isLoading} zipCode = {filteringState.zipCode} filters={filteringState}/>}
           />
         </Routes>
       </main>

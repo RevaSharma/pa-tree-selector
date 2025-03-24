@@ -53,7 +53,10 @@ function StartMenu({ filteringState, setFilteringState }) {
 
         {/* ZIP Code Input - No heading here because ZipCodeInput has its own */}
         <div className="mb-8">
-          <ZipCodeInput updateHardinessZone={updateHardinessZone} />
+          <ZipCodeInput 
+            updateHardinessZone={updateHardinessZone} 
+            setFilteringState={setFilteringState}
+          />
         </div>
 
         {/* Get Started Button */}

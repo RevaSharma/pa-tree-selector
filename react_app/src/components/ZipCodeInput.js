@@ -1,16 +1,24 @@
 import { useState } from "react";
 import hardinessMap from "../data/hardinessMap.json";
 
-function ZipCodeInput({ updateHardinessZone }) {
+function ZipCodeInput({ updateHardinessZone, setFilteringState }) {
   const [zipCode, setZipCode] = useState("");
   const [hardinessZone, setHardinessZone] = useState(null);
 
   const handleZipCodeChange = ({ target: { value } }) => {
     const zip = value.trim();
     setZipCode(zip);
+
+    // Update Hardiness Zone based on the ZIP code
     const zone = hardinessMap[zip] || null;
     setHardinessZone(zone);
     updateHardinessZone(zone);
+
+    // Save zipCode in filteringState
+    setFilteringState((prev) => ({
+      ...prev,
+      zipCode: zip,
+    }));
   };
 
   return (
