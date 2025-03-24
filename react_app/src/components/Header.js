@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-import DarkModeToggle from "./DarkModeToggle";
+import DarkModeToggle from "./DarkModeToggle"; // ✅ keep this import
 
 /**
  * Header component. Displayed at the top of every page.
@@ -24,7 +23,7 @@ function Header() {
             Pennsylvania Native Tree Selector
           </h1>
         </div>
-        <nav className="flex gap-5">
+        <nav className="flex gap-5 items-center">
           <Link
             to="/"
             className="text-white text-lg font-medium px-3 py-2 rounded transition duration-300 hover:bg-white/20"
@@ -38,12 +37,21 @@ function Header() {
             About
           </Link>
           <Link
+<<<<<<< HEAD
             to="/"
             className="text-white text-lg font-medium px-3 py-2 rounded transition duration-300 hover:bg-white/20"
           >
             Go Offline
           </Link>
           <DarkModeToggle />
+=======
+            to="/sources"
+            className="text-white text-lg font-medium px-3 py-2 rounded transition duration-300 hover:bg-white/20"
+          >
+            Sources
+          </Link>
+          <DarkModeToggle /> {/* ✅ include this if you're using dark mode */}
+>>>>>>> d3497139 (My latest changes)
         </nav>
       </div>
     </header>

@@ -4,6 +4,7 @@ import TreeInfoButton from "./TreeInfoButton";
 import Result from "./Result";
 import { useNavigate } from "react-router-dom";
 import { camelCaseToTitleCase } from "./FilterInput";
+import { FaFilePdf } from "react-icons/fa";
 
 function Results({ treeData, isLoading, zipCode, filters }) {
   const navigate = useNavigate();
@@ -14,70 +15,69 @@ function Results({ treeData, isLoading, zipCode, filters }) {
     setCompactView((prev) => !prev);
   };
 
-  // Function to render selected filters
   const renderSelectedFilters = () => {
-    return Object.entries(filters).map(([property, value]) => {
-      if (property !== 'zipCode' && value && value.length > 0 ) {
-        const title = camelCaseToTitleCase(property);
-        return (
-          <div key={property} className="mb-2">
-            <span className = "font-semibold"> {title}: </span>
-            {Array.isArray(value) ? value.join(", ") : value}
-          </div>
-        );
-      }
-      return null;
-    }).filter(Boolean);
+    return Object.entries(filters)
+      .map(([property, value]) => {
+        if (property !== "zipCode" && value && value.length > 0) {
+          const title = camelCaseToTitleCase(property);
+          return (
+            <div key={property} className="mb-2">
+              <span className="font-semibold"> {title}: </span>
+              {Array.isArray(value) ? value.join(", ") : value}
+            </div>
+          );
+        }
+        return null;
+      })
+      .filter(Boolean);
   };
 
-  
-  // Function to generate the table HTML for export as PDF
   const generateTableHTML = () => {
     const treesPerPage = 16;
+
+    let filterSummaryHTML = `
+      <div style="margin-bottom: 20px; font-family: sans-serif;">
+        <h2 style="margin-bottom: 10px;">Filter Summary</h2>
+        <p><strong>ZIP Code:</strong> ${zipCode || "N/A"}</p>
+    `;
+
+    for (const [key, value] of Object.entries(filters)) {
+      if (key !== "zipCode" && value && value.length > 0) {
+        const formattedKey = camelCaseToTitleCase(key);
+        const formattedValue = Array.isArray(value) ? value.join(", ") : value;
+        filterSummaryHTML += `<p><strong>${formattedKey}:</strong> ${formattedValue}</p>`;
+      }
+    }
+
+    filterSummaryHTML += `</div>`;
+
     let tableHTML = `
       <html>
       <head>
         <style>
-          table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-          }
-          th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-          }
-          th {
-            background-color: RGB(211, 222, 219);
-            color: #1F2937;
-          }
-          .page-break {
-            page-break-after: always;
-          }
+          body { font-family: sans-serif; padding: 20px; }
+          table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px; }
+          th, td { border: 1px solid black; padding: 8px; text-align: left; }
+          th { background-color: RGB(211, 222, 219); color: #1F2937; }
+          .page-break { page-break-after: always; }
           .header-container {
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
             background-color: RGB(51, 107, 136);
             padding: 10px;
           }
-          .logo {
-            height: 50px;
-            margin-right: 10px;
-          }
-          .title {
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
-          }
+          .logo { height: 50px; margin-right: 10px; }
+          .title { font-size: 24px; font-weight: bold; color: white; }
         </style>
       </head>
       <body>
-        <div className="header-container">
-          <img src="images/logo.png" alt="Chesapeake Conservancy Logo" className="logo" />
-          <h1 className="title">Pennsylvania Native Tree Selector</h1>
+        <div class="header-container">
+          <img src="images/logo.png" alt="Chesapeake Conservancy Logo" class="logo" />
+          <h1 class="title">Pennsylvania Native Tree Selector</h1>
         </div>
+
+        ${filterSummaryHTML}
+
         <table>
           <thead>
             <tr>
@@ -97,10 +97,10 @@ function Results({ treeData, isLoading, zipCode, filters }) {
         tableHTML += `
           </tbody>
         </table>
-        <div className="page-break"></div>
-        <div className="header-container">
-          <img src="images/logo.png" alt="Chesapeake Conservancy Logo" className="logo" />
-          <h1 className="title">Pennsylvania Native Tree Selector</h1>
+        <div class="page-break"></div>
+        <div class="header-container">
+          <img src="images/logo.png" alt="Chesapeake Conservancy Logo" class="logo" />
+          <h1 class="title">Pennsylvania Native Tree Selector</h1>
         </div>
         <table>
           <thead>
@@ -116,6 +116,7 @@ function Results({ treeData, isLoading, zipCode, filters }) {
           <tbody>
         `;
       }
+
       tableHTML += `
         <tr>
           <td>${tree.commonName || ""}</td>
@@ -138,10 +139,8 @@ function Results({ treeData, isLoading, zipCode, filters }) {
     return tableHTML;
   };
 
-  // Function to handle export as PDF
   const handleExport = () => {
     const tableHTML = generateTableHTML();
-
     const element = document.createElement("div");
     element.innerHTML = tableHTML;
 
@@ -158,40 +157,47 @@ function Results({ treeData, isLoading, zipCode, filters }) {
 
   return (
     <div className="p-7 bg-gray-80 min-h-screen">
-      {/* Return Button */}
-      <button
-        onClick={() => navigate("/filters")}
-        className="mb-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
-      >
-        ← Return To Filtering
-      </button>
+      <div className="flex justify-between items-center mb-4">
+        <div>
+          <button
+            onClick={() => navigate("/filters")}
+            className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+          >
+            ← Return To Filtering
+          </button>
+          <button
+            onClick={toggleView}
+            className="ml-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+          >
+            {compactView ? "Switch to Detailed View" : "Switch to Compact View"}
+          </button>
+        </div>
 
-      <button
-        onClick={toggleView}
-        className="mb-4 ml-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
-      >
-        {compactView ? "Switch to Detailed View" : "Switch to Compact View"}
-      </button>
+        {treeData.length > 0 && (
+          <button
+            id="export-button"
+            onClick={handleExport}
+            className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+          >
+            <FaFilePdf className="text-white" />
+            Export Selection as PDF
+          </button>
+        )}
+      </div>
 
-      <section
-        id="results-section"
-        ref={resultsRef}
-        className="max-w-5xl mx-auto"
-      >
+      <section id="results-section" ref={resultsRef} className="max-w-5xl mx-auto">
         <h2 className="text-3xl font-semibold text-gray-800 mb-8">
           Filtered Results:
         </h2>
 
-        {/* Display selected and zipcode & filters */}
         <div className="mb-6 p-4 bg-white rounded-lg shadow-md">
-        {zipCode && (
+          {zipCode && (
             <p className="text-lg font-semibold mb-2"> ZIP Code: {zipCode} </p>
           )}
-          <h3 className = "text-lg font-semibold mb-2">Selected Filters:</h3>
+          <h3 className="text-lg font-semibold mb-2">Selected Filters:</h3>
           {renderSelectedFilters()}
         </div>
 
-        {/* Two-column layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {treeData && treeData.length > 0 ? (
             treeData.map((tree, index) => (
@@ -242,22 +248,9 @@ function Results({ treeData, isLoading, zipCode, filters }) {
             </p>
           )}
         </div>
-
-        {treeData.length > 0 && (
-          <div className="flex justify-center mt-8">
-            <button
-              id="export-button"
-              onClick={handleExport}
-              className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
-            >
-              Export Selection as PDF
-            </button>
-          </div>
-        )}
       </section>
     </div>
   );
 }
 
 export default Results;
-

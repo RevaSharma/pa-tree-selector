@@ -11,7 +11,8 @@ import About from "./components/About";
 import StartMenu from "./components/StartMenu";
 import InputManager from "./components/InputManager";
 import Results from "./components/Results";
-import { filterTrees } from "./utils/filterTreesExperimental";
+import Sources from "./components/Sources"; 
+import { filterTrees } from "./utils/filterTrees";
 import { fetchTreeImages } from "./utils/fetchTreeImages";
 import Papa from "papaparse";
 
@@ -83,6 +84,7 @@ function AppContent() {
             }
           />
           <Route path="/about" element={<About />} />
+          <Route path="/sources" element={<Sources />} />
           <Route
             path="/filters"
             element={
@@ -94,7 +96,14 @@ function AppContent() {
           />
           <Route
             path="/results"
-            element={<Results treeData={filteredTrees} isLoading={isLoading} zipCode = {filteringState.zipCode} filters={filteringState}/>}
+            element={
+              <Results
+                treeData={filteredTrees}
+                isLoading={isLoading}
+                zipCode={filteringState.zipCode}
+                filters={filteringState}
+              />
+            }
           />
         </Routes>
       </main>
