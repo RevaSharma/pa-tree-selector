@@ -10,6 +10,7 @@ function Results({ treeData, isLoading, zipCode, filters }) {
   const navigate = useNavigate();
   const resultsRef = useRef();
   const [compactView, setCompactView] = useState(true);
+  const [projectTitle, setProjectTitle] = useState("");
 
   const toggleView = () => {
     setCompactView((prev) => !prev);
@@ -33,111 +34,153 @@ function Results({ treeData, isLoading, zipCode, filters }) {
   };
 
   const generateTableHTML = () => {
-    const treesPerPage = 16;
-
-    let filterSummaryHTML = `
-      <div style="margin-bottom: 20px; font-family: sans-serif;">
-        <h2 style="margin-bottom: 10px;">Filter Summary</h2>
-        <p><strong>ZIP Code:</strong> ${zipCode || "N/A"}</p>
-    `;
-
-    for (const [key, value] of Object.entries(filters)) {
-      if (key !== "zipCode" && value && value.length > 0) {
-        const formattedKey = camelCaseToTitleCase(key);
-        const formattedValue = Array.isArray(value) ? value.join(", ") : value;
-        filterSummaryHTML += `<p><strong>${formattedKey}:</strong> ${formattedValue}</p>`;
-      }
-    }
-
-    filterSummaryHTML += `</div>`;
-
-    let tableHTML = `
-      <html>
-      <head>
-        <style>
-          body { font-family: sans-serif; padding: 20px; }
-          table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px; }
-          th, td { border: 1px solid black; padding: 8px; text-align: left; }
-          th { background-color: RGB(211, 222, 219); color: #1F2937; }
-          .page-break { page-break-after: always; }
-          .header-container {
-            display: flex;
-            align-items: center;
-            background-color: RGB(51, 107, 136);
-            padding: 10px;
-          }
-          .logo { height: 50px; margin-right: 10px; }
-          .title { font-size: 24px; font-weight: bold; color: white; }
-        </style>
-      </head>
-      <body>
-        <div class="header-container">
-          <img src="images/logo.png" alt="Chesapeake Conservancy Logo" class="logo" />
-          <h1 class="title">Pennsylvania Native Tree Selector</h1>
-        </div>
-
-        ${filterSummaryHTML}
-
-        <table>
-          <thead>
-            <tr>
-              <th>Common Name</th>
-              <th>Scientific Name</th>
-              <th>Plant Type</th>
-              <th>Soil Moisture</th>
-              <th>Shade Tolerance</th>
-              <th>Growth Rate</th>
-            </tr>
-          </thead>
-          <tbody>
-    `;
-
-    treeData.forEach((tree, index) => {
-      if (index % treesPerPage === 0 && index !== 0) {
-        tableHTML += `
-          </tbody>
-        </table>
-        <div class="page-break"></div>
-        <div class="header-container">
-          <img src="images/logo.png" alt="Chesapeake Conservancy Logo" class="logo" />
-          <h1 class="title">Pennsylvania Native Tree Selector</h1>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Common Name</th>
-              <th>Scientific Name</th>
-              <th>Plant Type</th>
-              <th>Soil Moisture</th>
-              <th>Shade Tolerance</th>
-              <th>Growth Rate</th>
-            </tr>
-          </thead>
-          <tbody>
-        `;
-      }
-
-      tableHTML += `
-        <tr>
-          <td>${tree.commonName || ""}</td>
-          <td>${tree.sciName || ""}</td>
-          <td>${tree.woodyPlantType || ""}</td>
-          <td>${tree.soilMoistureConditions || ""}</td>
-          <td>${tree.shadeTolerance || ""}</td>
-          <td>${tree.growthRate || ""}</td>
-        </tr>
-      `;
+    const today = new Date().toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
-
-    tableHTML += `
-          </tbody>
-        </table>
-      </body>
-      </html>
+  
+    const rowsPerPage = 9;
+    const totalPages = Math.ceil(treeData.length / rowsPerPage);
+  
+    let html = `
+      <html><head>
+      <style>
+        body {
+          font-family: sans-serif;
+          margin: 0;
+          padding: 0;
+        }
+        .pdf-page {
+          padding: 20px 40px;
+          min-height: 550px;
+          box-sizing: border-box;
+          page-break-after: always;
+        }
+        .pdf-page:last-child {
+          page-break-after: auto;
+        }
+        .header-container {
+          display: flex;
+          align-items: center;
+          background-color: RGB(51, 107, 136);
+          padding: 10px;
+          page-break-inside: avoid;
+        }
+        .logo {
+          height: 50px;
+          margin-right: 10px;
+        }
+        .title {
+          font-size: 24px;
+          font-weight: bold;
+          color: white;
+        }
+        .project-title {
+          font-size: 20px;
+          font-weight: bold;
+          margin-top: 20px;
+        }
+        .filter-summary {
+          margin-top: 10px;
+          margin-bottom: 20px;
+        }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          font-size: 12px;
+          margin-top: 10px;
+        }
+        th, td {
+          border: 1px solid black;
+          padding: 8px;
+          text-align: left;
+        }
+        th {
+          background-color: RGB(211, 222, 219);
+          color: #1F2937;
+        }
+        tr {
+          page-break-inside: avoid;
+        }
+        .footer-spacer {
+          height: 30px;
+        }
+        .footer {
+          font-size: 10px;
+          text-align: right;
+          font-style: italic;
+          margin-top: 4px;
+        }
+      </style>
+      </head><body>
     `;
-
-    return tableHTML;
-  };
+  
+    for (let page = 0; page < totalPages; page++) {
+      const start = page * rowsPerPage;
+      const end = start + rowsPerPage;
+      const trees = treeData.slice(start, end);
+  
+      html += `
+        <div class="pdf-page">
+          <div class="header-container">
+            <img src="images/logo.png" alt="Chesapeake Conservancy Logo" class="logo" />
+            <h1 class="title">Pennsylvania Native Tree Selector</h1>
+          </div>
+  
+          ${page === 0 && projectTitle ? `<h1 class="project-title">${projectTitle}</h1>` : ""}
+  
+          ${page === 0 ? `
+          <div class="filter-summary">
+            <h2 style="font-size: 16px; font-weight: bold; margin-bottom: 10px;">Filter Summary</h2>
+            <p><strong>ZIP Code:</strong> ${zipCode || "N/A"}</p>
+            ${Object.entries(filters)
+              .filter(([key, val]) => key !== "zipCode" && val?.length)
+              .map(
+                ([key, val]) =>
+                  `<p><strong>${camelCaseToTitleCase(key)}:</strong> ${Array.isArray(val) ? val.join(", ") : val}</p>`
+              )
+              .join("\n")}
+          </div>` : ""}
+  
+          <table>
+            <thead>
+              <tr>
+                <th>Common Name</th>
+                <th>Scientific Name</th>
+                <th>Plant Type</th>
+                <th>Soil Moisture</th>
+                <th>Shade Tolerance</th>
+                <th>Growth Rate</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${trees
+                .map(
+                  (tree) => `
+                <tr>
+                  <td>${tree.commonName || ""}</td>
+                  <td>${tree.sciName || ""}</td>
+                  <td>${tree.woodyPlantType || ""}</td>
+                  <td>${tree.soilMoistureConditions || ""}</td>
+                  <td>${tree.shadeTolerance || ""}</td>
+                  <td>${tree.growthRate || ""}</td>
+                </tr>
+              `
+                )
+                .join("")}
+            </tbody>
+          </table>
+  
+          <div class="footer-spacer"></div>
+          <div class="footer">Generated on ${today} — Page ${page + 1} of ${totalPages}</div>
+        </div>
+      `;
+    }
+  
+    html += `</body></html>`;
+    return html;
+  };  
 
   const handleExport = () => {
     const tableHTML = generateTableHTML();
@@ -145,7 +188,7 @@ function Results({ treeData, isLoading, zipCode, filters }) {
     element.innerHTML = tableHTML;
 
     const opt = {
-      margin: 10,
+      margin: [0, 10, 10, 10],
       filename: "tree-data.pdf",
       image: { type: "jpeg", quality: 0.98 },
       html2canvas: { scale: 2, useCORS: true },
@@ -174,26 +217,31 @@ function Results({ treeData, isLoading, zipCode, filters }) {
         </div>
 
         {treeData.length > 0 && (
-          <button
-            id="export-button"
-            onClick={handleExport}
-            className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
-          >
-            <FaFilePdf className="text-white" />
-            Export Selection as PDF
-          </button>
+          <div className="flex items-center gap-4">
+            <input
+              type="text"
+              value={projectTitle}
+              onChange={(e) => setProjectTitle(e.target.value)}
+              placeholder="Enter project name"
+              className="px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:border-green-500"
+            />
+            <button
+              id="export-button"
+              onClick={handleExport}
+              className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+            >
+              <FaFilePdf className="text-white" />
+              Export Selection as PDF
+            </button>
+          </div>
         )}
       </div>
 
       <section id="results-section" ref={resultsRef} className="max-w-5xl mx-auto">
-        <h2 className="text-3xl font-semibold text-gray-800 mb-8">
-          Filtered Results:
-        </h2>
+        <h2 className="text-3xl font-semibold text-gray-800 mb-8">Filtered Results:</h2>
 
         <div className="mb-6 p-4 bg-white rounded-lg shadow-md">
-          {zipCode && (
-            <p className="text-lg font-semibold mb-2"> ZIP Code: {zipCode} </p>
-          )}
+          {zipCode && <p className="text-lg font-semibold mb-2"> ZIP Code: {zipCode} </p>}
           <h3 className="text-lg font-semibold mb-2">Selected Filters:</h3>
           {renderSelectedFilters()}
         </div>
@@ -218,24 +266,12 @@ function Results({ treeData, isLoading, zipCode, filters }) {
                       </div>
                     )}
                     <div className="p-4">
-                      <p className="text-lg font-semibold text-gray-800">
-                        {tree.commonName}
-                      </p>
-                      <p className="text-md italic text-gray-600">
-                        {tree.sciName}
-                      </p>
-                      <p className="text-sm text-gray-700">
-                        Type: {tree.woodyPlantType}
-                      </p>
-                      <p className="text-sm text-gray-700">
-                        Soil Moisture: {tree.soilMoistureConditions}
-                      </p>
-                      <p className="text-sm text-gray-700">
-                        Shade Tolerance: {tree.shadeTolerance}
-                      </p>
-                      <p className="text-sm text-gray-700">
-                        Growth Rate: {tree.growthRate}
-                      </p>
+                      <p className="text-lg font-semibold text-gray-800">{tree.commonName}</p>
+                      <p className="text-md italic text-gray-600">{tree.sciName}</p>
+                      <p className="text-sm text-gray-700">Type: {tree.woodyPlantType}</p>
+                      <p className="text-sm text-gray-700">Soil Moisture: {tree.soilMoistureConditions}</p>
+                      <p className="text-sm text-gray-700">Shade Tolerance: {tree.shadeTolerance}</p>
+                      <p className="text-sm text-gray-700">Growth Rate: {tree.growthRate}</p>
                       <TreeInfoButton tree={tree} />
                     </div>
                   </div>
