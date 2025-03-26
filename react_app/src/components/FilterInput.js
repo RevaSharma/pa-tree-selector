@@ -46,16 +46,16 @@ const FilterInput = ({
       <div className="flex flex-wrap gap-2 mt-2">
         {options.map((option) => (
           <button
-            key={option}
-            onClick={() => update(property, option)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition ${
-              selectedOptions.includes(option)
-                ? "bg-green-600 text-white shadow-md"
-                : "bg-gray-200 text-gray-700"
-            }`}
-          >
-            {option}
-          </button>
+          key={option}
+          onClick={() => update(property, option)}
+          className={`px-4 py-2 rounded-full text-sm font-medium transition ${
+            selectedOptions.includes(option)
+              ? "bg-green-600 text-white shadow-md hover:bg-green-700"
+              : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+          }`}
+        >
+          {option}
+        </button>
         ))}
       </div>
     </div>
