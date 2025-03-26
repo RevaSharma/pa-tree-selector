@@ -5,12 +5,17 @@ import ZipCodeInput from "./ZipCodeInput";
 import filterConfig from "../data/filterConfig.json";
 import hardinessMap from "../data/hardinessMap.json";
 
+// Component managing the filtering UI and logic
 function InputManager({ filteringState, setFilteringState }) {
   const navigate = useNavigate();
 
+  // State to show/hide ZIP input UI
   const [showZipInput, setShowZipInput] = useState(false);
+
+  // Temporary ZIP code state for input
   const [tempZip, setTempZip] = useState(filteringState.zipCode || "");
 
+  // Function to update filter selections
   function updateFilter(property, value) {
     setFilteringState((prev) => {
       const selectedValues = prev[property]?.includes(value)
@@ -24,10 +29,12 @@ function InputManager({ filteringState, setFilteringState }) {
     });
   }
 
+  // Navigate to results page
   function handleViewResults() {
     navigate("/results");
   }
 
+  // Reset filters except ZIP and zone
   function reinitializeFilters() {
     setFilteringState((prev) => {
       const { hardinessZone, zipCode } = prev;
@@ -35,6 +42,7 @@ function InputManager({ filteringState, setFilteringState }) {
     });
   }
 
+  // Confirm and update ZIP code and corresponding hardiness zone
   function handleConfirmZip() {
     const zone = hardinessMap[tempZip] || null;
 
@@ -47,19 +55,20 @@ function InputManager({ filteringState, setFilteringState }) {
     setShowZipInput(false);
   }
 
-  
-
   return (
     <div className="max-w-4xl mx-auto p-8 bg-white shadow-lg rounded-lg mt-8">
+      {/* Component Heading */}
       <h2 className="text-4xl font-bold text-gray-900 mb-4 tracking-tight leading-tight">
         Tree Filtering Options
       </h2>
 
+      {/* Introduction Text */}
       <p className="text-lg text-gray-700 leading-relaxed">
         Welcome! Use the filters below to find your perfect tree. Please choose
         among different filters to narrow down the best match.
       </p>
 
+      {/* Current ZIP code and hardiness zone display */}
       <div className="mb-6 p-4 bg-gray-100 rounded-md shadow-sm">
         <p className="text-lg text-gray-800">
           Your current ZIP code is{" "}
@@ -71,15 +80,17 @@ function InputManager({ filteringState, setFilteringState }) {
           .
         </p>
 
+        {/* Button to toggle ZIP input UI */}
         {!showZipInput && (
           <button
             onClick={() => setShowZipInput(true)}
-            className="px-5 py-2 bg-green-600 text-white text-lg  rounded-lg shadow-md hover:bg-green-700 transition-colors"
+            className="px-5 py-2 bg-green-600 text-white text-lg rounded-lg shadow-md hover:bg-green-700 transition-colors"
           >
             Change ZIP Code
           </button>
         )}
 
+        {/* ZIP input UI */}
         {showZipInput && (
           <div className="mt-4 p-4 bg-white shadow-sm rounded-lg">
             <ZipCodeInput
@@ -98,6 +109,7 @@ function InputManager({ filteringState, setFilteringState }) {
               }}
             />
 
+            {/* Confirm and cancel buttons for ZIP input */}
             <div className="mt-4 flex gap-2">
               <button
                 onClick={handleConfirmZip}
@@ -116,7 +128,7 @@ function InputManager({ filteringState, setFilteringState }) {
         )}
       </div>
 
-
+      {/* Dynamically generated filter inputs */}
       <div className="space-y-4 mt-6">
         {filterConfig.map(({ property, options, displayTitle }) => (
           <FilterInput
@@ -130,6 +142,7 @@ function InputManager({ filteringState, setFilteringState }) {
         ))}
       </div>
 
+      {/* Buttons for viewing results or resetting filters */}
       <div className="mt-8 flex gap-4">
         <button
           onClick={handleViewResults}
