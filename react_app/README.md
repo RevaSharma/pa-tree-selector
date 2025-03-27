@@ -1,6 +1,27 @@
+# Pennsylvania Native Tree Selector
+
+The Pennsylvania Tree Selector Tool is a comprehensive Pennsylvania-specific tool that provides landowners and conservation planners with an easy-to-use, effective means to select native species to plant on projects based on variables input by the user. Data and selections within the tool are designed to assist seasoned professionals as well as those who are new to the field by cutting research time and increasing efficiency. The selections within the tool provide site-specific solutions with a wide variety of options and data to back it up, ensuring that the correct species are planted in the correct locations. The tool generates a list of species based on inputs and includes attributes of each species such as soil preferences, growth rate, shade tolerance, and much more.
+
+The Pennsylvania Tree Selector Tool is an easy-to-use tool for both professionals and landowners and provides data that is critical for decision-making in the field.
+
+
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Below you will find information on how to run the app as well as how to deploy it. 
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+- [Node.js]
+- [npm]
+
+## Installation
+1. Clone the repository 
+    git clone git@gitlab.bucknell.edu:cee006/pa-tree-selector.git
+
+2. Navigate to the project directory
+3. Install dependencies
+    npm install
 
 ## Available Scripts
 
@@ -39,12 +60,6 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
 ### Code Splitting
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
@@ -61,10 +76,34 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/m
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
 ### Deployment
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
+## Learn More
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+## How to contribute
+1. Fork the repository
+2. Create a new branch for your feature or bug fix
+3. Make your changes and commit them with a clear, concise message
+4. Push your changes to your fork
+5. Submit a pull request
+
+## Contributors
+- Claire Engel
+- Emily Rivera
+- Reva Sharma
+- Colin Soule
+- Aya Tarist
+- John Uysal
+- Members at the Chesapeake Conservency
+
+## Licensing
