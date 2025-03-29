@@ -1,11 +1,15 @@
 import { matchesHardinessZone } from "./matchesHardinessZone";
 import { matchesMatureHeight } from "./matchesMatureHeight";
+import { matchesTolerance } from "./matchesTolerance";
 
-// Returns an array of scored trees that passed all filters.
+// Returns an array of unscored trees that passed all filters.
 export function filterTrees(trees, filteringState) {
-  return scoreTrees(trees, filteringState).filter(
-    (tree) => tree.hasPerfectScore
-  );
+  return scoreTrees(trees, filteringState)
+    .filter((tree) => tree.hasPerfectScore)
+    .map(
+      ({ passedFilters, failedFilters, score, hasPerfectScore, ...rest }) =>
+        rest
+    );
 }
 
 // Returns an array of trees with scores added to them.
@@ -33,16 +37,21 @@ function scoreTree(tree, filteringState) {
     passedFilters,
     failedFilters,
     score: passedFilters.length,
-    hasPerfectScore: tree.failedFilters.length === 0,
+    hasPerfectScore: failedFilters.length === 0,
   };
 }
 
 // Returns true if the tree passes the filter and false otherwise.
 function isTreePassingFilter(tree, filterName, selectedOptions) {
   if (!selectedOptions) return true;
+
   let treeEntry = tree[filterName]?.includes("-")
-    ? tree[filterName].split("-").map((v) => v.trim())
+    ? tree[filterName].split("-").map((v) => {
+        const num = Number(v.trim());
+        return isNaN(num) ? v.trim() : num;
+      })
     : tree[filterName];
+
   if (!treeEntry) return false;
 
   switch (filterName) {
@@ -63,8 +72,17 @@ function isTreePassingFilter(tree, filterName, selectedOptions) {
       return selectedOptions.some((color) =>
         treeEntry.toLowerCase().includes(color.toLowerCase())
       );
+    case "soilCompactionTolerance":
+    case "shadeTolerance":
+    case "floodTolerance":
+    case "droughtTolerance":
+    case "roadSaltSprayTolerance":
+    case "jugloneTolerance":
+      return matchesTolerance(treeEntry, selectedOptions);
     default:
-      return Array.isArray(selectedOptions)
+      return Array.isArray(treeEntry)
+        ? treeEntry.some((entry) => selectedOptions.includes(entry))
+        : Array.isArray(selectedOptions)
         ? selectedOptions.includes(treeEntry)
         : treeEntry === selectedOptions;
   }

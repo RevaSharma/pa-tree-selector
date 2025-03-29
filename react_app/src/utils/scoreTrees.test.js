@@ -1,4 +1,4 @@
-import { filterTrees, filterTreesOut } from "./filterTreesExperimental";
+import { filterTrees, scoreTrees } from "./scoreTrees";
 const jsonTrees = require("./trees.json");
 
 describe("filterTrees()", () => {
@@ -15,7 +15,7 @@ describe("filterTrees()", () => {
     ];
 
     const filteringState = { hardinessZone: "5a" };
-    const filteredTrees = filterTreesOut(trees, filteringState);
+    const filteredTrees = filterTrees(trees, filteringState);
 
     expect(filteredTrees).toEqual([
       { hardinessZone: "4-8" }, // 5 in range
@@ -34,7 +34,7 @@ describe("filterTrees()", () => {
     ];
 
     const filteringState = { woodyPlantType: ["Shrub"] };
-    const filteredTrees = filterTreesOut(trees, filteringState);
+    const filteredTrees = filterTrees(trees, filteringState);
 
     expect(filteredTrees).toEqual([
       { woodyPlantType: "Shrub" }, // shrub
@@ -53,7 +53,7 @@ describe("filterTrees()", () => {
       {}, // property missing
     ];
     const filteringState = { soilMoistureConditions: ["Dry", "Moist"] };
-    const filteredTrees = filterTreesOut(trees, filteringState);
+    const filteredTrees = filterTrees(trees, filteringState);
 
     expect(filteredTrees).toEqual([
       { soilMoistureConditions: "Dry" }, // only dry
@@ -79,7 +79,7 @@ describe("filterTrees()", () => {
       const filteringState = {
         soilCompactionTolerance: ["Intermediate", "Tolerant"],
       };
-      const filteredTrees = filterTreesOut(trees, filteringState);
+      const filteredTrees = filterTrees(trees, filteringState);
 
       expect(filteredTrees).toEqual([
         { soilCompactionTolerance: "Intermediate" }, // intermediate
@@ -102,7 +102,7 @@ describe("filterTrees()", () => {
       const filteringState = {
         shadeTolerance: ["Intolerant"],
       };
-      const filteredTrees = filterTreesOut(trees, filteringState);
+      const filteredTrees = filterTrees(trees, filteringState);
 
       expect(filteredTrees).toEqual([
         { shadeTolerance: "Very Intolerant" }, // very intolerant
@@ -122,7 +122,7 @@ describe("filterTrees()", () => {
       ];
 
       const filteringState = { floodTolerance: ["Intermediate"] };
-      const filteredTrees = filterTreesOut(trees, filteringState);
+      const filteredTrees = filterTrees(trees, filteringState);
 
       expect(filteredTrees).toEqual([
         { floodTolerance: "Intermediate" }, // intermediate
@@ -143,7 +143,7 @@ describe("filterTrees()", () => {
       const filteringState = {
         droughtTolerance: ["Tolerant", "Very Tolerant"],
       };
-      const filteredTrees = filterTreesOut(trees, filteringState);
+      const filteredTrees = filterTrees(trees, filteringState);
 
       expect(filteredTrees).toEqual([
         { droughtTolerance: "Tolerant" }, // tolerant
@@ -163,7 +163,7 @@ describe("filterTrees()", () => {
       ];
 
       const filteringState = { roadSaltSprayTolerance: ["Very Intolerant"] };
-      const filteredTrees = filterTreesOut(trees, filteringState);
+      const filteredTrees = filterTrees(trees, filteringState);
 
       expect(filteredTrees).toEqual([
         { roadSaltSprayTolerance: "Very Intolerant" }, // very intolerant
@@ -180,7 +180,7 @@ describe("filterTrees()", () => {
     ];
 
     const filteringState = { hasLivestakePotential: ["Yes"] };
-    const filteredTrees = filterTreesOut(trees, filteringState);
+    const filteredTrees = filterTrees(trees, filteringState);
 
     expect(filteredTrees).toEqual([
       { hasLivestakePotential: "Yes" }, // yes
@@ -199,7 +199,7 @@ describe("filterTrees()", () => {
     ];
 
     const filteringState = { wetlandIndicator: ["OBL", "UPL"] };
-    const filteredTrees = filterTreesOut(trees, filteringState);
+    const filteredTrees = filterTrees(trees, filteringState);
 
     expect(filteredTrees).toEqual([
       { wetlandIndicator: "OBL" },
@@ -216,7 +216,7 @@ describe("filterTrees()", () => {
     ];
 
     const filteringState = { pollinators: ["Yes"] };
-    const filteredTrees = filterTreesOut(trees, filteringState);
+    const filteredTrees = filterTrees(trees, filteringState);
 
     expect(filteredTrees).toEqual([
       { pollinators: "Butterflies" }, // has a pollinator
@@ -233,8 +233,8 @@ describe("filterTrees()", () => {
       {}, // property missing
     ];
 
-    const filteringState = { jugloneTolerance: ["Yes"] };
-    const filteredTrees = filterTreesOut(trees, filteringState);
+    const filteringState = { jugloneTolerance: ["Tolerant"] };
+    const filteredTrees = filterTrees(trees, filteringState);
 
     expect(filteredTrees).toEqual([
       { jugloneTolerance: "Tolerant" }, // tolerant
@@ -252,7 +252,7 @@ describe("filterTrees()", () => {
     ];
 
     const filteringState = { deerPalatability: ["Unpalatable"] };
-    const filteredTrees = filterTreesOut(trees, filteringState);
+    const filteredTrees = filterTrees(trees, filteringState);
 
     expect(filteredTrees).toEqual([
       { deerPalatability: "Unpalatable" }, // unpalatable
@@ -269,7 +269,7 @@ describe("filterTrees()", () => {
     ];
 
     const filteringState = { multifunctionalUses: ["Yes"] };
-    const filteredTrees = filterTreesOut(trees, filteringState);
+    const filteredTrees = filterTrees(trees, filteringState);
 
     expect(filteredTrees).toEqual([
       { multifunctionalUses: "Woody floral" }, // has a use
@@ -289,7 +289,7 @@ describe("filterTrees()", () => {
       {}, // property missing
     ];
     const filteringState = { growthRate: ["Medium", "Fast"] };
-    const filteredTrees = filterTreesOut(trees, filteringState);
+    const filteredTrees = filterTrees(trees, filteringState);
 
     expect(filteredTrees).toEqual([
       { growthRate: "Medium" }, // only medium
@@ -309,7 +309,7 @@ describe("filterTrees()", () => {
       {}, // property missing
     ];
     const filteringState = { matureHeight: ["30 to 50 ft"] };
-    const filteredTrees = filterTreesOut(trees, filteringState);
+    const filteredTrees = filterTrees(trees, filteringState);
 
     expect(filteredTrees).toEqual([{ matureHeight: "40-50" }]);
   });
@@ -327,7 +327,7 @@ describe("filterTrees()", () => {
     ];
 
     const filteringState = { flowerColor: ["White", "Pink"] };
-    const filteredTrees = filterTreesOut(trees, filteringState);
+    const filteredTrees = filterTrees(trees, filteringState);
 
     expect(filteredTrees).toEqual([
       { flowerColor: "White" }, // white
@@ -347,7 +347,7 @@ describe("filterTrees()", () => {
     ];
 
     const filteringState = { flowerColor: ["Red"] };
-    const filteredTrees = filterTreesOut(trees, filteringState);
+    const filteredTrees = filterTrees(trees, filteringState);
 
     expect(filteredTrees).toEqual([
       { flowerColor: "Scarlet red" }, // scarlet red
@@ -365,7 +365,7 @@ describe("filterTrees()", () => {
         roadSaltSprayTolerance: ["Tolerant"],
       };
 
-      const filteredTrees = filterTreesOut(jsonTrees, filteringState);
+      const filteredTrees = filterTrees(jsonTrees, filteringState);
 
       const expectedNames = [
         "American Wild Plum",
@@ -392,17 +392,15 @@ describe("filterTrees()", () => {
         deerPalatability: ["Unpalatable"],
       };
 
-      const filteredTrees = filterTreesOut(jsonTrees, filteringState);
-      console.log(filteredTrees.map((tree) => tree.commonName));
+      const filteredTrees = filterTrees(jsonTrees, filteringState);
 
       const expectedNames = [
-        "Black Locust", // soilMoistureConditions is Dry - Moist. Should NOT be passing Wet.
-        "Cockspur Hawthorn", // soilMoistureConditions is Dry - Moist. Should NOT be passing Wet.
-        "Gray Birch", // good
-        "Hackberry", // good
-        "Honey Locust", // soilMoistureConditions is Dry - Moist. Should NOT be passing Wet.
-        "Hop-hornbeam", // soilMoistureConditions is Dry - Moist. Should NOT be passing Wet.
-        "Red Pine", // soilMoistureConditions is Dry. Should NOT be passing Wet.
+        "American Sycamore",
+        "Black Gum (Tupelo)",
+        "Gray Birch",
+        "Hackberry",
+        "Pin Oak",
+        "Sweet Gum "
       ];
 
       // Check that each expected name exists exactly once
@@ -422,7 +420,7 @@ describe("filterTrees()", () => {
         flowerColor: ["Pink"],
       };
 
-      const filteredTrees = filterTreesOut(jsonTrees, filteringState);
+      const filteredTrees = filterTrees(jsonTrees, filteringState);
 
       const expectedNames = ["Highbush Cranberry"];
 
