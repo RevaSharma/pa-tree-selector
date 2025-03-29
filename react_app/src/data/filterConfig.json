@@ -1,15 +1,27 @@
 [
   {
     "property": "woodyPlantType",
-    "options": ["Tree", "Shrub"]
+    "options": ["Tree", "Shrub"],
+    "isCriticalForSurvival": false,
+    "canSelectMultipleOptions": true
   },
   {
     "property": "soilMoistureConditions",
-    "options": ["Dry", "Moist", "Wet"]
+    "options": ["Dry", "Moist", "Wet"],
+    "isCriticalForSurvival": true,
+    "canSelectMultipleOptions": true
   },
   {
     "property": "soilCompactionTolerance",
-    "options": ["Intolerant", "Intermediate", "Tolerant"]
+    "options": [
+      "Very Tolerant",
+      "Tolerant",
+      "Intermediate",
+      "Intolerant",
+      "Very Intolerant"
+    ],
+    "isCriticalForSurvival": false,
+    "canSelectMultipleOptions": true
   },
   {
     "property": "shadeTolerance",
@@ -19,49 +31,90 @@
       "Intermediate",
       "Intolerant",
       "Very Intolerant"
-    ]
+    ],
+    "isCriticalForSurvival": false,
+    "canSelectMultipleOptions": true
   },
   {
     "property": "floodTolerance",
-    "options": ["Tolerant", "Intermediate"]
+    "options": [
+      "Very Tolerant",
+      "Tolerant",
+      "Intermediate",
+      "Intolerant",
+      "Very Intolerant"
+    ],
+    "isCriticalForSurvival": true,
+    "canSelectMultipleOptions": true
   },
   {
     "property": "droughtTolerance",
-    "options": ["Tolerant", "Intermediate"]
+    "options": [
+      "Very Tolerant",
+      "Tolerant",
+      "Intermediate",
+      "Intolerant",
+      "Very Intolerant"
+    ],
+    "isCriticalForSurvival": true,
+    "canSelectMultipleOptions": true
   },
   {
     "property": "roadSaltSprayTolerance",
-    "options": ["Tolerant", "Intermediate", "Intolerant"]
+    "options": [
+      "Very Tolerant",
+      "Tolerant",
+      "Intermediate",
+      "Intolerant",
+      "Very Intolerant"
+    ],
+    "isCriticalForSurvival": false,
+    "canSelectMultipleOptions": true
   },
   {
     "property": "hasLivestakePotential",
-    "options": ["Yes"],
+    "options": ["Yes", "No"],
+    "isCriticalForSurvival": false,
+    "canSelectMultipleOptions": false,
     "displayTitle": "Livestake Potential"
   },
   {
     "property": "wetlandIndicator",
-    "options": ["OBL", "FACW", "FAC", "FACU", "UPL"]
+    "options": ["OBL", "FACW", "FAC", "FACU", "UPL"],
+    "isCriticalForSurvival": false,
+    "canSelectMultipleOptions": true
   },
   {
     "property": "pollinators",
-    "options": ["Yes"]
+    "options": ["Yes", "No"],
+    "isCriticalForSurvival": false,
+    "canSelectMultipleOptions": false,
+    "displayTitle": "Beneficial to Pollinators"
   },
   {
     "property": "jugloneTolerance",
-    "options": ["Yes"],
+    "options": ["Tolerant", "Intolerant"],
+    "isCriticalForSurvival": false,
+    "canSelectMultipleOptions": false,
     "displayTitle": "Cohabitable with Black Walnut"
   },
   {
     "property": "deerPalatability",
-    "options": ["Palatable", "Unpalatable"]
+    "options": ["Yes", "No"],
+    "isCriticalForSurvival": false,
+    "canSelectMultipleOptions": false
   },
   {
     "property": "multifunctionalUses",
-    "options": ["Yes"]
+    "options": ["Yes", "No"],
+    "isCriticalForSurvival": false,
+    "canSelectMultipleOptions": false
   },
   {
     "property": "growthRate",
-    "options": ["Slow", "Medium", "Fast"]
+    "options": ["Slow", "Medium", "Fast"],
+    "isCriticalForSurvival": false,
+    "canSelectMultipleOptions": true
   },
   {
     "property": "matureHeight",
@@ -70,14 +123,20 @@
       "10 to 30ft",
       "30 to 50ft",
       "Greater than 50ft"
-    ]
+    ],
+    "isCriticalForSurvival": false,
+    "canSelectMultipleOptions": true
   },
   {
     "property": "flowerColor",
-    "options": ["White", "Pink", "Yellow", "Purple"]
+    "options": ["White", "Pink", "Yellow", "Purple"],
+    "isCriticalForSurvival": false,
+    "canSelectMultipleOptions": true
   },
   {
     "property": "fallColor",
-    "options": ["Yellow", "Orange", "Red", "Purple", "Green", "Gold"]
+    "options": ["Yellow", "Orange", "Red", "Purple", "Green", "Gold"],
+    "isCriticalForSurvival": false,
+    "canSelectMultipleOptions": true
   }
 ]
