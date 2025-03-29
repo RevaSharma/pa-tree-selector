@@ -53,6 +53,20 @@ export function filterTrees(trees, filteringState) {
         return matchesMatureHeight(treeValue, filterValues);
       }
 
+      // Expands tolerance filters (makes "Very Tolerant" qualify as "Tolerant")
+      if (property.includes("Tolerance")) {
+        if (filterValues.includes("Tolerant")) {
+          if (treeValue === "Tolerant" || treeValue === "Very Tolerant") {
+            return true;
+          }
+        }
+        if (filterValues.includes("Intolerant")) {
+          if (treeValue === "Intolerant" || treeValue === "Very Intolerant") {
+            return true;
+          }
+        }
+      }
+
       // Handle cases where tree value contains multiple acceptable values separated by "-"
       if (treeValue.includes("-")) {
         const treeValueParts = treeValue.split("-").map((v) => v.trim());

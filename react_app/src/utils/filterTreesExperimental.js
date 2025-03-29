@@ -84,6 +84,24 @@ export function filterTrees(trees, filteringState) {
         return;
       }
 
+      // Expands tolerance filters (makes "Very Tolerant" qualify as "Tolerant")
+      if (property.includes("Tolerance")) {
+        if (
+          filterValues.includes("Tolerant") &&
+          treeValue === "Very Tolerant"
+        ) {
+          passedFilters.push(property);
+          return;
+        }
+        if (
+          filterValues.includes("Intolerant") &&
+          treeValue === "Very Intolerant"
+        ) {
+          passedFilters.push(property);
+          return;
+        }
+      }
+
       // Handle cases where tree value contains multiple acceptable values separated by "-"
       if (treeValue.includes("-")) {
         const treeValueParts = treeValue.split("-").map((v) => v.trim());
@@ -122,4 +140,15 @@ export function filterTrees(trees, filteringState) {
   });
 
   return filteredTrees.sort((a, b) => b.passedCount - a.passedCount);
+}
+
+/**
+ * Only returns the trees that passed, and deletes passedFilters and failedFilters information.
+ *
+ * This mimics the original behavior of filterTrees() from a previous version for easier testing.
+ */
+export function filterTreesOut(trees, filteringState) {
+  return filterTrees(trees, filteringState)
+    .filter((obj) => obj.failedFilters.length === 0)
+    .map(({ failedFilters, passedFilters, ...rest }) => rest);
 }
