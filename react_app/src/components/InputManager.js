@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import FilterInput from "./FilterInput";
 import ZipCodeInput from "./ZipCodeInput";
@@ -40,6 +40,10 @@ function InputManager({ filteringState, setFilteringState }) {
 
     setShowZipInput(false);
   }
+
+  useEffect(() => {
+    console.log("Filtering state changed", filteringState);
+  }, [filteringState]);
 
   return (
     <div className="max-w-4xl mx-auto p-8 bg-white shadow-lg rounded-lg mt-8">
@@ -127,13 +131,23 @@ function InputManager({ filteringState, setFilteringState }) {
             canSelectMultipleOptions,
           }) => (
             <FilterInput
+              key={property}
               values={filteringState[property] || []}
-              setValues={(newValues) =>
-                setFilteringState((prev) => ({
-                  ...prev,
-                  [property]: newValues.length ? newValues : undefined,
-                }))
-              }
+              setValues={(newValues) => {
+                console.log("Setting new values", newValues);
+
+                setFilteringState((prev) => {
+                  const newState = { ...prev };
+
+                  if (newValues.length === 0) {
+                    delete newState[property];
+                  } else {
+                    newState[property] = newValues;
+                  }
+
+                  return newState;
+                });
+              }}
               property={property}
               options={options}
               displayTitle={displayTitle}

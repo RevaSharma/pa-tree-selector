@@ -24,13 +24,17 @@ function scoreTree(tree, filteringState) {
   const passedFilters = [];
   const failedFilters = [];
 
-  Object.entries(filteringState).forEach(([filterName, selectedOptions]) => {
-    if (isTreePassingFilter(tree, filterName, selectedOptions)) {
-      passedFilters.push(filterName);
-    } else {
-      failedFilters.push(filterName);
+  const { zipCode, ...activeFilters } = filteringState;
+
+  Object.entries(activeFilters).forEach(
+    ([filterName, selectedOptions]) => {
+      if (isTreePassingFilter(tree, filterName, selectedOptions)) {
+        passedFilters.push(filterName);
+      } else {
+        failedFilters.push(filterName);
+      }
     }
-  });
+  );
 
   return {
     ...tree,
