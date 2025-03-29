@@ -1,6 +1,15 @@
 import { filterTrees, scoreTrees } from "./scoreTrees";
 const jsonTrees = require("./trees.json");
 
+function checkExpectedTrees(filteredTrees, expectedNames) {
+  expectedNames.forEach((name) => {
+    const treesWithName = filteredTrees.filter(
+      (tree) => tree.commonName === name
+    );
+    expect(treesWithName.length).toBe(1);
+  });
+}
+
 describe("filterTrees()", () => {
   it("filters hardinessZone", () => {
     const trees = [
@@ -374,13 +383,7 @@ describe("filterTrees()", () => {
         "Canadian Serviceberry",
       ];
 
-      // Check that each expected name exists exactly once
-      expectedNames.forEach((name) => {
-        const treesWithName = filteredTrees.filter(
-          (tree) => tree.commonName === name
-        );
-        expect(treesWithName.length).toBe(1); // Each name should appear exactly once
-      });
+      checkExpectedTrees(filteredTrees, expectedNames);
     });
 
     it("filters union county, 17837", () => {
@@ -400,16 +403,10 @@ describe("filterTrees()", () => {
         "Gray Birch",
         "Hackberry",
         "Pin Oak",
-        "Sweet Gum "
+        "Sweet Gum ",
       ];
 
-      // Check that each expected name exists exactly once
-      expectedNames.forEach((name) => {
-        const treesWithName = filteredTrees.filter(
-          (tree) => tree.commonName === name
-        );
-        expect(treesWithName.length).toBe(1); // Each name should appear exactly once
-      });
+      checkExpectedTrees(filteredTrees, expectedNames);
     });
 
     it("filters elk county, 15857", () => {
@@ -424,13 +421,7 @@ describe("filterTrees()", () => {
 
       const expectedNames = ["Highbush Cranberry"];
 
-      // Check that each expected name exists exactly once
-      expectedNames.forEach((name) => {
-        const treesWithName = filteredTrees.filter(
-          (tree) => tree.commonName === name
-        );
-        expect(treesWithName.length).toBe(1); // Each name should appear exactly once
-      });
+      checkExpectedTrees(filteredTrees, expectedNames);
     });
   });
 });
