@@ -15,20 +15,6 @@ function InputManager({ filteringState, setFilteringState }) {
   // Temporary ZIP code state for input
   const [tempZip, setTempZip] = useState(filteringState.zipCode || "");
 
-  // Function to update filter selections
-  function updateFilter(property, value) {
-    setFilteringState((prev) => {
-      const selectedValues = prev[property]?.includes(value)
-        ? prev[property].filter((v) => v !== value)
-        : [...(prev[property] || []), value];
-
-      return {
-        ...prev,
-        [property]: selectedValues.length ? selectedValues : undefined,
-      };
-    });
-  }
-
   // Navigate to results page
   function handleViewResults() {
     navigate("/results");
@@ -72,8 +58,10 @@ function InputManager({ filteringState, setFilteringState }) {
       <div className="mb-6 p-4 bg-gray-100 rounded-md shadow-sm">
         <p className="text-lg text-gray-800">
           Your current ZIP code is{" "}
-          <span className="font-bold">{filteringState.zipCode || "not set"}</span>,
-          mapping to Hardiness Zone{" "}
+          <span className="font-bold">
+            {filteringState.zipCode || "not set"}
+          </span>
+          , mapping to Hardiness Zone{" "}
           <span className="font-bold">
             {filteringState.hardinessZone || "N/A"}
           </span>
@@ -130,16 +118,30 @@ function InputManager({ filteringState, setFilteringState }) {
 
       {/* Dynamically generated filter inputs */}
       <div className="space-y-4 mt-6">
-        {filterConfig.map(({ property, options, displayTitle }) => (
-          <FilterInput
-            key={property}
-            property={property}
-            options={options}
-            update={updateFilter}
-            selectedOptions={filteringState[property]}
-            displayTitle={displayTitle}
-          />
-        ))}
+        {filterConfig.map(
+          ({
+            property,
+            options,
+            displayTitle,
+            isCriticalForSurvival,
+            canSelectMultipleOptions,
+          }) => (
+            <FilterInput
+              values={filteringState[property] || []}
+              setValues={(newValues) =>
+                setFilteringState((prev) => ({
+                  ...prev,
+                  [property]: newValues.length ? newValues : undefined,
+                }))
+              }
+              property={property}
+              options={options}
+              displayTitle={displayTitle}
+              isCriticalForSurvival={isCriticalForSurvival}
+              canSelectMultipleOptions={canSelectMultipleOptions}
+            />
+          )
+        )}
       </div>
 
       {/* Buttons for viewing results or resetting filters */}
