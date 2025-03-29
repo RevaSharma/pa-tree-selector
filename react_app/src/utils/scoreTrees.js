@@ -1,0 +1,71 @@
+import { matchesHardinessZone } from "./matchesHardinessZone";
+import { matchesMatureHeight } from "./matchesMatureHeight";
+
+// Returns an array of scored trees that passed all filters.
+export function filterTrees(trees, filteringState) {
+  return scoreTrees(trees, filteringState).filter(
+    (tree) => tree.hasPerfectScore
+  );
+}
+
+// Returns an array of trees with scores added to them.
+export function scoreTrees(trees, filteringState) {
+  return trees
+    .map((tree) => scoreTree(tree, filteringState))
+    .sort((a, b) => b.score - a.score);
+}
+
+// Returns a scored tree.
+function scoreTree(tree, filteringState) {
+  const passedFilters = [];
+  const failedFilters = [];
+
+  Object.entries(filteringState).forEach(([filterName, selectedOptions]) => {
+    if (isTreePassingFilter(tree, filterName, selectedOptions)) {
+      passedFilters.push(filterName);
+    } else {
+      failedFilters.push(filterName);
+    }
+  });
+
+  return {
+    ...tree,
+    passedFilters,
+    failedFilters,
+    score: passedFilters.length,
+    hasPerfectScore: tree.failedFilters.length === 0,
+  };
+}
+
+// Returns true if the tree passes the filter and false otherwise.
+function isTreePassingFilter(tree, filterName, selectedOptions) {
+  if (!selectedOptions) return true;
+  let treeEntry = tree[filterName]?.includes("-")
+    ? tree[filterName].split("-").map((v) => v.trim())
+    : tree[filterName];
+  if (!treeEntry) return false;
+
+  switch (filterName) {
+    case "hardinessZone":
+      return matchesHardinessZone(treeEntry, selectedOptions);
+    case "matureHeight":
+      return matchesMatureHeight(treeEntry, selectedOptions);
+    case "pollinators":
+    case "multifunctionalUses":
+      if (selectedOptions.includes("Yes")) {
+        return treeEntry !== "";
+      } else if (selectedOptions.includes("No")) {
+        return treeEntry === "";
+      }
+      break;
+    case "flowerColor":
+    case "fallColor":
+      return selectedOptions.some((color) =>
+        treeEntry.toLowerCase().includes(color.toLowerCase())
+      );
+    default:
+      return Array.isArray(selectedOptions)
+        ? selectedOptions.includes(treeEntry)
+        : treeEntry === selectedOptions;
+  }
+}

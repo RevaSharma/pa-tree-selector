@@ -1,4 +1,4 @@
-import { filterTrees } from "./filterTrees";
+import { filterTrees, scoreTrees } from "./scoreTrees";
 
 describe("filterTrees()", () => {
   it("filters hardinessZone", () => {

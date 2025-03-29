@@ -11,8 +11,8 @@ import About from "./components/About";
 import StartMenu from "./components/StartMenu";
 import InputManager from "./components/InputManager";
 import Results from "./components/Results";
-import Sources from "./components/Sources"; 
-import { filterTrees } from "./utils/filterTrees";
+import Sources from "./components/Sources";
+import { scoreTrees } from "./utils/scoreTrees";
 import { fetchTreeImages } from "./utils/fetchTreeImages";
 import Papa from "papaparse";
 
@@ -50,7 +50,7 @@ function AppContent() {
 
   useEffect(() => {
     if (trees.length > 0 && filteringState) {
-      const filtered = filterTrees(trees, filteringState);
+      const filtered = scoreTrees(trees, filteringState);
       setFilteredTrees(filtered);
 
       const populateWithImages = async () => {
