@@ -5,6 +5,7 @@ import DarkModeToggle from "./DarkModeToggle";
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
+  const buttonRef = useRef(null); // Add a ref for the hamburger button
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
@@ -12,7 +13,13 @@ function Header() {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
+      // Check if the click is outside the menu and not on the hamburger button
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target)
+      ) {
         setIsMenuOpen(false);
       }
     };
@@ -41,6 +48,7 @@ function Header() {
 
         {/* Hamburger Icon */}
         <button
+          ref={buttonRef} // Attach the ref to the button
           className="text-white text-3xl focus:outline-none"
           onClick={toggleMenu}
           aria-expanded={isMenuOpen}
