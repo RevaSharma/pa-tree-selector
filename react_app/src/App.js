@@ -108,7 +108,7 @@ function AppContent() {
           />
           <Route
             path="/trees/:sciName"
-            element={<TreeSpeciesPage trees={trees} />}
+            element={<TreeSpeciesPage trees={filteredTrees} />}
           />
         </Routes>
       </main>
