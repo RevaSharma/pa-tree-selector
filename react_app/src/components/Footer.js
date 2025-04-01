@@ -1,53 +1,30 @@
 import React from "react";
 
 /**
- * Footer component. Displayed at the bottom of every page.
+ * Footer component with disclaimer.
  *
  * @component
- * @param {Object} props - The component props.
- * @param {string} props.lastFetchedDate - The date when data was last fetched. Displays "N/A" if not provided.
- *
+ * @param {string} lastFetchedDate - The date when data was last fetched. Displays "N/A" if not provided.
  * @returns {JSX.Element} The rendered Footer component.
  */
 function Footer({ lastFetchedDate }) {
   return (
-    <footer className="bg-headerBg p-4">
-      <div className="mx-auto max-w-5xl px-4 flex flex-col md:flex-row items-center justify-between text-xs text-white/80">
-        {/* Left side text */}
-        <p className="mb-2 md:mb-0 md:mr-6">
-          This project makes use of biodiversity occurrence data provided by the
-          Global Biodiversity Information Facility{" "}
-          <a
-            href="https://www.gbif.org"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-medium text-white"
-          >
-            GBIF
-          </a>
-          . Data accessed on {lastFetchedDate || "N/A"}.
+    <footer>
+      {/* Disclaimer Section */}
+      <div className="disclaimer-container">
+        <p className="disclaimer-title">⚠️ Disclaimer:</p>
+        <p>
+          The information presented in this tool has been compiled from multiple sources. In cases where sources conflicted, 
+          the authors applied their best judgment to present the most accurate information. Chesapeake Conservancy, including 
+          its employees and contributors, assumes no responsibility for any inaccuracies, omissions, or misinterpretations of 
+          the data. This tool is intended as a general guide and should not replace consultation with local forestry or conservation 
+          experts. Users are encouraged to verify information before making any planting decisions.
         </p>
+      </div>
 
-        {/* Right side sources */}
-        <div>
-          <p className="font-semibold text-white mb-1">Sources:</p>
-          <ul className="list-disc list-inside space-y-0.5">
-            <li>Merriam-Webster (10th ed., 1999)</li>
-            <li>NOAA (Soil Moisture Preference)</li>
-            <li>
-              NRCS (Soil Compaction Tolerance, Wetland Indicator,
-              Multifunctional Use)
-            </li>
-            <li>
-              USDA National Agroforestry Center (Shade, Flood, Drought
-              Tolerance, Growth Rate, Pollinator Friendly)
-            </li>
-            <li>Purdue Extension (Black Walnut Tolerance)</li>
-            <li>USDA Forest Service (Mature Height)</li>
-            <li>Arbor Day Foundation (Fall Color)</li>
-            <li>PSU (Livestock Potential)</li>
-          </ul>
-        </div>
+      {/* Footer Content */}
+      <div className="mt-4 text-center text-xs">
+        <p>Chesapeake Conservancy. All rights reserved.</p>
       </div>
     </footer>
   );
