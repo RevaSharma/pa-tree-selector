@@ -18,9 +18,9 @@ body {
   margin: 0; /* Ensure no default margin */
 }
 
-/* Header: Slightly darker background, shadow, and spacing */
+/* Header: Blue background, shadow, and spacing */
 header {
-  @apply text-white flex items-center justify-between px-6 py-4 bg-green-700 shadow-lg;
+  @apply text-white flex items-center justify-between px-6 py-4 bg-blue-800 shadow-lg;
 }
 
 /* Scaled headings for responsive design */
@@ -36,12 +36,45 @@ h3 {
   @apply text-2xl md:text-3xl;
 }
 
-/* Buttons: green color, hover effect, subtle shadow */
+/* Buttons: Green color, hover effect, subtle shadow */
 button {
   @apply inline-flex items-center justify-center bg-green-600 text-white border-none py-3 px-6 rounded-lg cursor-pointer text-base transition hover:bg-green-700 hover:shadow-md;
 }
 
-/* Select elements: consistent with input style, slight rounding */
+/* Select elements: Consistent with input style, slight rounding */
 select {
   @apply py-3 px-4 mt-2 text-base bg-white border border-gray-300 rounded-md;
 }
+
+/* Footer: Match site branding */
+footer {
+  @apply bg-green-800 text-white p-6 mt-10 text-center;
+}
+
+/* Disclaimer Section — green theme to match buttons */
+.disclaimer-container {
+  @apply bg-green-600 text-white p-6 mt-10 rounded-lg shadow-md;
+}
+
+.disclaimer-title {
+  @apply flex items-center font-bold text-white mb-4;
+}
+
+.disclaimer-icon {
+  @apply text-white mr-2;
+}
+
+.disclaimer-text {
+  @apply text-white text-sm leading-relaxed;
+}
+
+/* Responsive design for disclaimer */
+@media (max-width: 600px) {
+  .disclaimer-container {
+    @apply text-xs p-4;
+  }
+  .disclaimer-title {
+    @apply text-sm;
+  }
+}
+
