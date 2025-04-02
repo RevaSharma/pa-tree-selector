@@ -11,6 +11,7 @@ import About from "./components/About";
 import StartMenu from "./components/StartMenu";
 import InputManager from "./components/InputManager";
 import Results from "./components/Results";
+import GoOffline from "./components/GoOffline";
 import Sources from "./components/Sources";
 import { scoreTrees } from "./utils/scoreTrees";
 import { fetchTreeImages } from "./utils/fetchTreeImages";
@@ -84,6 +85,7 @@ function AppContent() {
             }
           />
           <Route path="/about" element={<About />} />
+          <Route path="/gooffline" element={<GoOffline />} />
           <Route path="/sources" element={<Sources />} />
           <Route
             path="/filters"
