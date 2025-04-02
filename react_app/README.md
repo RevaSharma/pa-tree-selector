@@ -1,8 +1,8 @@
 # Pennsylvania Native Tree Selector
 
-The Pennsylvania Tree Selector Tool is a comprehensive Pennsylvania-specific tool that provides landowners and conservation planners with an easy-to-use, effective means to select native species to plant on projects based on variables input by the user. Data and selections within the tool are designed to assist seasoned professionals as well as those who are new to the field by cutting research time and increasing efficiency. The selections within the tool provide site-specific solutions with a wide variety of options and data to back it up, ensuring that the correct species are planted in the correct locations. The tool generates a list of species based on inputs and includes attributes of each species such as soil preferences, growth rate, shade tolerance, and much more.
+The Pennsylvania Native Tree Selector is a comprehensive Pennsylvania-specific tool that provides landowners and conservation planners with an easy-to-use, effective means to select native species to plant on projects based on variables input by the user. Data and selections within the tool are designed to assist seasoned professionals as well as those who are new to the field by cutting research time and increasing efficiency. The selections within the tool provide site-specific solutions with a wide variety of options and data to back it up, ensuring that the correct species are planted in the correct locations. The tool generates a list of species based on inputs and includes attributes of each species such as soil preferences, growth rate, shade tolerance, and much more.
 
-The Pennsylvania Tree Selector Tool is an easy-to-use tool for both professionals and landowners and provides data that is critical for decision-making in the field.
+The Pennsylvania Native Tree Selector is an easy-to-use tool for both professionals and landowners and provides data that is critical for decision-making in the field.
 
 
 # Getting Started with Create React App
