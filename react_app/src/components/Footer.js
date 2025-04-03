@@ -1,7 +1,8 @@
 import React from "react";
+import { FaExclamationTriangle } from "react-icons/fa";
 
 /**
- * Footer component with disclaimer.
+ * Footer component with disclaimer and attribution.
  *
  * @component
  * @param {string} lastFetchedDate - The date when data was last fetched. Displays "N/A" if not provided.
@@ -9,10 +10,13 @@ import React from "react";
  */
 function Footer({ lastFetchedDate }) {
   return (
-    <footer>
+    <footer className="bg-green-800 text-white px-6 py-6">
       {/* Disclaimer Section */}
-      <div className="disclaimer-container">
-        <p className="disclaimer-title">⚠️ Disclaimer:</p>
+      <div className="disclaimer-container max-w-6xl mx-auto">
+        <p className="disclaimer-title">
+          <FaExclamationTriangle className="mr-2" />
+          Disclaimer:
+        </p>
         <p>
           The information presented in this tool has been compiled from multiple sources. In cases where sources conflicted, 
           the authors applied their best judgment to present the most accurate information. Chesapeake Conservancy, including 
@@ -22,10 +26,13 @@ function Footer({ lastFetchedDate }) {
         </p>
       </div>
 
-      {/* Footer Content */}
-      <div className="mt-4 text-center text-xs">
-        <p>Chesapeake Conservancy. All rights reserved.</p>
-      </div>
+      {/* Separator Line */}
+      <hr className="hr-separator" />
+
+      {/* Attribution */}
+      <p className="footer-attribution">
+        🌿 This web tool was developed by Aya Tarist, Emily Rivera, Claire Engel, John Uysal, Colin Soule, and Reva Sharma of Bucknell University, as a partnership effort between Chesapeake Conservancy and Susquehanna University. For questions, feedback, or to report any errors, please contact us at [Conservancy email address].
+      </p>
     </footer>
   );
 }

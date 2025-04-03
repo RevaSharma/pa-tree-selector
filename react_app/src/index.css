@@ -14,8 +14,8 @@ html, body {
 
 /* Body: Modern background & base font color */
 body {
-  @apply font-sans bg-gray-50 text-gray-800; /* Subtle off-white background, darker text */
-  margin: 0; /* Ensure no default margin */
+  @apply font-sans bg-gray-50 text-gray-800;
+  margin: 0;
 }
 
 /* Header: Blue background, shadow, and spacing */
@@ -25,7 +25,7 @@ header {
 
 /* Scaled headings for responsive design */
 h1 {
-  @apply text-4xl md:text-5xl; /* Larger on md+ screens */
+  @apply text-4xl md:text-5xl;
 }
 
 h2 {
@@ -46,35 +46,34 @@ select {
   @apply py-3 px-4 mt-2 text-base bg-white border border-gray-300 rounded-md;
 }
 
-/* Footer: Match site branding */
+/* Footer styling to match site theme */
 footer {
-  @apply bg-green-800 text-white p-6 mt-10 text-center;
+  @apply bg-green-800 text-white px-6 py-6 mt-10 text-center;
 }
 
-/* Disclaimer Section — green theme to match buttons */
+/* Disclaimer Section — green like the Get Started button */
 .disclaimer-container {
-  @apply bg-green-600 text-white p-6 mt-10 rounded-lg shadow-md;
+  @apply bg-green-600 p-4 rounded-md text-white text-sm leading-relaxed shadow max-w-6xl mx-auto;
 }
 
 .disclaimer-title {
-  @apply flex items-center font-bold text-white mb-4;
+  @apply flex items-center font-bold text-white text-base mb-2;
 }
 
-.disclaimer-icon {
-  @apply text-white mr-2;
+.hr-separator {
+  @apply border-t border-white/30 my-4 w-4/5 mx-auto;
 }
 
-.disclaimer-text {
-  @apply text-white text-sm leading-relaxed;
+.footer-attribution {
+  @apply text-xs text-white text-center px-4 leading-snug;
 }
 
 /* Responsive design for disclaimer */
 @media (max-width: 600px) {
   .disclaimer-container {
-    @apply text-xs p-4;
+    @apply text-xs p-3;
   }
   .disclaimer-title {
     @apply text-sm;
   }
 }
-
