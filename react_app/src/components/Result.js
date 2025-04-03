@@ -42,7 +42,7 @@ const Result = ({ tree }) => {
       <div
         className={`absolute top-0 left-0 p-1 w-12 h-12 rounded-full aspect-square flex flex-shrink-0 justify-center items-center text-lg font-bold ${getColor(
           tree.passedPercent
-        )}`}
+        )} ${isNaN(tree.passedPercent) ? "hidden" : ""}`}
       >
         {tree.passedPercent}
         <span className="text-sm">%</span>
