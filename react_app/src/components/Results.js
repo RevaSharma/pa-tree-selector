@@ -39,10 +39,10 @@ function Results({ treeData, isLoading, zipCode, filters }) {
       month: "long",
       day: "numeric",
     });
-  
+
     const rowsPerPage = 9;
     const totalPages = Math.ceil(treeData.length / rowsPerPage);
-  
+
     let html = `
       <html><head>
       <style>
@@ -115,22 +115,28 @@ function Results({ treeData, isLoading, zipCode, filters }) {
       </style>
       </head><body>
     `;
-  
+
     for (let page = 0; page < totalPages; page++) {
       const start = page * rowsPerPage;
       const end = start + rowsPerPage;
       const trees = treeData.slice(start, end);
-  
+
       html += `
         <div class="pdf-page">
           <div class="header-container">
             <img src="images/logo.png" alt="Chesapeake Conservancy Logo" class="logo" />
             <h1 class="title">Pennsylvania Native Tree Selector</h1>
           </div>
-  
-          ${page === 0 && projectTitle ? `<h1 class="project-title">${projectTitle}</h1>` : ""}
-  
-          ${page === 0 ? `
+
+          ${
+            page === 0 && projectTitle
+              ? `<h1 class="project-title">${projectTitle}</h1>`
+              : ""
+          }
+
+          ${
+            page === 0
+              ? `
           <div class="filter-summary">
             <h2 style="font-size: 16px; font-weight: bold; margin-bottom: 10px;">Filter Summary</h2>
             <p><strong>ZIP Code:</strong> ${zipCode || "N/A"}</p>
@@ -138,11 +144,15 @@ function Results({ treeData, isLoading, zipCode, filters }) {
               .filter(([key, val]) => key !== "zipCode" && val?.length)
               .map(
                 ([key, val]) =>
-                  `<p><strong>${camelCaseToTitleCase(key)}:</strong> ${Array.isArray(val) ? val.join(", ") : val}</p>`
+                  `<p><strong>${camelCaseToTitleCase(key)}:</strong> ${
+                    Array.isArray(val) ? val.join(", ") : val
+                  }</p>`
               )
               .join("\n")}
-          </div>` : ""}
-  
+          </div>`
+              : ""
+          }
+
           <table>
             <thead>
               <tr>
@@ -171,16 +181,18 @@ function Results({ treeData, isLoading, zipCode, filters }) {
                 .join("")}
             </tbody>
           </table>
-  
+
           <div class="footer-spacer"></div>
-          <div class="footer">Generated on ${today} — Page ${page + 1} of ${totalPages}</div>
+          <div class="footer">Generated on ${today} — Page ${
+        page + 1
+      } of ${totalPages}</div>
         </div>
       `;
     }
-  
+
     html += `</body></html>`;
     return html;
-  };  
+  };
 
   const handleExport = () => {
     const tableHTML = generateTableHTML();
@@ -237,13 +249,27 @@ function Results({ treeData, isLoading, zipCode, filters }) {
         )}
       </div>
 
-      <section id="results-section" ref={resultsRef} className="max-w-5xl mx-auto">
-        <h2 className="text-3xl font-semibold text-gray-800 mb-8">Filtered Results:</h2>
+      <section
+        id="results-section"
+        ref={resultsRef}
+        className="max-w-5xl mx-auto"
+      >
+        <h2 className="text-3xl font-semibold text-gray-800 mb-8">
+          Filtered Results:
+        </h2>
 
         <div className="mb-6 p-4 bg-white rounded-lg shadow-md">
-          {zipCode && <p className="text-lg font-semibold mb-2"> ZIP Code: {zipCode} </p>}
+          {zipCode && (
+            <p className="text-lg font-semibold mb-2"> ZIP Code: {zipCode} </p>
+          )}
           <h3 className="text-lg font-semibold mb-2">Selected Filters:</h3>
           {renderSelectedFilters()}
+        </div>
+
+        <div className="gap-2 grid grid-cols-2">
+          {treeData.map((tree) => (
+            <Result key={tree.commonName} tree={tree} />
+          ))}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -266,12 +292,24 @@ function Results({ treeData, isLoading, zipCode, filters }) {
                       </div>
                     )}
                     <div className="p-4">
-                      <p className="text-lg font-semibold text-gray-800">{tree.commonName}</p>
-                      <p className="text-md italic text-gray-600">{tree.sciName}</p>
-                      <p className="text-sm text-gray-700">Type: {tree.woodyPlantType}</p>
-                      <p className="text-sm text-gray-700">Soil Moisture: {tree.soilMoistureConditions}</p>
-                      <p className="text-sm text-gray-700">Shade Tolerance: {tree.shadeTolerance}</p>
-                      <p className="text-sm text-gray-700">Growth Rate: {tree.growthRate}</p>
+                      <p className="text-lg font-semibold text-gray-800">
+                        {tree.commonName}
+                      </p>
+                      <p className="text-md italic text-gray-600">
+                        {tree.sciName}
+                      </p>
+                      <p className="text-sm text-gray-700">
+                        Type: {tree.woodyPlantType}
+                      </p>
+                      <p className="text-sm text-gray-700">
+                        Soil Moisture: {tree.soilMoistureConditions}
+                      </p>
+                      <p className="text-sm text-gray-700">
+                        Shade Tolerance: {tree.shadeTolerance}
+                      </p>
+                      <p className="text-sm text-gray-700">
+                        Growth Rate: {tree.growthRate}
+                      </p>
                       <TreeInfoButton tree={tree} />
                     </div>
                   </div>

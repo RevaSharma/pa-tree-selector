@@ -13,6 +13,7 @@ import InputManager from "./components/InputManager";
 import Results from "./components/Results";
 import GoOffline from "./components/GoOffline";
 import Sources from "./components/Sources";
+import TreeSpeciesPage from "./components/TreeSpeciesPage";
 import { scoreTrees } from "./utils/scoreTrees";
 import { fetchTreeImages } from "./utils/fetchTreeImages";
 import Papa from "papaparse";
@@ -106,6 +107,10 @@ function AppContent() {
                 filters={filteringState}
               />
             }
+          />
+          <Route
+            path="/trees/:sciName"
+            element={<TreeSpeciesPage trees={filteredTrees} />}
           />
         </Routes>
       </main>

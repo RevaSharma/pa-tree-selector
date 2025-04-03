@@ -7,8 +7,14 @@ export function filterTrees(trees, filteringState) {
   return scoreTrees(trees, filteringState)
     .filter((tree) => tree.hasPerfectScore)
     .map(
-      ({ passedFilters, failedFilters, score, hasPerfectScore, ...rest }) =>
-        rest
+      ({
+        passedFilters,
+        failedFilters,
+        score,
+        hasPerfectScore,
+        passedPercent,
+        ...rest
+      }) => rest
     );
 }
 
@@ -26,15 +32,13 @@ function scoreTree(tree, filteringState) {
 
   const { zipCode, ...activeFilters } = filteringState;
 
-  Object.entries(activeFilters).forEach(
-    ([filterName, selectedOptions]) => {
-      if (isTreePassingFilter(tree, filterName, selectedOptions)) {
-        passedFilters.push(filterName);
-      } else {
-        failedFilters.push(filterName);
-      }
+  Object.entries(activeFilters).forEach(([filterName, selectedOptions]) => {
+    if (isTreePassingFilter(tree, filterName, selectedOptions)) {
+      passedFilters.push(filterName);
+    } else {
+      failedFilters.push(filterName);
     }
-  );
+  });
 
   return {
     ...tree,
@@ -42,6 +46,10 @@ function scoreTree(tree, filteringState) {
     failedFilters,
     score: passedFilters.length,
     hasPerfectScore: failedFilters.length === 0,
+    passedPercent: (
+      (passedFilters.length / (passedFilters.length + failedFilters.length)) *
+      100
+    ).toFixed(0),
   };
 }
 
