@@ -266,18 +266,12 @@ function Results({ treeData, isLoading, zipCode, filters }) {
           {renderSelectedFilters()}
         </div>
 
-        <div className="gap-2 grid grid-cols-2">
-          {treeData.map((tree) => (
-            <Result key={tree.commonName} tree={tree} />
-          ))}
-        </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {treeData && treeData.length > 0 ? (
             treeData.map((tree, index) => (
               <div key={index} className="w-full">
                 {compactView ? (
-                  <Result tree={tree} />
+                  <Result key={tree.commonName} tree={tree} />
                 ) : (
                   <div className="border border-gray-200 rounded-lg p-4 shadow-md bg-white">
                     {tree.images && tree.images.length > 0 ? (
