@@ -11,18 +11,7 @@
     "isCriticalForSurvival": true,
     "canSelectMultipleOptions": true
   },
-  {
-    "property": "soilCompactionTolerance",
-    "options": [
-      "Very Tolerant",
-      "Tolerant",
-      "Intermediate",
-      "Intolerant",
-      "Very Intolerant"
-    ],
-    "isCriticalForSurvival": false,
-    "canSelectMultipleOptions": true
-  },
+
   {
     "property": "shadeTolerance",
     "options": [
@@ -60,16 +49,47 @@
     "canSelectMultipleOptions": true
   },
   {
-    "property": "roadSaltSprayTolerance",
+    "property": "deerPalatability",
+    "options": ["Yes", "No"],
+    "isCriticalForSurvival": false,
+    "canSelectMultipleOptions": false
+  },
+  {
+    "property": "matureHeight",
     "options": [
-      "Very Tolerant",
-      "Tolerant",
-      "Intermediate",
-      "Intolerant",
-      "Very Intolerant"
+      "Less than 10ft",
+      "10 to 30ft",
+      "30 to 50ft",
+      "Greater than 50ft"
     ],
     "isCriticalForSurvival": false,
     "canSelectMultipleOptions": true
+  },
+  {
+    "property": "growthRate",
+    "options": ["Slow", "Medium", "Fast"],
+    "isCriticalForSurvival": false,
+    "canSelectMultipleOptions": true
+  },
+  {
+    "property": "jugloneTolerance",
+    "options": ["Tolerant", "Intolerant"],
+    "isCriticalForSurvival": false,
+    "canSelectMultipleOptions": false,
+    "displayTitle": "Cohabitable with Black Walnut"
+  },
+  {
+    "property": "pollinators",
+    "options": ["Yes", "No"],
+    "isCriticalForSurvival": false,
+    "canSelectMultipleOptions": false,
+    "displayTitle": "Beneficial to Pollinators"
+  },
+  {
+    "property": "multifunctionalUses",
+    "options": ["Yes", "No"],
+    "isCriticalForSurvival": false,
+    "canSelectMultipleOptions": false
   },
   {
     "property": "hasLivestakePotential",
@@ -85,44 +105,25 @@
     "canSelectMultipleOptions": true
   },
   {
-    "property": "pollinators",
-    "options": ["Yes", "No"],
-    "isCriticalForSurvival": false,
-    "canSelectMultipleOptions": false,
-    "displayTitle": "Beneficial to Pollinators"
-  },
-  {
-    "property": "jugloneTolerance",
-    "options": ["Tolerant", "Intolerant"],
-    "isCriticalForSurvival": false,
-    "canSelectMultipleOptions": false,
-    "displayTitle": "Cohabitable with Black Walnut"
-  },
-  {
-    "property": "deerPalatability",
-    "options": ["Yes", "No"],
-    "isCriticalForSurvival": false,
-    "canSelectMultipleOptions": false
-  },
-  {
-    "property": "multifunctionalUses",
-    "options": ["Yes", "No"],
-    "isCriticalForSurvival": false,
-    "canSelectMultipleOptions": false
-  },
-  {
-    "property": "growthRate",
-    "options": ["Slow", "Medium", "Fast"],
+    "property": "soilCompactionTolerance",
+    "options": [
+      "Very Tolerant",
+      "Tolerant",
+      "Intermediate",
+      "Intolerant",
+      "Very Intolerant"
+    ],
     "isCriticalForSurvival": false,
     "canSelectMultipleOptions": true
   },
   {
-    "property": "matureHeight",
+    "property": "roadSaltSprayTolerance",
     "options": [
-      "Less than 10ft",
-      "10 to 30ft",
-      "30 to 50ft",
-      "Greater than 50ft"
+      "Very Tolerant",
+      "Tolerant",
+      "Intermediate",
+      "Intolerant",
+      "Very Intolerant"
     ],
     "isCriticalForSurvival": false,
     "canSelectMultipleOptions": true
