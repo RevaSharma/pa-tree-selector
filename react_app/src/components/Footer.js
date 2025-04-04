@@ -31,7 +31,7 @@ function Footer({ lastFetchedDate }) {
 
       {/* Attribution */}
       <p className="footer-attribution">
-        🌿 This web tool was developed by Aya Tarist, Emily Rivera, Claire Engel, John Uysal, Colin Soule, and Reva Sharma of Bucknell University, as a partnership effort between Chesapeake Conservancy and Susquehanna University. For questions, feedback, or to report any errors, please contact us at [Conservancy email address].
+        🌿 This web tool was developed by Aya Tarist, Emily Rivera, Claire Engel, John Uysal, Colin Soule, and Reva Sharma of Bucknell University, as a partnership effort between Chesapeake Conservancy and Susquehanna University. For questions, feedback, or to report any errors, please contact us at treeselector@chesapeakeconservancy.org.
       </p>
     </footer>
   );
