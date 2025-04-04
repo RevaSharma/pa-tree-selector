@@ -14,18 +14,14 @@ function About() {
     <div className="bg-white">
       {/* Nature-inspired Hero with Overlay Text */}
       <section className="relative h-[60vh] overflow-hidden">
-        {/* Full-width background image */}
         <div className="absolute inset-0 z-0">
           <img
             src="/images/aigenerated.png"
             alt="Forest scene"
             className="w-full h-full object-cover"
           />
-          {/* Dark gradient overlay for text readability */}
           <div className="absolute inset-0 bg-gradient-to-r from-green-900/80 to-green-700/60"></div>
         </div>
-
-        {/* Centered hero content */}
         <div className="relative z-10 h-full max-w-6xl mx-auto px-6 flex flex-col justify-center">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 max-w-3xl">
             About the Pennsylvania Native Tree Selector
@@ -71,7 +67,6 @@ function About() {
                 </p>
               </div>
             </div>
-            {/* Visual accent - decorative tree illustration or photo */}
             <div className="md:w-1/2 bg-green-50 rounded-lg overflow-hidden flex items-center justify-center">
               <div className="p-8">
                 <div className="p-6 bg-white rounded-lg shadow-sm">
@@ -80,68 +75,26 @@ function About() {
                   </h3>
                   <ul className="space-y-3">
                     <li className="flex items-start">
-                      <svg
-                        className="h-6 w-6 text-green-600 mr-2"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
+                      <svg className="h-6 w-6 text-green-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                       <span>Site-specific native tree recommendations</span>
                     </li>
                     <li className="flex items-start">
-                      <svg
-                        className="h-6 w-6 text-green-600 mr-2"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
+                      <svg className="h-6 w-6 text-green-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                       <span>Detailed species attributes and preferences</span>
                     </li>
                     <li className="flex items-start">
-                      <svg
-                        className="h-6 w-6 text-green-600 mr-2"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
+                      <svg className="h-6 w-6 text-green-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
-                      <span>
-                        User-friendly interface for all experience levels
-                      </span>
+                      <span>User-friendly interface for all experience levels</span>
                     </li>
                     <li className="flex items-start">
-                      <svg
-                        className="h-6 w-6 text-green-600 mr-2"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
+                      <svg className="h-6 w-6 text-green-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                       <span>Research-backed data for informed decisions</span>
                     </li>
@@ -153,39 +106,26 @@ function About() {
         </div>
       </section>
 
-      {/* History Section - Keeping Original Text */}
+      {/* History Section */}
       <section className="py-20 px-6 bg-green-50">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-green-800 mb-8 text-center">
             History
           </h2>
-
-          <div className="bg-white p-8 rounded-lg shadow-sm max-w-4xl mx-auto">
-            <div className="space-y-4">
-              <p className="text-gray-700 leading-relaxed">
-                As part of their commitment to Chesapeake Bay restoration goals,
-                Pennsylvania has set a target of planting 95,000 acres of
-                riparian forest buffer by the year 2025.
-              </p>
-              <p className="text-gray-700 leading-relaxed">
-                While developing restoration and tree planting plans, groups
-                such as Chesapeake Conservancy and Chesapeake Bay Foundation
-                realized that there was no publicly-available, comprehensive
-                Pennsylvania-specific web tool to choose native species for
-                projects.
-              </p>
-              <p className="text-gray-700 leading-relaxed">
-                The first version of the tool was a simple Excel spreadsheet
-                created by Chesapeake Bay Foundation field staff. Chesapeake
-                Conservancy and Susquehanna University then migrated the
-                spreadsheet to a more user-friendly Google sheet.
-              </p>
-              <p className="text-gray-700 leading-relaxed">
-                The Pennsylvania Native Tree Selector website is the result of
-                years of development, aiming to solve usability challenges and
-                take this tool to its fullest potential.
-              </p>
-            </div>
+          <div className="bg-white p-8 rounded-lg shadow-sm max-w-4xl mx-auto space-y-4">
+            <p className="text-gray-700 leading-relaxed">
+              As part of their commitment to Chesapeake Bay restoration goals,
+              Pennsylvania has set a target of planting 95,000 acres of riparian forest buffer by the year 2025.
+            </p>
+            <p className="text-gray-700 leading-relaxed">
+              While developing restoration and tree planting plans, groups such as Chesapeake Conservancy and Chesapeake Bay Foundation realized that there was no publicly-available, comprehensive Pennsylvania-specific web tool to choose native species for projects.
+            </p>
+            <p className="text-gray-700 leading-relaxed">
+              The first version of the tool was a simple Excel spreadsheet created by Chesapeake Bay Foundation field staff. Chesapeake Conservancy and Susquehanna University then migrated the spreadsheet to a more user-friendly Google sheet.
+            </p>
+            <p className="text-gray-700 leading-relaxed">
+              The Pennsylvania Native Tree Selector website is the result of years of development, aiming to solve usability challenges and take this tool to its fullest potential.
+            </p>
           </div>
         </div>
       </section>
@@ -200,41 +140,49 @@ function About() {
               </h2>
               <div className="space-y-4 text-gray-700">
                 <p className="leading-relaxed">
-                  Chesapeake Conservancy (CC) is a nonprofit organization with
-                  offices in Annapolis, Maryland and Selinsgrove, PA. We are a
-                  team of 45 conservation professionals and geospatial analysts.
+                  Chesapeake Conservancy (CC) is a nonprofit organization with offices in Annapolis, Maryland and Selinsgrove, PA. We are a team of 45 conservation professionals and geospatial analysts.
                 </p>
                 <p className="leading-relaxed">
-                  We believe that the Chesapeake is a national treasure that
-                  should be accessible for everyone and a place where wildlife
-                  can thrive. We use technology to accelerate the pace and
-                  quality of conservation, and we help build parks, trails, and
-                  public access sites.
+                  We believe that the Chesapeake is a national treasure that should be accessible for everyone and a place where wildlife can thrive. We use technology to accelerate the pace and quality of conservation, and we help build parks, trails, and public access sites.
                 </p>
                 <p className="leading-relaxed">
-                  CC has seven staff members with decades of experience in
-                  conservation, based in central Pennsylvania. This team has
-                  been implementing agricultural and riparian buffer management
-                  practices on parcels chosen based on high-resolution land use
-                  and land cover data.
+                  CC has seven staff members with decades of experience in conservation, based in central Pennsylvania. This team has been implementing agricultural and riparian buffer management practices on parcels chosen based on high-resolution land use and land cover data.
                 </p>
                 <p className="leading-relaxed">
-                  Chesapeake Conservancy serves in a convening role facilitating
-                  large federal grant programs for riparian restoration
-                  projects, providing in-stream monitoring and serving to build
-                  capacity among a large partner network.
+                  Chesapeake Conservancy serves in a convening role facilitating large federal grant programs for riparian restoration projects, providing in-stream monitoring and serving to build capacity among a large partner network.
                 </p>
               </div>
             </div>
             <div className="md:w-1/2 order-1 md:order-2">
               <div className="bg-green-50 p-8 rounded-lg h-full flex items-center justify-center">
                 <img
-                  src="images/chesapeake_logo.png"
+                  src="/images/chesapeake_logo.png"
                   alt="Chesapeake Conservancy"
                   className="w-full h-auto rounded-lg shadow-md"
                 />
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Partner Logos */}
+      <section className="py-10 bg-white px-6">
+        <div className="max-w-4xl mx-auto flex flex-col items-center justify-center gap-6">
+          <h3 className="text-xl font-semibold text-gray-700 mb-4">
+            A partnership between
+          </h3>
+          <div className="flex items-center justify-center gap-10">
+            <img
+              src="/images/bulogo_orange.png"
+              alt="Bucknell University"
+              className="h-16 object-contain"
+            />
+            <img
+              src="/images/su_logo.png"
+              alt="Susquehanna University"
+              className="h-16 object-contain"
+            />
           </div>
         </div>
       </section>
