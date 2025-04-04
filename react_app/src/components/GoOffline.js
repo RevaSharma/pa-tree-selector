@@ -107,93 +107,29 @@ function GoOffline() {
           <div className="flex flex-col md:flex-row gap-12">
             
             {/* Visual accent - decorative tree illustration or photo */}
-            <div className="md:w-1/2 bg-green-50 rounded-lg overflow-hidden flex items-center justify-center">
-              <div className="p-8">
-                <div className="p-6 bg-white rounded-lg shadow-sm">
-                  <h3 className="text-xl font-semibold text-green-800 mb-4">
-                    Key Features
-                  </h3>
-                  <ul className="space-y-3">
-                    <li className="flex items-start">
-                      <svg
-                        className="h-6 w-6 text-green-600 mr-2"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                      <span>Site-specific native tree recommendations</span>
-                    </li>
-                    <li className="flex items-start">
-                      <svg
-                        className="h-6 w-6 text-green-600 mr-2"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                      <span>Detailed species attributes and preferences</span>
-                    </li>
-                    <li className="flex items-start">
-                      <svg
-                        className="h-6 w-6 text-green-600 mr-2"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                      <span>
-                        User-friendly interface for all experience levels
-                      </span>
-                    </li>
-                    <li className="flex items-start">
-                      <svg
-                        className="h-6 w-6 text-green-600 mr-2"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                      <span>Research-backed data for informed decisions</span>
-                    </li>
-                  </ul>
-                </div>
+            <div className="md:w-1/2 order-1 md:order-2">
+              <div className="bg-green-50 p-8 rounded-lg h-full flex items-center justify-center">
+                <img
+                  src="images/Mobile_PWA_Tutorial.gif"
+                  alt="offline tutorial for mobile gif"
+                  className="h-auto rounded-lg shadow-md"
+                />
               </div>
             </div>
+
             <div className="md:w-1/2">
               <h2 className="text-3xl font-bold text-green-800 mb-8">
                 Can I go Offline with a Mobile Device?
               </h2>
               <div className="prose prose-lg max-w-none text-gray-700 space-y-4">
                 <p className="leading-relaxed">
-                  Yes! to do so, you need to navigate to the share website button and click on it. 
+                  Yes! For Iphone, you need to navigate to the share website button and click on it. 
                   In the new menu, navigate to where it says "Add to Home Screen" and click that.
                   If you cannot find "Add to Home Screen" then your current browser may not support offline websites. 
-                  For Iphone, Safari is guarenteed to support offline. For Android, IDK I need to ask!
+                  Safari is guarenteed to support offline. 
+                </p>
+                <p className="leading-relaxed">
+                  For Android, use Chrome and click on the three dots by the search bar. click "Add to Homescreen" then click "install."
                 </p>
                 <p className="leading-relaxed">
                   You will then be asked again if you want to add it to home screen. Click on "Add." Now PANTS
