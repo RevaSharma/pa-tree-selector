@@ -229,7 +229,7 @@ function About() {
             <div className="md:w-1/2 order-1 md:order-2">
               <div className="bg-green-50 p-8 rounded-lg h-full flex items-center justify-center">
                 <img
-                  src="images/logo.png"
+                  src="images/chesapeake_logo.png"
                   alt="Chesapeake Conservancy"
                   className="w-full h-auto rounded-lg shadow-md"
                 />
