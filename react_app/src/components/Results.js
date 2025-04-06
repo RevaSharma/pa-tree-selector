@@ -254,16 +254,16 @@ function Results({ treeData, isLoading, zipCode, filters }) {
         ref={resultsRef}
         className="max-w-5xl mx-auto"
       >
-        <h2 className="text-3xl font-semibold text-gray-800 mb-8">
+        <h2 className="text-3xl font-semibold text-gray-800 mb-8 dark:text-green-100">
           Filtered Results:
         </h2>
 
-        <div className="mb-6 p-4 bg-white rounded-lg shadow-md">
+        <div className="mb-6 p-4 bg-white rounded-lg shadow-md border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
           {zipCode && (
-            <p className="text-lg font-semibold mb-2"> ZIP Code: {zipCode} </p>
+            <p className="text-lg font-semibold mb-2 dark:text-gray-300"> ZIP Code: {zipCode} </p>
           )}
-          <h3 className="text-lg font-semibold mb-2">Selected Filters:</h3>
-          {renderSelectedFilters()}
+          <h3 className="text-lg font-semibold mb-2 dark:text-gray-300">Selected Filters:</h3>
+          <p className="text-lg font-semibold mb-2 dark:text-gray-300"> {renderSelectedFilters()} </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -277,7 +277,7 @@ function Results({ treeData, isLoading, zipCode, filters }) {
                   {compactView ? (
                     <Result key={tree.commonName} tree={tree} />
                   ) : (
-                    <div className="border border-gray-200 rounded-lg p-4 shadow-md bg-white">
+                    <div className="border border-gray-200 rounded-lg p-4 shadow-md bg-white dark:bg-gray-800 dark:border-gray-700">
                       {tree.images && tree.images.length > 0 ? (
                         <img
                           src={tree.images[0]}
@@ -285,27 +285,27 @@ function Results({ treeData, isLoading, zipCode, filters }) {
                           className="w-full h-48 object-cover rounded-md"
                         />
                       ) : (
-                        <div className="w-full h-48 bg-gray-300 flex items-center justify-center text-gray-600">
+                        <div className="w-full h-48 bg-gray-300 flex items-center justify-center text-gray-600 dark:bg-gray-700 dark:text-gray-300">
                           No Image Available
                         </div>
                       )}
                       <div className="p-4">
-                        <p className="text-lg font-semibold text-gray-800">
+                        <p className="text-lg font-semibold text-gray-800 dark:text-gray-200">
                           {tree.commonName}
                         </p>
                         <p className="text-md italic text-gray-600">
                           {tree.sciName}
                         </p>
-                        <p className="text-sm text-gray-700">
+                        <p className="text-sm text-gray-700 dark:text-gray-400">
                           Type: {tree.woodyPlantType}
                         </p>
-                        <p className="text-sm text-gray-700">
+                        <p className="text-sm text-gray-700 dark:text-gray-400">
                           Soil Moisture: {tree.soilMoistureConditions}
                         </p>
-                        <p className="text-sm text-gray-700">
+                        <p className="text-sm text-gray-700 dark:text-gray-400">
                           Shade Tolerance: {tree.shadeTolerance}
                         </p>
-                        <p className="text-sm text-gray-700">
+                        <p className="text-sm text-gray-700 dark:text-gray-400">
                           Growth Rate: {tree.growthRate}
                         </p>
                         <TreeInfoButton tree={tree} />
@@ -315,7 +315,7 @@ function Results({ treeData, isLoading, zipCode, filters }) {
                 </div>
               ))
           ) : (
-            <p className="col-span-full text-lg text-gray-600 p-10">
+            <p className="col-span-full text-lg text-gray-600 p-10 dark:text-gray-300">
               No trees match the selected filters.
             </p>
           )}

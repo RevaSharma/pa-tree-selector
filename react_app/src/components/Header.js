@@ -31,7 +31,7 @@ function Header() {
   }, []);
 
   return (
-    <header className="bg-headerBg py-4 shadow-lg flex justify-center">
+    <header className="bg-headerBg py-4 shadow-lg flex justify-center dark:bg-headerBgDark">
       <div className="flex justify-between items-center w-11/12 max-w-5xl">
 
         {/* Logo and Title */}
@@ -62,7 +62,7 @@ function Header() {
           ref={menuRef}
           className={`${
             isMenuOpen ? "translate-x-0" : "translate-x-full"
-          } transform transition-transform duration-300 ease-in-out fixed top-0 right-0 h-full w-64 bg-headerBg p-5 z-50`}
+          } transform transition-transform duration-300 ease-in-out fixed top-0 right-0 h-full w-64 bg-headerBg p-5 z-50 dark:bg-headerBgDark`}
         >
           <Link
             to="/"

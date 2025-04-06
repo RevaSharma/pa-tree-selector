@@ -34,14 +34,14 @@ function About() {
       </section>
 
       {/* What is the Pennsylvania Native Tree Selector? Section */}
-      <section className="py-20 px-6">
+      <section className="py-20 px-6 dark:bg-gray-900">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row gap-12">
             <div className="md:w-1/2">
-              <h2 className="text-3xl font-bold text-green-800 mb-8">
+              <h2 className="text-3xl font-bold text-green-800 mb-8 dark:text-green-100">
                 What is the Pennsylvania Native Tree Selector?
               </h2>
-              <div className="prose prose-lg max-w-none text-gray-700 space-y-4">
+              <div className="prose prose-lg max-w-none text-gray-700 space-y-4 dark:text-gray-300">
                 <p className="leading-relaxed">
                   The Pennsylvania Native Tree Selector is a comprehensive tool
                   that provides landowners and conservation planners with an
@@ -67,7 +67,7 @@ function About() {
                 </p>
               </div>
             </div>
-            <div className="md:w-1/2 bg-green-50 rounded-lg overflow-hidden flex items-center justify-center">
+            <div className="md:w-1/2 bg-green-50 rounded-lg overflow-hidden flex items-center justify-center dark:bg-green-800">
               <div className="p-8">
                 <div className="p-6 bg-white rounded-lg shadow-sm">
                   <h3 className="text-xl font-semibold text-green-800 mb-4">
@@ -107,9 +107,9 @@ function About() {
       </section>
 
       {/* History Section */}
-      <section className="py-20 px-6 bg-green-50">
+      <section className="py-20 px-6 bg-green-50 dark:bg-green-800">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-green-800 mb-8 text-center">
+          <h2 className="text-3xl font-bold text-green-800 mb-8 text-center dark:text-green-100">
             History
           </h2>
           <div className="bg-white p-8 rounded-lg shadow-sm max-w-4xl mx-auto space-y-4">
@@ -131,14 +131,14 @@ function About() {
       </section>
 
       {/* About Organization Section */}
-      <section className="py-20 px-6">
+      <section className="py-20 px-6 bg-white dark:bg-gray-900">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row gap-12 items-center">
             <div className="md:w-1/2 order-2 md:order-1">
-              <h2 className="text-3xl font-bold text-green-800 mb-8">
+              <h2 className="text-3xl font-bold text-green-800 mb-8 dark:text-green-100">
                 What is the Chesapeake Conservancy?
               </h2>
-              <div className="space-y-4 text-gray-700">
+              <div className="space-y-4 text-gray-700 leading-relaxed dark:text-gray-300">
                 <p className="leading-relaxed">
                   Chesapeake Conservancy (CC) is a nonprofit organization with offices in Annapolis, Maryland and Selinsgrove, PA. We are a team of 45 conservation professionals and geospatial analysts.
                 </p>
@@ -167,9 +167,9 @@ function About() {
       </section>
 
       {/* Partner Logos */}
-      <section className="py-10 bg-white px-6">
+      <section className="py-10 bg-white px-6 dark:bg-gray-900">
         <div className="max-w-4xl mx-auto flex flex-col items-center justify-center gap-6">
-          <h3 className="text-xl font-semibold text-gray-700 mb-4">
+          <h3 className="text-xl font-semibold text-gray-700 mb-4 dark:text-gray-300">
             A partnership between
           </h3>
           <div className="flex items-center justify-center gap-10">

@@ -32,8 +32,8 @@ const FilterInput = ({
   };
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-5 mb-6 w-full">
-      <div className="flex justify-between items-center mb-3">
+    <div className="bg-white shadow-md rounded-lg p-5 mb-6 w-full border border-gray-200 dark:bg-gray-600 dark:border-gray-700">
+      <div className="flex justify-between items-center mb-3 text-gray-800 dark:text-gray-200">
         <h3 className="text-lg font-semibold">{title}</h3>
         <InfoTooltip label={title} />
       </div>

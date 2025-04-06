@@ -23,19 +23,19 @@ function StartMenu({ filteringState, setFilteringState }) {
   return (
     <section
       id="start-menu"
-      className="hideable crumb-page flex flex-col items-center justify-center pt-12 px-8 bg-gradient-to-b min-h-screen"
+      className="hideable crumb-page flex flex-col items-center justify-center pt-12 px-8 bg-gradient-to-b min-h-screen "
     >
-      <div className="max-w-2xl w-full text-center bg-white p-8 rounded-xl shadow-lg border border-green-100">
+      <div className="max-w-2xl w-full text-center bg-white p-8 rounded-xl shadow-lg border border-green-100 dark:bg-green-800">
         {/* Header with Icon */}
         <div className="flex items-center justify-center mb-6">
-          <FaTree className="text-6xl text-green-600 mr-4" />
-          <h1 className="text-4xl font-bold text-green-900">
+          <FaTree className="text-6xl text-green-600 mr-4 text-4xl font-extrabold text-green-800 dark:text-green-100 flex items-center gap-2 mb-4" />
+          <h1 className="text-4xl font-bold text-green-900 dark:text-green-100">
             Pennsylvania Native Tree Selector
           </h1>
         </div>
 
         {/* Description Section */}
-        <p className="text-lg text-gray-700 mb-6">
+        <p className="text-lg text-gray-700 mb-6 dark:text-gray-300">
           The <strong>Pennsylvania Tree Selector Tool</strong> is a
           user-friendly resource that helps landowners and conservation planners
           quickly find the best native species to plant in Pennsylvania. By
@@ -43,7 +43,7 @@ function StartMenu({ filteringState, setFilteringState }) {
           and shade tolerance—this tool provides efficient, research-backed
           recommendations.
         </p>
-        <p className="text-lg text-gray-700 mb-8">
+        <p className="text-lg text-gray-700 mb-8 dark:text-gray-300">
           Whether you're a seasoned professional or new to tree planting, this
           tool streamlines your decision-making process. Enter your ZIP code
           below to discover species best suited for your local conditions. It's
