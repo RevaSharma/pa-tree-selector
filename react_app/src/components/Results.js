@@ -293,7 +293,7 @@ function Results({ treeData, isLoading, zipCode, filters }) {
                         <p className="text-lg font-semibold text-gray-800 dark:text-gray-200">
                           {tree.commonName}
                         </p>
-                        <p className="text-md italic text-gray-600">
+                        <p className="text-md italic text-gray-600 dark:text-gray-400">
                           {tree.sciName}
                         </p>
                         <p className="text-sm text-gray-700 dark:text-gray-400">
