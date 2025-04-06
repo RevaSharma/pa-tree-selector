@@ -254,16 +254,16 @@ function Results({ treeData, isLoading, zipCode, filters }) {
         ref={resultsRef}
         className="max-w-5xl mx-auto"
       >
-        <h2 className="text-3xl font-semibold text-gray-800 mb-8">
+        <h2 className="text-3xl font-semibold text-gray-800 mb-8 dark:text-green-100">
           Filtered Results:
         </h2>
 
-        <div className="mb-6 p-4 bg-white rounded-lg shadow-md">
+        <div className="mb-6 p-4 bg-white rounded-lg shadow-md border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
           {zipCode && (
-            <p className="text-lg font-semibold mb-2"> ZIP Code: {zipCode} </p>
+            <p className="text-lg font-semibold mb-2 dark:text-gray-300"> ZIP Code: {zipCode} </p>
           )}
-          <h3 className="text-lg font-semibold mb-2">Selected Filters:</h3>
-          {renderSelectedFilters()}
+          <h3 className="text-lg font-semibold mb-2 dark:text-gray-300">Selected Filters:</h3>
+          <p className="text-lg font-semibold mb-2 dark:text-gray-300"> {renderSelectedFilters()} </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

@@ -46,21 +46,21 @@ function InputManager({ filteringState, setFilteringState }) {
   }, [filteringState]);
 
   return (
-    <div className="max-w-4xl mx-auto p-8 bg-white shadow-lg rounded-lg mt-8">
+    <div className="max-w-4xl mx-auto p-8 bg-white shadow-lg rounded-lg mt-8 border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
       {/* Component Heading */}
-      <h2 className="text-4xl font-bold text-gray-900 mb-4 tracking-tight leading-tight">
+      <h2 className="text-4xl font-bold text-gray-900 mb-4 tracking-tight leading-tight dark:text-green-100">
         Tree Filtering Options
       </h2>
 
       {/* Introduction Text */}
-      <p className="text-lg text-gray-700 leading-relaxed">
+      <p className="text-lg text-gray-700 leading-relaxed mb-6 dark:text-gray-300">
         Welcome! Use the filters below to find your perfect tree. Please choose
         among different filters to narrow down the best match.
       </p>
 
       {/* Current ZIP code and hardiness zone display */}
-      <div className="mb-6 p-4 bg-gray-100 rounded-md shadow-sm">
-        <p className="text-lg text-gray-800">
+      <div className="mb-6 p-4 bg-gray-100 rounded-md shadow-sm dark:bg-gray-800">
+        <p className="text-lg text-gray-800 dark:text-gray-200">
           Your current ZIP code is{" "}
           <span className="font-bold">
             {filteringState.zipCode || "not set"}
@@ -84,7 +84,7 @@ function InputManager({ filteringState, setFilteringState }) {
 
         {/* ZIP input UI */}
         {showZipInput && (
-          <div className="mt-4 p-4 bg-white shadow-sm rounded-lg">
+          <div className="mt-4 p-4 bg-white shadow-sm rounded-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <ZipCodeInput
               updateHardinessZone={(zone) => {
                 setFilteringState((prev) => ({
@@ -105,13 +105,13 @@ function InputManager({ filteringState, setFilteringState }) {
             <div className="mt-4 flex gap-2">
               <button
                 onClick={handleConfirmZip}
-                className="px-6 py-2 bg-green-600 text-white rounded-md shadow-md hover:bg-green-700 transition"
+                className="px-6 py-2 bg-green-600 text-white rounded-md shadow-md hover:bg-green-700 transition dark:bg-green-500 dark:hover:bg-green-800"
               >
                 Confirm
               </button>
               <button
                 onClick={() => setShowZipInput(false)}
-                className="px-6 py-2 bg-gray-500 text-white rounded-md shadow-md hover:bg-gray-600 transition"
+                className="px-6 py-2 bg-gray-500 text-white rounded-md shadow-md hover:bg-gray-600 transition dark:bg-gray-400 dark:hover:bg-gray-500"
               >
                 Cancel
               </button>

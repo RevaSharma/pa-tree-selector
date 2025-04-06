@@ -30,7 +30,7 @@ const Result = ({ tree }) => {
             />
           )}
         </div>
-        <div className="flex flex-col justify-center px-4 py-2 gap-2">
+        <div className="flex flex-col justify-center px-4 py-2 gap-2 dark:text-gray-200">
           <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
             {tree.commonName}
           </h5>
