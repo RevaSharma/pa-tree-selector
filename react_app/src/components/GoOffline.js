@@ -45,7 +45,7 @@ function GoOffline() {
               <h2 className="text-3xl font-bold text-green-800 mb-8 dark:text-green-100">
                 How can I get the Pennsylvania Native Tree Selector Offline?
               </h2>
-              <div className="space-y-4 text-gray-700 dark: text-gray-300">
+              <div className="space-y-4 text-gray-700 dark:text-gray-300">
                 <p className="leading-relaxed">
                   First, navigate to the right half of the search bar and click on the leftmost symbol.
                   This should pop up with a prompt asking if you want to install the app.
