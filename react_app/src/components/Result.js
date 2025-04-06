@@ -20,17 +20,17 @@ const Result = ({ tree }) => {
       `}
     >
       <div className="flex">
-        <div className="w-24 h-24">
+        <div className="w-24 h-24 rounded-full md:rounded-full border border-gray-200 dark:border-gray-700 flex-shrink-0 flex justify-center items-center truncate dark:bg-gray-700">
           {tree.images?.length > 0 && (
             <img
-              className="w-24 h-24 rounded-full md:rounded-full border border-gray-200 dark:border-gray-700 flex-shrink-0 flex justify-center items-center truncate"
+              className="w-24 h-24 rounded-full md:rounded-full border border-gray-200 dark:border-gray-700 flex-shrink-0 flex justify-center items-center truncate dark:bg-gray-700"
               src={tree.images[0]}
               alt={tree.commonName || "Tree image"}
               loading="lazy"
             />
           )}
         </div>
-        <div className="flex flex-col justify-center px-4 py-2 gap-2 dark:text-gray-200">
+        <div className="flex flex-col justify-center px-4 py-2 gap-2 dark:text-gray-200 text-gray-800">
           <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
             {tree.commonName}
           </h5>
