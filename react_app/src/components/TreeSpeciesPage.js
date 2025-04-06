@@ -9,68 +9,69 @@ const TreeSpeciesPage = ({ trees }) => {
 
   const navigate = useNavigate();
 
-  function handleViewResults() {
+  const handleBack = () => {
     navigate("/results");
-  }
+  };
 
   if (!tree) {
-    return <div className="justify-center h-64 flex items-center p-4 text-green-700">Finding {sciName}...</div>;
+    return (
+      <div className="text-center text-green-700 dark:text-green-300 py-12">
+        Looking for <span className="italic">{sciName}</span>...
+      </div>
+    );
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-8 bg-white shadow-lg rounded-lg mt-8">
-      <button
-        onClick={handleViewResults}
-        className="px-6 py-3 bg-green-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-green-700 transition-colors"
-      >
-        ← Back to Results
-      </button>
-      <div className="flex justify-center mb-4">
-        {tree.images?.length > 0 && (
-          <img
-            className="w-64 h-64"
-            src={tree.images[0]}
-            alt={tree.commonName || "Tree image"}
-          />
-        )}
-      </div>
-      <h1 className="text-4xl font-bold text-center">{tree.commonName}</h1>
-      <h2 className="mb-4 text-3xl text-gray-600 italic text-center">
-        {tree.sciName}
-      </h2>
+    <section className="flex flex-col items-center justify-center pt-12 px-6 bg-gradient-to-b min-h-screen dark:from-[#0f172a] dark:to-[#1e293b]">
+      <div className="max-w-4xl w-full text-center bg-white p-8 rounded-xl shadow-lg border border-green-100 dark:bg-green-800 dark:border-green-600">
+        {/* Back Button */}
+        <button
+          onClick={handleBack}
+          className="mb-6 px-5 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md transition"
+        >
+          ← Back to Results
+        </button>
 
-      <div className="gap-2 grid grid-cols-1 md:grid-cols-2">
-        {Object.entries(tree)
-          .filter(
-            ([key]) =>
-              ![
-                "commonName",
-                "sciName",
-                "problems",
-                "notes",
-                "passedFilters",
-                "failedFilters",
-                "score",
-                "passedPercent",
-                "hasPerfectScore",
-                "images",
-              ].includes(key)
-          ) // Exclude specific keys
-          .map(([key, value]) => (
-            <div className="p-4 flex flex-col items-center">
-              <h3 className="text-2xl font-bold">
-                {key
-                  .replace(/([a-z])([A-Z])/g, "$1 $2")
-                  .replace(/^./, (str) => str.toUpperCase())}
-              </h3>
-              <div className="text-xl">{value}</div>
-            </div>
-          ))}
-      </div>
+        {/* Header */}
+        <h1 className="text-4xl font-bold text-green-900 dark:text-green-100 mb-2">
+          {tree.commonName}
+        </h1>
+        <h2 className="text-2xl italic text-gray-700 dark:text-gray-300 mb-8">
+          {tree.sciName}
+        </h2>
 
-      {/* Iterate over all properties and display them */}
-      <div className="mt-4"></div>
-    </div>
+        {/* Attributes Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {Object.entries(tree)
+            .filter(
+              ([key]) =>
+                ![
+                  "commonName",
+                  "sciName",
+                  "problems",
+                  "notes",
+                  "passedFilters",
+                  "failedFilters",
+                  "score",
+                  "passedPercent",
+                  "hasPerfectScore",
+                  "images",
+                ].includes(key)
+            )
+            .map(([key, value]) => (
+              <div
+                key={key}
+                className="p-4 rounded-lg border border-green-200 dark:border-green-500 bg-gray-50 dark:bg-green-900 text-left"
+              >
+                <h3 className="text-lg font-semibold text-green-800 dark:text-green-100 mb-1 capitalize">
+                  {key.replace(/([a-z])([A-Z])/g, "$1 $2")}
+                </h3>
+                <p className="text-gray-800 dark:text-gray-200">{value}</p>
+              </div>
+            ))}
+        </div>
+      </div>
+    </section>
   );
 };
 
