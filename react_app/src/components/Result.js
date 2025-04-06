@@ -26,7 +26,6 @@ const Result = ({ tree }) => {
               className="w-24 h-24 rounded-full md:rounded-full border border-gray-200 dark:border-gray-700 flex-shrink-0 flex justify-center items-center truncate"
               src={tree.images[0]}
               alt={tree.commonName || "Tree image"}
-              loading="lazy"
             />
           )}
         </div>
@@ -47,6 +46,9 @@ const Result = ({ tree }) => {
         {tree.passedPercent}
         <span className="text-sm">%</span>
       </div>
+      {tree.hasCriticalFailure && tree.failedCriticalFilters && (
+        <div className="rounded-full absolute top-0 right-0 uppercase bg-yellow-700 text-yellow-100 px-2 py-1 text-xs">fails to survive</div>
+      )}
     </a>
   );
 };

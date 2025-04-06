@@ -1,6 +1,7 @@
 import { matchesHardinessZone } from "./matchesHardinessZone";
 import { matchesMatureHeight } from "./matchesMatureHeight";
 import { matchesTolerance } from "./matchesTolerance";
+import filterConfig from "../data/filterConfig.json";
 
 // Returns an array of unscored trees that passed all filters.
 export function filterTrees(trees, filteringState) {
@@ -10,8 +11,10 @@ export function filterTrees(trees, filteringState) {
       ({
         passedFilters,
         failedFilters,
+        failedCriticalFilters,
         score,
         hasPerfectScore,
+        hasCriticalFailure,
         passedPercent,
         ...rest
       }) => rest
@@ -29,6 +32,7 @@ export function scoreTrees(trees, filteringState) {
 function scoreTree(tree, filteringState) {
   const passedFilters = [];
   const failedFilters = [];
+  const failedCriticalFilters = [];
 
   const { zipCode, ...activeFilters } = filteringState;
 
@@ -37,6 +41,14 @@ function scoreTree(tree, filteringState) {
       passedFilters.push(filterName);
     } else {
       failedFilters.push(filterName);
+      if (filterConfig.find((filter) => filter.property === filterName)) {
+        if (
+          filterConfig.find((filter) => filter.property === filterName)
+            .isCriticalForSurvival
+        ) {
+          failedCriticalFilters.push(filterName);
+        }
+      }
     }
   });
 
@@ -44,8 +56,10 @@ function scoreTree(tree, filteringState) {
     ...tree,
     passedFilters,
     failedFilters,
+    failedCriticalFilters,
     score: passedFilters.length,
     hasPerfectScore: failedFilters.length === 0,
+    hasCriticalFailure: failedCriticalFilters.length !== 0,
     passedPercent: (
       (passedFilters.length / (passedFilters.length + failedFilters.length)) *
       100
