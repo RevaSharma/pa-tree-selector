@@ -11,6 +11,7 @@ module.exports = {
         crumbBg: "#cad8e6", // Breadcrumb background
         crumbHover: "#90b9e7",
         headerBg: "#146d8b", // Header text color
+        headerBgDark: "#0d4f6d", // Header background color dark mode
       },
     },
   },

@@ -22,8 +22,8 @@ function ZipCodeInput({ updateHardinessZone, setFilteringState }) {
   };
 
   return (
-    <div className="text-center">
-      <h2 className="text-2xl font-semibold text-green-800 mb-4">
+    <div className="text-center ">
+      <h2 className="text-2xl font-semibold text-green-800 mb-4 dark:text-green-100">
         Zip Code (for Hardiness Zone)
       </h2>
       
@@ -33,7 +33,7 @@ function ZipCodeInput({ updateHardinessZone, setFilteringState }) {
           value={zipCode}
           onChange={handleZipCodeChange}
           placeholder="Enter ZIP code"
-          className="w-64 px-4 py-2 border border-green-300 rounded-md text-center text-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="w-64 px-4 py-2 border border-green-300 rounded-md text-center text-lg focus:outline-none focus:ring-2 focus:ring-green-500 "
         />
         
         {zipCode && (

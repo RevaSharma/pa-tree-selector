@@ -38,14 +38,14 @@ function GoOffline() {
       </section>
       
       {/* How do I get offline desktop section */}
-      <section className="py-20 px-6">
+      <section className="py-20 px-6 dark:bg-gray-900">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row gap-12 items-center">
             <div className="md:w-1/2 order-2 md:order-1">
-              <h2 className="text-3xl font-bold text-green-800 mb-8">
+              <h2 className="text-3xl font-bold text-green-800 mb-8 dark:text-green-100">
                 How can I get the Pennsylvania Native Tree Selector Offline?
               </h2>
-              <div className="space-y-4 text-gray-700">
+              <div className="space-y-4 text-gray-700 dark: text-gray-300">
                 <p className="leading-relaxed">
                   First, navigate to the right half of the search bar and click on the leftmost symbol.
                   This should pop up with a prompt asking if you want to install the app.
@@ -65,7 +65,7 @@ function GoOffline() {
               </div>
             </div>
             <div className="md:w-1/2 order-1 md:order-2">
-              <div className="bg-green-50 p-8 rounded-lg h-full flex items-center justify-center">
+              <div className="bg-green-50 p-8 rounded-lg h-full flex items-center justify-center dark:bg-green-800">
                 <img
                   src="images/PWA_Tutorial_GIF.gif"
                   alt="offline tutorial gif"
@@ -78,9 +78,9 @@ function GoOffline() {
       </section>
 
       {/* I cant see the icon! section */}
-      <section className="py-20 px-6 bg-green-50">
+      <section className="py-20 px-6 bg-green-50 dark:bg-green-800">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-green-800 mb-8 text-center">
+          <h2 className="text-3xl font-bold text-green-800 mb-8 text-center dark:text-green-100">
             But the Download Icon Isn't There!
           </h2>
 
@@ -102,13 +102,13 @@ function GoOffline() {
 
 
       {/* How do I use it on mobile section */}
-      <section className="py-20 px-6">
+      <section className="py-20 px-6 dark:bg-gray-900">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row gap-12">
             
             {/* Visual accent - decorative tree illustration or photo */}
             <div className="md:w-1/2 order-1 md:order-2">
-              <div className="bg-green-50 p-8 rounded-lg h-full flex items-center justify-center">
+              <div className="bg-green-50 p-8 rounded-lg h-full flex items-center justify-center dark:bg-green-800">
                 <img
                   src="images/Mobile_PWA_Tutorial.gif"
                   alt="offline tutorial for mobile gif"
@@ -118,10 +118,10 @@ function GoOffline() {
             </div>
 
             <div className="md:w-1/2">
-              <h2 className="text-3xl font-bold text-green-800 mb-8">
+              <h2 className="text-3xl font-bold text-green-800 mb-8 dark:text-green-100">
                 Can I go Offline with a Mobile Device?
               </h2>
-              <div className="prose prose-lg max-w-none text-gray-700 space-y-4">
+              <div className="prose prose-lg max-w-none text-gray-700 space-y-4 dark:text-gray-300">
                 <p className="leading-relaxed">
                   Yes! For Iphone, you need to navigate to the share website button and click on it. 
                   In the new menu, navigate to where it says "Add to Home Screen" and click that.
