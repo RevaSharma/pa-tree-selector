@@ -62,6 +62,8 @@ const TreeSpeciesPage = ({ trees }) => {
                   "notes",
                   "passedFilters",
                   "failedFilters",
+                  "failedCriticalFilters", 
+                  "hasCriticalFailure",
                   "score",
                   "passedPercent",
                   "hasPerfectScore",
