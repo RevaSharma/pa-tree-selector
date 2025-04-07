@@ -39,10 +39,15 @@ function Results({ treeData, isLoading, zipCode, filters }) {
       month: "long",
       day: "numeric",
     });
-
+  
+    // ✅ FILTER the trees just like the Results page
+    const filteredTreeData = treeData.filter(
+      (tree) => !tree.hasCriticalFailure && tree.passedPercent >= 50
+    );
+  
     const rowsPerPage = 9;
-    const totalPages = Math.ceil(treeData.length / rowsPerPage);
-
+    const totalPages = Math.ceil(filteredTreeData.length / rowsPerPage);
+  
     let html = `
       <html><head>
       <style>
@@ -115,25 +120,25 @@ function Results({ treeData, isLoading, zipCode, filters }) {
       </style>
       </head><body>
     `;
-
+  
     for (let page = 0; page < totalPages; page++) {
       const start = page * rowsPerPage;
       const end = start + rowsPerPage;
-      const trees = treeData.slice(start, end);
-
+      const trees = filteredTreeData.slice(start, end);
+  
       html += `
         <div class="pdf-page">
           <div class="header-container">
             <img src="images/logo.png" alt="Chesapeake Conservancy Logo" class="logo" />
             <h1 class="title">Pennsylvania Native Tree Selector</h1>
           </div>
-
+  
           ${
             page === 0 && projectTitle
               ? `<h1 class="project-title">${projectTitle}</h1>`
               : ""
           }
-
+  
           ${
             page === 0
               ? `
@@ -152,7 +157,7 @@ function Results({ treeData, isLoading, zipCode, filters }) {
           </div>`
               : ""
           }
-
+  
           <table>
             <thead>
               <tr>
@@ -162,6 +167,7 @@ function Results({ treeData, isLoading, zipCode, filters }) {
                 <th>Soil Moisture</th>
                 <th>Shade Tolerance</th>
                 <th>Growth Rate</th>
+                <th>Percentage Match</th>
               </tr>
             </thead>
             <tbody>
@@ -175,13 +181,14 @@ function Results({ treeData, isLoading, zipCode, filters }) {
                   <td>${tree.soilMoistureConditions || ""}</td>
                   <td>${tree.shadeTolerance || ""}</td>
                   <td>${tree.growthRate || ""}</td>
+                  <td>${tree.passedPercent != null ? `${tree.passedPercent}%` : "N/A"}</td>
                 </tr>
               `
                 )
                 .join("")}
             </tbody>
           </table>
-
+  
           <div class="footer-spacer"></div>
           <div class="footer">Generated on ${today} — Page ${
         page + 1
@@ -189,10 +196,11 @@ function Results({ treeData, isLoading, zipCode, filters }) {
         </div>
       `;
     }
-
+  
     html += `</body></html>`;
     return html;
   };
+  
 
   const handleExport = () => {
     const tableHTML = generateTableHTML();
