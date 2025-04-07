@@ -1,4 +1,12 @@
+// Result.js
+
+import { Link } from "react-router-dom";
+
+/**
+ * Result component representing an individual tree result in compact view.
+ */
 const Result = ({ tree }) => {
+  // Helper function to determine the background color based on pass percentage
   const getColor = (percent) => {
     if (percent >= 100) return "bg-green-700 text-white";
     if (percent >= 80) return "bg-lime-500 text-white";
@@ -10,8 +18,11 @@ const Result = ({ tree }) => {
   };
 
   return (
-    <a
-      href={`/trees/${tree.id || tree.sciName}`}
+    // Changed from <a> to <Link> to preserve state (filters, dark mode, etc.) 
+    // by avoiding a full page reload. This fixes the bug where everything resets
+    // when navigating to an individual tree page and returning.
+    <Link
+      to={`/trees/${tree.id || tree.sciName}`}
       className={`
         relative flex items-center justify-between
         border border-gray-200 rounded-full shadow-sm
@@ -47,9 +58,11 @@ const Result = ({ tree }) => {
         <span className="text-sm">%</span>
       </div>
       {tree.hasCriticalFailure && tree.failedCriticalFilters && (
-        <div className="rounded-full absolute top-0 right-0 uppercase bg-yellow-700 text-yellow-100 px-2 py-1 text-xs">fails to survive</div>
+        <div className="rounded-full absolute top-0 right-0 uppercase bg-yellow-700 text-yellow-100 px-2 py-1 text-xs">
+          fails to survive
+        </div>
       )}
-    </a>
+    </Link>
   );
 };
 
