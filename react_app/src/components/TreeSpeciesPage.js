@@ -32,15 +32,15 @@ const TreeSpeciesPage = ({ trees }) => {
           ← Back to Results
         </button>
 
-        <div className="flex justify-center mb-4">
-        {tree.images?.length > 0 && (
-          <img
-            className="w-64 h-64"
-            src={tree.images[0]}
-            alt={tree.commonName || "Tree image"}
-          />
-        )}
-        </div>
+        <div className="flex justify-center mb-6">
+  {tree.images?.length > 0 && (
+    <img
+      src={tree.images[0]}
+      alt={tree.commonName || "Tree image"}
+      className="w-64 h-64 object-cover rounded-md border-2 border-green-300 shadow-md"
+    />
+  )}
+</div>
 
         {/* Header */}
         <h1 className="text-4xl font-bold text-green-900 dark:text-green-100 mb-2">
