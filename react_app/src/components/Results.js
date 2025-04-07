@@ -39,15 +39,15 @@ function Results({ treeData, isLoading, zipCode, filters }) {
       month: "long",
       day: "numeric",
     });
-  
+
     // ✅ FILTER the trees just like the Results page
     const filteredTreeData = treeData.filter(
       (tree) => !tree.hasCriticalFailure && tree.passedPercent >= 50
     );
-  
+
     const rowsPerPage = 9;
     const totalPages = Math.ceil(filteredTreeData.length / rowsPerPage);
-  
+
     let html = `
       <html><head>
       <style>
@@ -120,25 +120,25 @@ function Results({ treeData, isLoading, zipCode, filters }) {
       </style>
       </head><body>
     `;
-  
+
     for (let page = 0; page < totalPages; page++) {
       const start = page * rowsPerPage;
       const end = start + rowsPerPage;
       const trees = filteredTreeData.slice(start, end);
-  
+
       html += `
         <div class="pdf-page">
           <div class="header-container">
             <img src="images/logo.png" alt="Chesapeake Conservancy Logo" class="logo" />
             <h1 class="title">Pennsylvania Native Tree Selector</h1>
           </div>
-  
+
           ${
             page === 0 && projectTitle
               ? `<h1 class="project-title">${projectTitle}</h1>`
               : ""
           }
-  
+
           ${
             page === 0
               ? `
@@ -157,7 +157,7 @@ function Results({ treeData, isLoading, zipCode, filters }) {
           </div>`
               : ""
           }
-  
+
           <table>
             <thead>
               <tr>
@@ -181,14 +181,18 @@ function Results({ treeData, isLoading, zipCode, filters }) {
                   <td>${tree.soilMoistureConditions || ""}</td>
                   <td>${tree.shadeTolerance || ""}</td>
                   <td>${tree.growthRate || ""}</td>
-                  <td>${tree.passedPercent != null ? `${tree.passedPercent}%` : "N/A"}</td>
+                  <td>${
+                    tree.passedPercent != null
+                      ? `${tree.passedPercent}%`
+                      : "N/A"
+                  }</td>
                 </tr>
               `
                 )
                 .join("")}
             </tbody>
           </table>
-  
+
           <div class="footer-spacer"></div>
           <div class="footer">Generated on ${today} — Page ${
         page + 1
@@ -196,11 +200,10 @@ function Results({ treeData, isLoading, zipCode, filters }) {
         </div>
       `;
     }
-  
+
     html += `</body></html>`;
     return html;
   };
-  
 
   const handleExport = () => {
     const tableHTML = generateTableHTML();
@@ -268,14 +271,25 @@ function Results({ treeData, isLoading, zipCode, filters }) {
 
         <div className="mb-6 p-4 bg-white rounded-lg shadow-md border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
           {zipCode && (
-            <p className="text-lg font-semibold mb-2 dark:text-gray-300"> ZIP Code: {zipCode} </p>
+            <p className="text-lg font-semibold mb-2 dark:text-gray-300">
+              {" "}
+              ZIP Code: {zipCode}{" "}
+            </p>
           )}
-          <h3 className="text-lg font-semibold mb-2 dark:text-gray-300">Selected Filters:</h3>
-          <p className="text-lg font-semibold mb-2 dark:text-gray-300"> {renderSelectedFilters()} </p>
+          <h3 className="text-lg font-semibold mb-2 dark:text-gray-300">
+            Selected Filters:
+          </h3>
+          <p className="text-lg font-semibold mb-2 dark:text-gray-300">
+            {" "}
+            {renderSelectedFilters()}{" "}
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {treeData && treeData.length > 0 ? (
+          {treeData &&
+          treeData.filter(
+            (tree) => !tree.hasCriticalFailure && tree.passedPercent >= 50
+          ).length > 0 ? (
             treeData
               .filter(
                 (tree) => !tree.hasCriticalFailure && tree.passedPercent >= 50
