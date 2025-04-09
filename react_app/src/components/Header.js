@@ -36,6 +36,14 @@ function Header() {
 
         {/* Logo and Title */}
         <div className="flex items-center">
+
+        {/* If logo/title is clicked, go to the start menu */}
+        <Link
+          to="/"
+          className="flex items-center hover:opacity-80 transition-opacity"
+          onClick={() => setIsMenuOpen(false)}
+        >
+
           <img
             src="/images/logo.png"
             alt="Chesapeake Conservancy Logo"
@@ -44,6 +52,7 @@ function Header() {
           <h1 className="text-white text-4xl font-bold">
             Pennsylvania Native Tree Selector
           </h1>
+        </Link>
         </div>
 
         {/* Hamburger Icon */}
