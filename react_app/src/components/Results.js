@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import html2pdf from "html2pdf.js";
 import TreeInfoButton from "./TreeInfoButton";
 import Result from "./Result";
@@ -11,6 +11,11 @@ function Results({ treeData, isLoading, zipCode, filters }) {
   const resultsRef = useRef();
   const [compactView, setCompactView] = useState(true);
   const [projectTitle, setProjectTitle] = useState("");
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const toggleView = () => {
     setCompactView((prev) => !prev);
@@ -223,13 +228,13 @@ function Results({ treeData, isLoading, zipCode, filters }) {
 
   return (
     <div className="p-7 bg-gray-80 min-h-screen">
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-4 flex-wrap gap-4">  
         <div>
           <button
             onClick={() => navigate("/filters")}
             className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
           >
-            ← Return To Filtering
+            ← Return to Filters
           </button>
           <button
             onClick={toggleView}
@@ -254,7 +259,7 @@ function Results({ treeData, isLoading, zipCode, filters }) {
               className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
             >
               <FaFilePdf className="text-white" />
-              Export Selection as PDF
+              Export to PDF
             </button>
           </div>
         )}
