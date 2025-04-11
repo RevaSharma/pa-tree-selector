@@ -107,3 +107,8 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 - Members at the Chesapeake Conservency
 
 ## Licensing
+CC BY-NC-ND 4.0 (Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International)
+
+This license requires that reusers give credit to the creator. It allows reusers to copy and distribute the material in any medium or format in unadapted form and for noncommercial purposes only.
+
+Credit must be given to the creators. People can share, repost or distribute the work however they choose, but it can't be used for commercial purposes. No derivatives or adaptations are permitted (prevents people from building upon it).
