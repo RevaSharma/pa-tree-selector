@@ -70,7 +70,7 @@ function Sources() {
       topic: "Common Ripariam Species",
       source:
         "Chesapeake Bay Foundation Field Staff Pennsylvania Native Trees and Shrubs Recommended for Riparian Buffers document.",
-      link: null,
+      link: "https://chesapeakeforestbuffers.net/wp-content/uploads/2017/02/Pennsylvania-Riparian-Forest-Buffer-Handbook-2017.pdf",
     },
     {
       topic: "Deer Palatability",
