@@ -31,7 +31,7 @@ function Footer({ lastFetchedDate }) {
 
       {/* Attribution */}
       <p className="footer-attribution text-sm max-w-6xl mx-auto leading-relaxed dark:text-green-100">
-        🌿 This web tool was developed by Aya Tarist, Emily Rivera, Claire Engel, John Uysal, Colin Soule, and Reva Sharma of Bucknell University, as a partnership effort between Chesapeake Conservancy and Susquehanna University. For questions, feedback, or to report any errors, please contact us at{" "}
+        🌿 This web tool was developed by the Bucknell University Senior Design Team, as a partnership effort between Chesapeake Conservancy and Susquehanna University. For questions, feedback, or to report any errors, please contact us at{" "}
         <a
           href="mailto:treeselector@chesapeakeconservancy.org"
           className="underline hover:text-green-300"
