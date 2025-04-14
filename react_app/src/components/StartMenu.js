@@ -36,7 +36,7 @@ function StartMenu({ filteringState, setFilteringState }) {
 
         {/* Description Section */}
         <p className="text-lg text-gray-700 mb-6 dark:text-gray-300">
-          The <strong>Pennsylvania Tree Selector Tool</strong> is a
+          The <strong>Pennsylvania Native Tree Selector</strong> is a
           user-friendly resource that helps landowners and conservation planners
           quickly find the best native species to plant in Pennsylvania. By
           evaluating your site conditions—such as soil preferences, growth rate,
