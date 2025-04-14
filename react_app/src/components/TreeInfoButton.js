@@ -8,11 +8,16 @@ const TreeInfoButton = ({ tree }) => {
     return `https://en.wikipedia.org/wiki/${treeName.replace(/\s+/g, "_")}`;
   };
 
+  const handleClick = event => {
+    event.preventDefault();
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div className="relative inline-block">
       {/* Info Button */}
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={handleClick}
         className="p-2 bg-white text-green-600 border border-green-600 
                    rounded-full hover:bg-gray-100 transition"
         aria-label="Show tree information"
