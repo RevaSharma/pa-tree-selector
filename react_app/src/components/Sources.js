@@ -10,8 +10,8 @@ function Sources() {
   const sources = [
     {
       topic: "Definitions / Terminology",
-      source: "Merriam-Webster (10th ed., 1999)",
-      link: null,
+      source: "Merriam-Webster Online (as general reference)",
+      link: "https://www.merriam-webster.com",
     },
     {
       topic: "Soil Moisture Preference",
