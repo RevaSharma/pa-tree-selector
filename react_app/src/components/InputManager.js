@@ -55,7 +55,7 @@ function InputManager({ filteringState, setFilteringState }) {
       {/* Introduction Text */}
       <p className="text-lg text-gray-700 leading-relaxed mb-6 dark:text-gray-300">
         Welcome! Use the filters below to find your perfect tree. Please choose
-        among different filters to narrow down the best match.
+        among different filters to narrow down the best match. It is not required to select all filters.
       </p>
 
       {/* Current ZIP code and hardiness zone display */}

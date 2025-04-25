@@ -39,7 +39,7 @@ function Footer({ lastFetchedDate }) {
   >
     Pennsylvania Native Tree Selector
   </a>{" "}
-  © 2025 by Aya Tarist, Emily Rivera, Claire Engel, John Uysal, Colin Soule, and Reva Sharma of Bucknell University, as a partnership effort between Chesapeake Conservancy and Susquehanna University is licensed under{" "}
+  © 2025 by Aya Tarist, Emily Rivera, Claire Engel, John Uysal, Colin Soule, and Reva Sharma of Bucknell University and Ava Lang of Susquehanna University, as a partnership effort with Chesapeake Conservancy is licensed under{" "}
   <a
     href="https://creativecommons.org/licenses/by-nc-nd/4.0/?ref=chooser-v1"
     target="_blank"
