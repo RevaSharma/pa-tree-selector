@@ -18,11 +18,6 @@ const Result = ({ tree }) => {
   };
 
   return (
-    // Changed from <a> to <Link> to preserve state (filters, dark mode, etc.) 
-    // by avoiding a full page reload. This fixes the bug where everything resets
-    // when navigating to an individual tree page and returning.
-    
-    //linking for the full view of a tree. It encapsulates everything.
     <Link
       to={`/trees/${tree.id || tree.sciName}`}
       className={`
@@ -51,7 +46,7 @@ const Result = ({ tree }) => {
           </h6>
         </div>
       </div>
-      
+
       <div
         className={`absolute top-0 left-0 p-1 w-12 h-12 rounded-full aspect-square flex flex-shrink-0 justify-center items-center text-lg font-bold ${getColor(
           tree.passedPercent
