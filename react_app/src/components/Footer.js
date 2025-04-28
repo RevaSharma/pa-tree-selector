@@ -31,7 +31,7 @@ function Footer({ lastFetchedDate }) {
 
       {/* Attribution */}
       <p className="footer-attribution text-sm max-w-6xl mx-auto leading-relaxed dark:text-green-100">
-        🌳 This web tool was developed by Aya Tarist, Emily Rivera, Claire Engel, John Uysal, Colin Soule, and Reva Sharma of Bucknell University, in partnership with Chesapeake Conservancy and Susquehanna University. This project is licensed under{" "}
+        🌳 This web tool was developed by Aya Tarist, Emily Rivera, Claire Engel, John Uysal, Colin Soule, and Reva Sharma of Bucknell University, and Ava Lang of Susquehanna University, in partnership with Chesapeake Conservancy.  This project is licensed under{" "}
         <a
           href="https://creativecommons.org/licenses/by-nc-nd/4.0/?ref=chooser-v1"
           target="_blank"
