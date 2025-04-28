@@ -18,11 +18,6 @@ const DetailedResult = ({ tree }) => {
   };
 
   return (
-    // Changed from <a> to <Link> to preserve state (filters, dark mode, etc.) 
-    // by avoiding a full page reload. This fixes the bug where everything resets
-    // when navigating to an individual tree page and returning.
-    
-    //linking for the full view of a tree. It encapsulates everything.
     <Link
       to={`/trees/${tree.id || tree.sciName}`}
       className={`
@@ -87,41 +82,3 @@ const DetailedResult = ({ tree }) => {
 };
 
 export default DetailedResult;
-
-//old html for refrence 
-/*
-                    <div className="border border-gray-200 rounded-lg p-4 shadow-md bg-white dark:bg-gray-800 dark:border-gray-700">
-                      {tree.images && tree.images.length > 0 ? (
-                        <img
-                          src={tree.images[0]}
-                          alt={tree.commonName}
-                          className="w-full h-48 object-cover rounded-md"
-                        />
-                      ) : (
-                        <div className="w-full h-48 bg-gray-300 flex items-center justify-center text-gray-600 dark:bg-gray-700 dark:text-gray-300">
-                          No Image Available
-                        </div>
-                      )}
-                      <div className="p-4">
-                        <p className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                          {tree.commonName}
-                        </p>
-                        <p className="text-md italic text-gray-600 dark:text-gray-400">
-                          {tree.sciName}
-                        </p>
-                        <p className="text-sm text-gray-700 dark:text-gray-400">
-                          Type: {tree.woodyPlantType}
-                        </p>
-                        <p className="text-sm text-gray-700 dark:text-gray-400">
-                          Soil Moisture: {tree.soilMoistureConditions}
-                        </p>
-                        <p className="text-sm text-gray-700 dark:text-gray-400">
-                          Shade Tolerance: {tree.shadeTolerance}
-                        </p>
-                        <p className="text-sm text-gray-700 dark:text-gray-400">
-                          Growth Rate: {tree.growthRate}
-                        </p>
-                        <TreeInfoButton tree={tree} />
-                      </div>
-                    </div>
-*/

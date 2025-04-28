@@ -1,3 +1,11 @@
+/**
+ * Main application component for a tree filtering and recommendation tool.
+ *
+ * It loads tree data from a CSV hosted on Google Sheets, applies filters based on user input,
+ * scores and sorts the trees, fetches images, and routes to various views including results,
+ * species detail pages, and static pages like About and Sources.
+ */
+
 import { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
@@ -18,13 +26,19 @@ import { scoreTrees } from "./utils/scoreTrees";
 import { fetchTreeImages } from "./utils/fetchTreeImages";
 import Papa from "papaparse";
 
+// Public URL to CSV data hosted on Google Sheets
 const CSV_URL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vSN9qYza-MdxZdNBnWK58LbIFS6v6UIdYXPwrNgCewtPqVuYdt2g7HmzXXG9x6kshf_-8Cctgj2xTOp/pub?output=csv";
 
+/**
+ * Main app logic with routing and state management.
+ * Handles fetching and parsing CSV data, applying filters,
+ * fetching tree images, and rendering pages.
+ */
 function AppContent() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // Parse filtering state from URL or default to an empty object
+  // Load filtering state from URL if available
   const initialFilteringState = searchParams.get("filteringState")
     ? JSON.parse(searchParams.get("filteringState"))
     : {};
@@ -35,6 +49,9 @@ function AppContent() {
   const [isLoading, setIsLoading] = useState(false);
   const [lastFetchedDate, setLastFetchedDate] = useState(null);
 
+  /**
+   * Fetches and parses CSV tree data once on component mount.
+   */
   useEffect(() => {
     fetch(CSV_URL)
       .then((response) => response.text())
@@ -43,13 +60,16 @@ function AppContent() {
           header: true,
           skipEmptyLines: true,
           complete: (result) => {
-            setTrees(result.data.slice(1));
+            setTrees(result.data.slice(1)); // Skip potential header repetition
           },
         });
       })
       .catch((error) => console.error("Error fetching CSV:", error));
   }, []);
 
+  /**
+   * When trees or filters change, re-score the trees and fetch updated images.
+   */
   useEffect(() => {
     if (trees.length > 0 && filteringState) {
       const filtered = scoreTrees(trees, filteringState);
@@ -67,6 +87,9 @@ function AppContent() {
     }
   }, [trees, filteringState]);
 
+  /**
+   * Syncs filtering state back to the URL whenever it changes.
+   */
   useEffect(() => {
     setSearchParams({ filteringState: JSON.stringify(filteringState) });
   }, [filteringState, setSearchParams]);
@@ -119,6 +142,9 @@ function AppContent() {
   );
 }
 
+/**
+ * Root App component that wraps the application in a Router.
+ */
 function App() {
   return (
     <Router>
