@@ -30,32 +30,24 @@ function Footer({ lastFetchedDate }) {
       <hr className="my-6 border-t border-white/30" />
 
       {/* Attribution */}
-<p className="footer-attribution text-sm max-w-6xl mx-auto leading-relaxed dark:text-green-100">
-  🌿 <a
-    href="https://patreeselector.netlify.app/"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="underline hover:text-green-300"
-  >
-    Pennsylvania Native Tree Selector
-  </a>{" "}
-  © 2025 by Aya Tarist, Emily Rivera, Claire Engel, John Uysal, Colin Soule, and Reva Sharma of Bucknell University, as a partnership effort between Chesapeake Conservancy and Susquehanna University is licensed under{" "}
-  <a
-    href="https://creativecommons.org/licenses/by-nc-nd/4.0/?ref=chooser-v1"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="underline hover:text-green-300"
-  >
-    CC BY-NC-ND 4.0
-  </a>. For questions, feedback, or to report any errors, please contact us at{" "}
-  <a
-    href="mailto:treeselector@chesapeakeconservancy.org"
-    className="underline hover:text-green-300"
-  >
-    treeselector@chesapeakeconservancy.org
-  </a>.
-</p>
-
+      <p className="footer-attribution text-sm max-w-6xl mx-auto leading-relaxed dark:text-green-100">
+        🌳 This web tool was developed by Aya Tarist, Emily Rivera, Claire Engel, John Uysal, Colin Soule, and Reva Sharma of Bucknell University, in partnership with Chesapeake Conservancy and Susquehanna University. This project is licensed under{" "}
+        <a
+          href="https://creativecommons.org/licenses/by-nc-nd/4.0/?ref=chooser-v1"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:text-green-300"
+        >
+          Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)
+        </a>.{" "}
+        For questions, feedback, or to report any errors, please contact us at{" "}
+        <a
+          href="mailto:treeselector@chesapeakeconservancy.org"
+          className="underline hover:text-green-300"
+        >
+          treeselector@chesapeakeconservancy.org
+        </a>.
+      </p>
     </footer>
   );
 }
