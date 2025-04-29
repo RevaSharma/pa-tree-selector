@@ -12,6 +12,7 @@ function Results({ treeData, isLoading, zipCode, filters }) {
   const resultsRef = useRef();
   const [compactView, setCompactView] = useState(true);
   const [projectTitle, setProjectTitle] = useState("");
+  const [showPartialMatch, setShowPartialMatch] = useState(false);
 
   // Scroll to top when component mounts
   useEffect(() => {
@@ -48,7 +49,9 @@ function Results({ treeData, isLoading, zipCode, filters }) {
 
     // ✅ FILTER the trees just like the Results page
     const filteredTreeData = treeData.filter(
-      (tree) => !tree.hasCriticalFailure && tree.passedPercent >= 50
+      (tree) => 
+        !tree.hasCriticalFailure && 
+        tree.passedPercent >= (showPartialMatch ? 50 : 100)
     );
 
     const rowsPerPage = 9;
@@ -264,6 +267,17 @@ function Results({ treeData, isLoading, zipCode, filters }) {
             </button>
           </div>
         )}
+      </div>      
+
+      <div className="mb-6">
+          <label className="flex items-center gap-2 text-lg dark:text-gray-300">
+            <input
+              type="checkbox"
+              checked={showPartialMatch}
+              onChange={(e) => setShowPartialMatch(e.target.checked)}
+            />
+            Show trees that partially match filters (≥ 50% match)
+          </label>
       </div>
 
       <section
@@ -294,11 +308,15 @@ function Results({ treeData, isLoading, zipCode, filters }) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {treeData &&
           treeData.filter(
-            (tree) => !tree.hasCriticalFailure && tree.passedPercent >= 50
+            (tree) => 
+              !tree.hasCriticalFailure && 
+            tree.passedPercent >= (showPartialMatch ? 50 : 100)
           ).length > 0 ? (
             treeData
               .filter(
-                (tree) => !tree.hasCriticalFailure && tree.passedPercent >= 50
+                (tree) => 
+                  !tree.hasCriticalFailure && 
+                tree.passedPercent >= (showPartialMatch ? 50 : 100)
               )
               .map((tree, index) => (
                 <div key={index} className="w-full">
