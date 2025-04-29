@@ -1,6 +1,7 @@
 // Result.js
 
 import { Link } from "react-router-dom";
+import { camelCaseToTitleCase } from "./FilterInput";
 
 /**
  * Result component representing an individual tree result in compact view.
@@ -44,6 +45,18 @@ const Result = ({ tree }) => {
           <h6 className="font-normal text-gray-700 dark:text-gray-400">
             {tree.sciName}
           </h6>
+          {/* Display failed filters in red text */}
+          {tree.failedFilters?.length > 0 && (
+            <div className="text-red-600 text-sm">
+              Failed Filters:{" "}
+              {tree.failedFilters.map((filter, index) => (
+                <span key={index}>
+                  {camelCaseToTitleCase(filter)}
+                  {index < tree.failedFilters.length - 1 ? ", " : ""}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
