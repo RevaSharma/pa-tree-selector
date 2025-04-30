@@ -260,12 +260,21 @@ describe("filterTrees()", () => {
       {}, // property missing
     ];
 
-    const filteringState = { deerPalatability: ["Unpalatable"] };
-    const filteredTrees = filterTrees(trees, filteringState);
+    let filteringState = { deerPalatability: ["No"] };
+    let filteredTrees = filterTrees(trees, filteringState);
 
     expect(filteredTrees).toEqual([
       { deerPalatability: "Unpalatable" }, // unpalatable
       { deerPalatability: "Unpalatable - Palatable" }, // unpalatable and palatable
+    ]);
+
+    filteringState = { deerPalatability: ["Yes"] };
+    filteredTrees = filterTrees(trees, filteringState);
+
+    expect(filteredTrees).toEqual([
+      { deerPalatability: "Unpalatable - Palatable" }, // unpalatable and palatable
+      { deerPalatability: "Palatable" }, // palatable
+      { deerPalatability: "Highly Palatable" }, // highly palatable
     ]);
   });
 

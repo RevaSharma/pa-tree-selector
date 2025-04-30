@@ -2,6 +2,7 @@
 import { matchesHardinessZone } from "./matchesHardinessZone";
 import { matchesMatureHeight } from "./matchesMatureHeight";
 import { matchesTolerance } from "./matchesTolerance";
+import { matchesDeerPalatibility } from "./matchesDeerPalatibility";
 import filterConfig from "../data/filterConfig.json";
 
 /**
@@ -117,6 +118,8 @@ function isTreePassingFilter(tree, filterName, selectedOptions) {
     case "roadSaltSprayTolerance":
     case "jugloneTolerance":
       return matchesTolerance(treeEntry, selectedOptions);
+    case "deerPalatability":
+      return matchesDeerPalatibility(treeEntry, selectedOptions);
     default:
       return Array.isArray(treeEntry)
         ? treeEntry.some((entry) => selectedOptions.includes(entry))
