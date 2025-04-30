@@ -1,3 +1,14 @@
+/**
+ * StartMenu Component
+ * 
+ * Acts as the landing page for the Pennsylvania Native Tree Selector tool.
+ * Introduces the app, collects the user's ZIP code to determine hardiness zone,
+ * and directs the user to the filter selection screen.
+ * 
+ * Props:
+ * - filteringState: current set of filters (e.g. zone, soil type, etc.)
+ * - setFilteringState: function to update the filter state
+ */
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import ZipCodeInput from "./ZipCodeInput";
@@ -6,6 +17,10 @@ import { FaTree } from "react-icons/fa";
 function StartMenu({ filteringState, setFilteringState }) {
   const navigate = useNavigate();
 
+  /**
+   * Updates the filtering state with the selected hardiness zone
+   * or removes it if zone is null.
+   */
   function updateHardinessZone(zone) {
     setFilteringState((prev) => {
       return zone !== null
@@ -16,6 +31,9 @@ function StartMenu({ filteringState, setFilteringState }) {
     });
   }
 
+  /**
+   * Navigates the user to the filters page once they click "Get Started"
+   */
   const handleClick = () => {
     navigate("/filters");
   };

@@ -1,13 +1,18 @@
-// Result.js
-
 import { Link } from "react-router-dom";
 import { camelCaseToTitleCase } from "./FilterInput";
 
 /**
- * Result component representing an individual tree result in compact view.
+ * Component: Result
+ * Description: Displays a single tree result in compact view.
+ * Props:
+ * - tree: An object containing data about a tree, including name, image, match percent, and failed filters.
  */
 const Result = ({ tree }) => {
-  // Helper function to determine the background color based on pass percentage
+  /**
+   * getColor
+   * Determines background color based on how many filters the tree passed.
+   * This color is applied to the percentage badge.
+   */
   const getColor = (percent) => {
     if (percent >= 100) return "bg-green-700 text-white";
     if (percent >= 80) return "bg-lime-500 text-white";
@@ -19,6 +24,7 @@ const Result = ({ tree }) => {
   };
 
   return (
+    // Wraps the result in a clickable link to the individual tree page
     <Link
       to={`/trees/${tree.id || tree.sciName}`}
       className={`

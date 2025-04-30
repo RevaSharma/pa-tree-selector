@@ -1,11 +1,19 @@
-// DetailedResult.js
+/**
+ * This component displays a single tree result in a more detailed format.
+ * It includes a larger image, basic tree properties, and links to the individual species page.
+ * 
+ * Props:
+ * - tree: An object containing all relevant data for one tree, including filters, image, type, tolerances, and scores.
+ */
 import TreeInfoButton from "./TreeInfoButton";
 import { Link } from "react-router-dom";
 import { camelCaseToTitleCase } from "./FilterInput";
 
 
 /**
- * Detailed Result component representing an individual tree result in detailed view.
+ * DetailedResult component
+ * Renders a tree card with expanded info: image, common/scientific name,
+ * type, soil moisture, shade tolerance, growth rate, and any failed filters.
  */
 const DetailedResult = ({ tree }) => {
   // Helper function to determine the background color based on pass percentage
@@ -20,6 +28,7 @@ const DetailedResult = ({ tree }) => {
   };
 
   return (
+    // Card links to the individual tree species page
     <Link
       to={`/trees/${tree.id || tree.sciName}`}
       className={`

@@ -1,3 +1,14 @@
+/**
+ * 
+ * This component displays the main filtering interface. It lets users:
+ * - View and change their ZIP code (which updates the hardiness zone)
+ * - Select from a variety of filters (dynamically loaded from `filterConfig`)
+ * - View tree results or reset their filters
+ * 
+ * Props:
+ * - filteringState: object storing selected filter values
+ * - setFilteringState: function to update the global filtering state
+ */
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import FilterInput from "./FilterInput";

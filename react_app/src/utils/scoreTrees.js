@@ -1,9 +1,13 @@
+// Handles tree filtering and scoring based on selected criteria
 import { matchesHardinessZone } from "./matchesHardinessZone";
 import { matchesMatureHeight } from "./matchesMatureHeight";
 import { matchesTolerance } from "./matchesTolerance";
 import filterConfig from "../data/filterConfig.json";
 
-// Returns an array of unscored trees that passed all filters.
+/**
+ * Filters out trees that don't have a perfect match (i.e., pass all filters).
+ * Returns a simplified tree object with scoring metadata removed.
+ */
 export function filterTrees(trees, filteringState) {
   return scoreTrees(trees, filteringState)
     .filter((tree) => tree.hasPerfectScore)
@@ -21,14 +25,20 @@ export function filterTrees(trees, filteringState) {
     );
 }
 
-// Returns an array of trees with scores added to them.
+/**
+ * Scores all trees based on how many filters they pass.
+ * Returns sorted array of trees (highest score first).
+ */
 export function scoreTrees(trees, filteringState) {
   return trees
     .map((tree) => scoreTree(tree, filteringState))
     .sort((a, b) => b.score - a.score);
 }
 
-// Returns a scored tree.
+/**
+ * Scores a single tree by evaluating it against all active filters.
+ * Tracks passed filters, failed filters, and critical filter failures.
+ */
 function scoreTree(tree, filteringState) {
   const passedFilters = [];
   const failedFilters = [];
@@ -67,7 +77,9 @@ function scoreTree(tree, filteringState) {
   };
 }
 
-// Returns true if the tree passes the filter and false otherwise.
+/**
+ * Determines if a specific tree property matches the user's selected filter options.
+ */
 function isTreePassingFilter(tree, filterName, selectedOptions) {
   if (!selectedOptions) return true;
 

@@ -1,9 +1,15 @@
+// UI component for rendering filter buttons
 import React from "react";
 import InfoTooltip from "./InfoTooltip";
 
+// Utility to convert camelCase filter keys to readable titles
 export const camelCaseToTitleCase = (str) =>
   str.replace(/([A-Z])/g, " $1").replace(/^./, (match) => match.toUpperCase());
 
+/**
+ * Renders filter options as toggleable buttons.
+ * Supports single or multiple selections.
+ */
 const FilterInput = ({
   property,
   options,
@@ -15,6 +21,7 @@ const FilterInput = ({
 }) => {
   const title = displayTitle || camelCaseToTitleCase(property);
 
+  // Handles toggling option selection based on filter type (multi/single select)
   const handleOptionSelected = (option) => {
     if (canSelectMultipleOptions) {
       if (values.includes(option)) {

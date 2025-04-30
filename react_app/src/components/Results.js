@@ -1,3 +1,15 @@
+/**
+ * 
+ * Displays filtered tree results (compact or detailed view), allows PDF export,
+ * and shows selected filters and project info. Users can toggle between views,
+ * include partial matches, and export a formatted PDF.
+ * 
+ * Props:
+ * - treeData: Array of tree objects with filtering results
+ * - isLoading: Boolean indicating if data is being loaded (unused here but passed in)
+ * - zipCode: User-selected zip code
+ * - filters: Object of user-selected filters
+ */
 import React, { useRef, useState, useEffect } from "react";
 import html2pdf from "html2pdf.js";
 import Result from "./Result";
@@ -10,11 +22,13 @@ import { FaFilePdf } from "react-icons/fa";
 function Results({ treeData, isLoading, zipCode, filters }) {
   const navigate = useNavigate();
   const resultsRef = useRef();
+
+   // UI state
   const [compactView, setCompactView] = useState(true);
   const [projectTitle, setProjectTitle] = useState("");
   const [showPartialMatch, setShowPartialMatch] = useState(false);
 
-  // Scroll to top when component mounts
+  // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -23,6 +37,9 @@ function Results({ treeData, isLoading, zipCode, filters }) {
     setCompactView((prev) => !prev);
   };
 
+  /**
+   * Renders the selected filters in human-readable format.
+   */
   const renderSelectedFilters = () => {
     return Object.entries(filters)
       .map(([property, value]) => {
@@ -40,6 +57,10 @@ function Results({ treeData, isLoading, zipCode, filters }) {
       .filter(Boolean);
   };
 
+  /**
+   * Creates an HTML string for a printable PDF version of the filtered results.
+   * Uses html2pdf to render the HTML content into a downloadable file.
+   */
   const generateTableHTML = () => {
     const today = new Date().toLocaleDateString("en-US", {
       year: "numeric",
@@ -47,7 +68,6 @@ function Results({ treeData, isLoading, zipCode, filters }) {
       day: "numeric",
     });
 
-    // ✅ FILTER the trees just like the Results page
     const filteredTreeData = treeData.filter(
       (tree) => 
         !tree.hasCriticalFailure && 
@@ -130,6 +150,7 @@ function Results({ treeData, isLoading, zipCode, filters }) {
       </head><body>
     `;
 
+    // Paginate results across PDF pages
     for (let page = 0; page < totalPages; page++) {
       const start = page * rowsPerPage;
       const end = start + rowsPerPage;
@@ -214,6 +235,9 @@ function Results({ treeData, isLoading, zipCode, filters }) {
     return html;
   };
 
+  /**
+   * Exports the current filtered results as a styled PDF file.
+   */
   const handleExport = () => {
     const tableHTML = generateTableHTML();
     const element = document.createElement("div");

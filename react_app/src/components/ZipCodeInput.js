@@ -1,3 +1,12 @@
+/**
+ * 
+ * Allows users to enter a ZIP code to determine their USDA Plant Hardiness Zone.
+ * This zone is used to filter tree species suitable for the user's region.
+ * 
+ * Props:
+ * - updateHardinessZone: Function to update the hardiness zone in parent state
+ * - setFilteringState: Function to update the full filtering state, including ZIP
+ */
 import { useState } from "react";
 import hardinessMap from "../data/hardinessMap.json";
 
@@ -5,16 +14,20 @@ function ZipCodeInput({ updateHardinessZone, setFilteringState }) {
   const [zipCode, setZipCode] = useState("");
   const [hardinessZone, setHardinessZone] = useState(null);
 
+  /**
+   * Handles changes to the ZIP code input field.
+   * Looks up the corresponding hardiness zone and updates both local and parent states.
+   */
   const handleZipCodeChange = ({ target: { value } }) => {
     const zip = value.trim();
     setZipCode(zip);
 
-    // Update Hardiness Zone based on the ZIP code
+     // Lookup hardiness zone from static ZIP-to-zone map
     const zone = hardinessMap[zip] || null;
     setHardinessZone(zone);
     updateHardinessZone(zone);
 
-    // Save zipCode in filteringState
+    // Update filtering state with entered ZIP code
     setFilteringState((prev) => ({
       ...prev,
       zipCode: zip,

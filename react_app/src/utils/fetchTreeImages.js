@@ -1,14 +1,13 @@
+// Utility that fetches tree images from GBIF or Wikimedia Commons
 import axios from "axios";
 
-/**
- * Cleans the scientific name by removing alternate names in parentheses
- */
+// Removes alternate names in parentheses from scientific names
 const cleanScientificName = (name) => {
   return name.replace(/\s*\(.*?\)/g, "").trim();
 };
 
 /**
- * Fetches images for trees using GBIF first, then Wikimedia Commons, and finally a placeholder image.
+ * Attempts to fetch images from GBIF → Wikimedia → Fallback image.
  */
 export const fetchTreeImages = async (treeList) => {
   if (!treeList || treeList.length === 0) return [];
@@ -47,6 +46,7 @@ export const fetchTreeImages = async (treeList) => {
   return updatedTrees;
 };
 
+// Uses GBIF API to search for tree images by scientific/common name
 const fetchImagesFromGBIF = async (searchName) => {
   try {
     const response = await axios.get(
@@ -65,6 +65,7 @@ const fetchImagesFromGBIF = async (searchName) => {
   }
 };
 
+// Uses Wikimedia API to find tree images as a fallback
 const fetchImagesFromWikimedia = async (searchName) => {
   try {
     const response = await axios.get(

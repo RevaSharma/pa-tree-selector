@@ -1,12 +1,25 @@
+/**
+ * 
+ * This component renders a visually styled list of citation sources
+ * used to inform the PA Tree Selector Tool. It includes links to online
+ * resources and references for various ecological attributes (e.g., flood tolerance, growth rate).
+ * 
+ * Key Features:
+ * - Auto-updates today's date for GBIF reference.
+ * - Displays all sources in a scrollable table format.
+ */
 import React from "react";
 import { TreePine } from "lucide-react"; // Icon for title
 
 function Sources() {
+  // Gets today's date in a readable format
   const today = new Date().toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
   });
+
+  // Source data array: topic, citation, and link
   const sources = [
     {
       topic: "Definitions / Terminology",

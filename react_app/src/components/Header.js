@@ -1,16 +1,30 @@
+/**
+ * 
+ * This component renders the top navigation bar.
+ * It includes:
+ * - A logo and title that navigate to the homepage
+ * - A dark mode toggle
+ * - A collapsible mobile menu (hamburger menu) with navigation links
+ */
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import DarkModeToggle from "./DarkModeToggle";
 
 function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef(null);
-  const buttonRef = useRef(null); // Add a ref for the hamburger button
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // Tracks whether the hamburger menu is open
+  const menuRef = useRef(null); // Ref to the dropdown menu
+  const buttonRef = useRef(null); // Ref to the hamburger button
 
+  /**
+   * Toggles visibility of the hamburger menu
+   */
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
 
+  /**
+   * Closes the menu when the user clicks outside of it
+   */
   useEffect(() => {
     const handleClickOutside = (event) => {
       // Check if the click is outside the menu and not on the hamburger button

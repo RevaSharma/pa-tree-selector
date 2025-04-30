@@ -1,13 +1,28 @@
+/**
+ *
+ * A small info button that, when clicked, opens a popover with a link to the
+ * tree’s Wikipedia page based on its common name.
+ * 
+ * Props:
+ * - tree: Object containing tree information (expects `commonName` at minimum)
+ */
 import React, { useState } from "react";
 import { Info } from "lucide-react";
 
 const TreeInfoButton = ({ tree }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  /**
+   * Generates a Wikipedia URL based on the tree's common name.
+   * Replaces spaces with underscores to match Wikipedia URL format.
+   */
   const getWikipediaLink = (treeName) => {
     return `https://en.wikipedia.org/wiki/${treeName.replace(/\s+/g, "_")}`;
   };
 
+  /**
+   * Handles toggle behavior for showing/hiding the popover.
+   */
   const handleClick = event => {
     event.preventDefault();
     setIsOpen(!isOpen);

@@ -1,18 +1,33 @@
+/**
+ * 
+ * Displays a detailed view for an individual tree species.
+ * This page is accessed by dynamic routing based on the tree’s scientific name.
+ * 
+ * Props:
+ * - trees: Array of all tree objects
+ * 
+ * Routing Param:
+ * - sciName: The scientific name of the tree (from URL) used to find and display the correct tree
+ */
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 const TreeSpeciesPage = ({ trees }) => {
-  const { sciName } = useParams();
+  const { sciName } = useParams(); // Get tree identifier from URL params
+
+  // Find the tree that matches the scientific name from the list
   const tree = trees.find(
     (tree) => tree.sciName.toLowerCase() === sciName.toLowerCase()
   );
 
   const navigate = useNavigate();
-
+  
+  // Navigates back to the results page
   const handleBack = () => {
     navigate("/results");
   };
 
+  // If tree is not found, show fallback message
   if (!tree) {
     return (
       <div className="text-center text-green-700 dark:text-green-300 py-12">
