@@ -34,7 +34,7 @@ const Result = ({ tree }) => {
         dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 p-2
       `}
     >
-      <div className="flex">
+      <div className="flex items-center w-full">
         <div className="w-24 h-24 rounded-full md:rounded-full border border-gray-200 dark:border-gray-700 flex-shrink-0 flex justify-center items-center truncate dark:bg-gray-700">
           {tree.images?.length > 0 && (
             <img
@@ -51,6 +51,9 @@ const Result = ({ tree }) => {
           <h6 className="font-normal text-gray-700 dark:text-gray-400">
             {tree.sciName}
           </h6>
+          <p className="text-sm text-gray-700 dark:text-gray-400">
+            Type: {tree.woodyPlantType}
+          </p>
           {/* Display failed filters in red text */}
           {tree.failedFilters?.length > 0 && (
             <div className="text-red-600 text-sm">

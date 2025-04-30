@@ -198,6 +198,7 @@ function Results({ treeData, isLoading, zipCode, filters }) {
                 <th>Shade Tolerance</th>
                 <th>Growth Rate</th>
                 <th>Percentage Match</th>
+                <th>Failed Filters</th>
               </tr>
             </thead>
             <tbody>
@@ -216,6 +217,9 @@ function Results({ treeData, isLoading, zipCode, filters }) {
                       ? `${tree.passedPercent}%`
                       : "N/A"
                   }</td>
+                  <td>${tree.failedFilters && tree.failedFilters.length > 0 
+            ? tree.failedFilters.map(f => camelCaseToTitleCase(f)).join(", ") 
+            : "None"}</td>
                 </tr>
               `
                 )
@@ -293,7 +297,16 @@ function Results({ treeData, isLoading, zipCode, filters }) {
         )}
       </div>      
 
-      <div className="mb-6">
+      <section
+        id="results-section"
+        ref={resultsRef}
+        className="max-w-5xl mx-auto"
+      >
+        <h2 className="text-3xl font-semibold text-gray-800 mb-8 dark:text-green-100">
+          Filtered Results:
+        </h2>
+
+        <div className="mb-6">
           <label className="flex items-center gap-2 text-lg dark:text-gray-300">
             <input
               type="checkbox"
@@ -303,15 +316,6 @@ function Results({ treeData, isLoading, zipCode, filters }) {
             Show trees that partially match filters (≥ 50% match)
           </label>
       </div>
-
-      <section
-        id="results-section"
-        ref={resultsRef}
-        className="max-w-5xl mx-auto"
-      >
-        <h2 className="text-3xl font-semibold text-gray-800 mb-8 dark:text-green-100">
-          Filtered Results:
-        </h2>
 
         <div className="mb-6 p-4 bg-white rounded-lg shadow-md border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
           {zipCode && (
