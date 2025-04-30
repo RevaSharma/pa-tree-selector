@@ -1,6 +1,8 @@
 // DetailedResult.js
 import TreeInfoButton from "./TreeInfoButton";
 import { Link } from "react-router-dom";
+import { camelCaseToTitleCase } from "./FilterInput";
+
 
 /**
  * Detailed Result component representing an individual tree result in detailed view.
@@ -59,6 +61,20 @@ const DetailedResult = ({ tree }) => {
           <p className="text-sm text-gray-700 dark:text-gray-400">
             Growth Rate: {tree.growthRate}
           </p>
+
+          {/* Display failed filters in red text */}
+          {tree.failedFilters?.length > 0 && (
+            <div className="text-red-600 text-sm">
+              Failed Filters:{" "}
+              {tree.failedFilters.map((filter, index) => (
+                <span key={index}>
+                  {camelCaseToTitleCase(filter)}
+                  {index < tree.failedFilters.length - 1 ? ", " : ""}
+                </span>
+              ))}
+            </div>
+          )}
+        
           <TreeInfoButton tree={tree} />
         </div>
       </div>
